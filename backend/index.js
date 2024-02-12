@@ -3,7 +3,7 @@ const cors = require('cors');
 const connectDB=require('./config/db')
 const authRoutes=require('./routes/authRoutes')
 const userRoutes=require('./routes/userRoutes')
-
+const postRoutes=require('./routes/postRoutes')
 
 const app = express();
 
@@ -16,9 +16,10 @@ app.use(cors({
     methods: ['POST', 'GET'],
     credentials: true
 }));
-
+app.use('/uploads', express.static('uploads'))
 app.use('/', authRoutes);
 app.use('/',userRoutes);
+app.use('/',postRoutes);
 
 
 const PORT = process.env.PORT || 8080;
