@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema({
             country: { type: String }
         }
     },
+    industry: { type: String },
     phone: { type: String },
     website: { type: String },
     image: { type: String },
