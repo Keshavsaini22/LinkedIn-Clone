@@ -1,3 +1,4 @@
 module.exports={
-    commentService: require('./commentService')
+    commentService: require('./commentService'),
+    reactionService:require('./reactionService')
 }

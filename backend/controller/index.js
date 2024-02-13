@@ -1,3 +1,4 @@
 module.exports ={
-    commentController: require('./commentController')
+    commentController: require('./commentController'),
+    reactionController:require('./reactionComtroller')
 }

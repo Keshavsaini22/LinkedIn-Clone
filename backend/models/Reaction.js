@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const UsersModel = require('./UserSchema')
-
+const PostsModel = require('./PostSchema')
+const CommentModel=require('./CommentSchema')
 const ReactionSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -10,7 +11,10 @@ const ReactionSchema = new mongoose.Schema({
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: PostsModel,
-        require: [true]
+    },
+    cmtId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: CommentModel,
     },
     type: { type: String },
     createAt: {
