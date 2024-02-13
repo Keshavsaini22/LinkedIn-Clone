@@ -44,15 +44,15 @@ router.post('/signin',async(req,res)=>{
     }
 })
 
-router.post('/logout', authenticateJWT, (req, res) => {
-    console.log(res.locals.isAuthenticated)
-        if (res.locals.isAuthenticated) {
-            // res.clearCookie('token');
-            res.json({ success: true, message: 'Logout successful' });
-        } else {
-            res.json({ success: false, message: 'Not logged in' });
-        }
-});
+// router.post('/logout', authenticateJWT, (req, res) => {
+//     console.log(res.locals.isAuthenticated)
+//         if (res.locals.isAuthenticated) {
+//             // res.clearCookie('token');
+//             res.json({ success: true, message: 'Logout successful' });
+//         } else {
+//             res.json({ success: false, message: 'Not logged in' });
+//         }
+// });
 
 
 module.exports = router;

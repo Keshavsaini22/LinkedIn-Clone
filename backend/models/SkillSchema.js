@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const UsersModel= require('../models/UserSchema')
+const UsersModel= require('./UserSchema')
 
 const SkillSchema=new mongoose.Schema({
     userId:{ type:mongoose.Schema.Types.ObjectId,
