@@ -43,4 +43,32 @@ router.get('/posts/:userId', async (req, res) => {
         res.status(500).json(e)
     }
 })
+
+router.delete('/posts/:postId',async(req,res)=>{
+    const {postId}= req.params;
+    // console.log(postId)
+    try{
+        const data=await PostModel.findByIdAndDelete(postId,{new: true})
+        console.log("data",data)     
+        res.status(200).json(data)  
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+
+})
+
+router.put('/posts/:postId',async(req,res)=>{
+    const {postId}= req.params;
+    const {title , body}=req.body;
+    // console.log(title,body)
+    try{
+        const data=await PostModel.findByIdAndUpdate(postId,{title,body},{new: true})
+        console.log(data)
+        res.status(200).json(data)  
+    }catch(e){
+        res.status(500).json(e)
+    }
+})
+
 module.exports = router;
