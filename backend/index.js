@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const connectDB=require('./config/db')
-const authRoutes=require('./routes/authRoutes')
-const userRoutes=require('./routes/userRoutes')
-const postRoutes=require('./routes/postRoutes')
-const commentRoutes=require('./routes/commentRoutes')
-const reactionRoutes=require('./routes/reactionRoutes')
+const connectDB = require('./config/db')
+const authRoutes = require('./routes/authRoutes')
+const userRoutes = require('./routes/userRoutes')
+const postRoutes = require('./routes/postRoutes')
+const commentRoutes = require('./routes/commentRoutes')
+const reactionRoutes = require('./routes/reactionRoutes')
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use('/uploads', express.static('uploads'))
 // app.use('/',commentRoutes);
 // app.use('/',reactionRoutes);
 
-app.use('/',require("./routes"))
+app.use('/', require("./routes"))
 
 
 const PORT = 8080;     //// process.env.PORT ||
