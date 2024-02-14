@@ -13,7 +13,11 @@ const ExperienceSchema=new mongoose.Schema({
      startdate:{type:Date},
      enddate:{type:Date},
      status:{type:Boolean},
-     desc:{type:String}
+     desc:{type:String},
+     createAt: {
+          type: Date,
+          default: Date.now,
+      },
 })
 
 module.exports = mongoose.model("experiences", ExperienceSchema)

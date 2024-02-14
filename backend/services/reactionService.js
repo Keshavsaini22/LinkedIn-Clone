@@ -1,4 +1,4 @@
-const ReactionModel = require('../models/Reaction');
+const ReactionModel = require('../models/ReactionSchema');
 const CustomError = require('../libs/error');
 
 exports.postPostReaction = async (req) => {

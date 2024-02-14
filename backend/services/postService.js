@@ -19,7 +19,7 @@ exports.createPost = async (req) => {
 exports.fetchPosts = async (req) => {
     const { userId } = req.params;
     if (userId) {
-        const data = await PostModel.find({ userId: userId });
+        const data = await PostModel.find({ userId: userId }).populate('userId', 'name');
         if (data) {
             return data;
         }
@@ -31,12 +31,12 @@ exports.fetchPosts = async (req) => {
 exports.deletePost = async (req) => {
     const { postId } = req.params;
 
-        const data = await PostModel.findByIdAndDelete(postId,)
-        if (data) {
-            return data
-        }
-        throw new CustomError("No post found", 204);
-  
+    const data = await PostModel.findByIdAndDelete(postId,)
+    if (data) {
+        return data
+    }
+    throw new CustomError("No post found", 204);
+
 }
 
 exports.updatePost = async (req) => {

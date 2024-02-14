@@ -11,7 +11,11 @@ const ProjectSchema=new mongoose.Schema({
     link:{type:String},
     startdate:{type:Date},
     enddate:{type:Date},
-    desc:{type:String}
+    desc:{type:String},
+    createAt: {
+        type: Date,
+        default: Date.now,
+    },
 })
 
 module.exports = mongoose.model("projects", ProjectSchema)

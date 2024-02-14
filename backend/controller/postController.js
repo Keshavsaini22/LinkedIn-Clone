@@ -5,7 +5,7 @@ exports.createPost = async (req, res) => {
         const response = await postService.createPost(req);
         if (!response)
             throw new CustomError("User not created", 500);
-        return res.status(200).json(response)
+        return res.status(201).json(response)
     }
     catch (e) {
         return res.status(e?.code).json({ message: e?.message })

@@ -6,7 +6,7 @@ exports.signupUser = async (req, res) => {
         const response = await authService.signupUser({ data: req.body });
         if (!response)
             throw new CustomError("User not created", 500);
-        return res.status(200).json(response)
+        return res.status(201).json(response)
     }
     catch (e) {
         return res.status(e?.code ?? 500).json({ message: e?.message })

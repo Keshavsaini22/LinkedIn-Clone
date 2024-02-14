@@ -3,7 +3,7 @@ const { commentService } = require("../services")
 exports.postComments = async (req, res) => {
     try {
         const response = await commentService.postComments(req);
-        return res.status(200).json(response)
+        return res.status(201).json(response)
     }
     catch (e) {
         return res.status(e?.code ?? 500).json(e.message)

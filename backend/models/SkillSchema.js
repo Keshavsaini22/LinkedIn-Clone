@@ -7,7 +7,10 @@ const SkillSchema=new mongoose.Schema({
    require: true
    },
     skill:{type:String},
-    
+    createAt: {
+        type: Date,
+        default: Date.now,
+    }, 
 })
 
 module.exports = mongoose.model("skills", SkillSchema)
