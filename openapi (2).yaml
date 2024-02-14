@@ -1,0 +1,816 @@
+openapi: "3.0.0"
+info:
+  title: LinkedIn Clone
+
+  version: "1.0.0"
+  description: Zenmonk Project - Clone of LinkedIn.
+servers:
+  - url: http://localhost:8080/
+paths:
+  /signup:
+    post:
+      tags:
+        - Auth
+      summary: Register a new User
+      description: Creates a new User
+      requestBody:
+        description: Request to create user
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequest"
+        required: true
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+        "401":
+          description: Email or password not filled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User email not found
+        "409":
+          description: Email already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Email already exist
+        "404":
+          description: "Not Found: This response is shown if the request for information is not there or it could not be imported"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /signin:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      description: Login User
+      requestBody:
+        description: Request to login user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+        required: true
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  user:
+                    type: object
+                    $ref: "#/components/schemas/UserSchema"
+        "401":
+          description: Email or password not filled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User credentials not found
+        "404":
+          description: User doesn't exist or incorrect password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Incorrect Password
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /profile/{userId}:
+    put:
+      summary: Update the user profile
+      description: Updates the user profile after signin
+      operationId: getAdvisors
+      tags:
+        - Users
+      parameters:
+        - name: "userId"
+          in: path
+          required: true
+          example: "34234r21j"
+          description: "The id of user"
+          schema:
+            type: string
+      requestBody:
+        description: Request to edit user information
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/UserEditSchema"
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserEditSchema"
+        "404":
+          description: Bad request
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /posts/{userId}:
+    get:
+      summary: Get all posts of particular user
+      description: Get all the posts with infinite scrolling feature
+      operationId: getPostbyUserId
+      tags:
+        - Posts
+      parameters:
+        - name: "userId"
+          in: path
+          required: true
+          description: The UUID of user
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+
+                $ref: "#/components/schemas/PostSchema"
+        "204":
+          description: No data in database means no posts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data found
+        "404":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Bad request
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      tags:
+        - Posts
+      parameters:
+        - name: "userId"
+          in: path
+          required: true
+          description: The UUID of user
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          schema:
+            type: string
+            format: uuid
+      summary: Upload the post
+      description: Upload the posts by user using userId
+      requestBody:
+        description: Upload the post using data
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/PostSchema"
+        required: true
+      responses:
+        "200":
+          description: Advisor restored successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Advisor restored successfully.
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Advisor not found
+        "400":
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided advisorId is not valid, 1234
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      tags:
+        - Advisors
+      parameters:
+        - name: "advisorId"
+          in: path
+          required: true
+          description: The UUID of advisor
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          schema:
+            type: string
+            format: uuid
+      summary: Edit the advisor
+      description: Updates the advisor
+      requestBody:
+        description: Request to edit advisor
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditAdvisorRequest"
+        required: true
+      responses:
+        "200":
+          description: Advisor updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Advisor edited successfully.
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Advisor not found
+        "400":
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided advisorId is not valid, 1234
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    delete:
+      tags:
+        - Advisors
+      parameters:
+        - name: "advisorId"
+          in: path
+          required: true
+          description: The UUID of advisor
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          schema:
+            type: string
+            format: uuid
+      summary: Delete the advisor
+      description: Deletes the advisor and set the status to inactive. Returns a message after deleting the advisor
+      requestBody:
+        description: Request to delete advisor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deletedBy:
+                  type: string
+                  example: user@zenmonk.tech
+        required: true
+      responses:
+        "200":
+          description: Advisor deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Advisor deleted successfully.
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Advisor not found
+        "400":
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided advisorId is not valid, 1234
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /roles:
+    get:
+      summary: Get a list of roles
+      description: Returns an array containing all the roles
+      operationId: getRoles
+      tags:
+        - Roles
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RolesResponse"
+        "204":
+          description: No content found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+components:
+  schemas:
+    UserSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        industry:
+          type: string
+        phone:
+          type: string
+        website:
+          type: string
+        image:
+          type: string
+        languages:
+          type: string
+        title:
+          type: string
+        desc:
+          type: string
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            pincode:
+              type: string
+            country:
+              type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    UserEditSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        industry:
+          type: string
+        phone:
+          type: string
+        website:
+          type: string
+        image:
+          type: string
+        languages:
+          type: string
+        title:
+          type: string
+        desc:
+          type: string
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            pincode:
+              type: string
+            country:
+              type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    SkillSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          $ref: "#/components/schemas/UserSchema"
+          format: uuid
+        skill:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    ReactionSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          $ref: "#/components/schemas/UserSchema"
+          format: uuid
+        postId:
+          type: string
+          $ref: "#/components/schemas/PostSchema"
+          format: uuid
+        cmtId:
+          type: string
+          $ref: "#/components/schemas/CommentSchema"
+          format: uuid
+        type:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    ProjectSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          $ref: "#/components/schemas/UserSchema"
+          format: uuid
+        type:
+          type: string
+        name:
+          type: string
+        skills:
+          type: string
+        link:
+          type: string
+        startdate:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+        enddate:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+        desc:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    PostSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        body:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    ExperienceSchema:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          $ref: "#/components/schemas/UserSchema"
+          format: uuid
+        title:
+          type: string
+        company:
+          type: string
+        locations:
+          type: string
+        locationtype:
+          type: string
+        startdate:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+        enddate:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+        status:
+          type: boolean
+        desc:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    EducationSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          $ref: "#/components/schemas/UserSchema"
+          format: uuid
+        name:
+          type: string
+        degree:
+          type: string
+        fieldofstudy:
+          type: string
+        startdate:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+        enddate:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+        grade:
+          type: string
+        desc:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    CommentSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          $ref: "#/components/schemas/UserSchema"
+          format: uuid
+        postId:
+          type: string
+          $ref: "#/components/schemas/PostSchema"
+          format: uuid
+        body:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+    AdvisorsResponse:
+      type: object
+      properties:
+        total:
+          type: number
+          example: 4
+        count:
+          type: number
+          example: 4
+        current_page:
+          type: number
+          example: 1
+        per_page:
+          type: number
+          example: 10
+        data:
+          type: array
+          items:
+            type: object
+            $ref: "#/components/schemas/UserSchema"
+
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+      required:
+        - name
+        - email
+        - password
+    EditAdvisorRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+        rolesUUIDs:
+          type: array
+          items:
+            type: string
+            format: uuid
+        instituteAbbreviations:
+          type: array
+          items:
+            type: string
+            example:
+              - FBR
+              - UEA
+              - UNIB
+        locations:
+          type: array
+          items:
+            type: string
+      required:
+        - firstName
+        - email
+    RolesSchema:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: object
+          properties:
+            es_ES:
+              type: string
+              example: "Secretario Académico"
+            en_US:
+              type: string
+              example: "Academic Secretary"
+            pt_PT:
+              type: string
+              example: "Secretariado Académico"
+            pt_BR:
+              type: string
+              example: "Secretariado Académico"
+        abbreviation:
+          type: string
+          example: "SA"
+        description:
+          type: object
+          properties:
+            es_ES:
+              type: string
+              example: "Responsable de expedientes académicos"
+            en_US:
+              type: string
+              example: "Responsible for academic records"
+            pt_PT:
+              type: string
+              example: "Gestor de registos académicos"
+            pt_BR:
+              type: string
+              example: "Gestor de registos académicos"
+        status:
+          type: string
+          default: active
+          enum:
+            - active
+            - inactive
+    RolesResponse:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            type: object
+            $ref: "#/components/schemas/RolesSchema"
