@@ -6,6 +6,6 @@ exports.updateUserProfile = async (req, res) => {
         return res.status(200).json(response);
     }
     catch (e) {
-        return res.status(e?.code).json({ message: e?.message });
+        return res.status(e?.code ?? 500).json({ message: e?.message })
     }
 }

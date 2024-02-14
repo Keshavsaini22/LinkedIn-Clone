@@ -30,24 +30,29 @@ exports.fetchPosts = async (req) => {
 
 exports.deletePost = async (req) => {
     const { postId } = req.params;
-
-    const data = await PostModel.findByIdAndDelete(postId,)
-    if (data) {
-        return data
+    const userId = req.query.userId;
+    if (userId) {
+        const post = await PostModel.findById(postId);
+        if (post.userId == userId) {
+            const data = await PostModel.findByIdAndDelete(postId)
+            return data;
+        }
+        throw new CustomError("Invalid User", 401)
     }
-    throw new CustomError("No post found", 204);
-
+    throw new CustomError("Bad Request", 404)
 }
 
 exports.updatePost = async (req) => {
     const { postId } = req.params;
+    const userId = req.query.userId;
     const { title, body } = req.body;
-    if (postId) {
-        if (title || body) {
+    if (userId) {
+        const post = await PostModel.findById(postId);
+        if (post.userId == userId && (title || body)) {
             const data = await PostModel.findByIdAndUpdate(postId, { title, body }, { new: true })
             return data;
         }
-        throw new CustomError("Empty fields", 401);
+        throw new CustomError("Invalid User", 401)
     }
-    throw new CustomError("Bad request", 404);
+    throw new CustomError("Bad Request", 404)
 }

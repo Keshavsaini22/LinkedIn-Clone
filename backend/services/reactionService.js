@@ -4,7 +4,7 @@ const CustomError = require('../libs/error');
 exports.postPostReaction = async (req) => {
     const { postId } = req.params;
     const userId = req.query.userId;
-    const type = req.body;
+    const {type} = req.body;
     if (userId && type) {
         const data = ReactionModel.create({ userId: userId, postId: postId, type: type })
         return data;
@@ -15,7 +15,7 @@ exports.postPostReaction = async (req) => {
 exports.postCommentReaction = async (req) => {
     const { cmtId } = req.params;
     const userId = req.query.userId;
-    const type = req.body;
+    const {type} = req.body;
     if (userId && type) {
         const data = ReactionModel.create({ userId: userId, cmtId: cmtId, type: type })
         return data;
