@@ -1,5 +1,4 @@
 const { authService } = require("../services")
-const CustomError = require('../libs/error');
 
 exports.signupUser = async (req, res) => {
     try {
