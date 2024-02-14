@@ -6,6 +6,7 @@ exports.postPostReactionController = async (req, res) => {
         return res.status(201).json(response)
     }
     catch (e) {
+        console.log("error in PostReaction ",e)
         return res.status(e?.code ?? 500).json({ message: e?.message })
     }
 }
@@ -27,7 +28,6 @@ exports.getPostReactionController = async (req, res) => {
     }
     catch (e) {
         return res.status(e?.code ?? 500).json({ message: e?.message })
-        v
     }
 }
 

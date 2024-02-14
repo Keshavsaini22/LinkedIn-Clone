@@ -16,7 +16,6 @@ exports.signupUser = async (payload) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const response = await UsersModel.create({ ...otherData, email, password: hashedPassword });
     return response;
-
 }
 
 exports.signinUser = async (req) => {
@@ -27,7 +26,7 @@ exports.signinUser = async (req) => {
     if (!user)
         throw new CustomError("User doesn't exist", 404);
     if (bcrypt.compareSync(password, user.password)) {
-        const token = jwt.sign({ ID: user._id }, 'jwt-key');
+        const token = jwt.sign({ ID: user._id }, 'jwt-key');   /// take this from env 
         console.log("token", token);
         return { success: true, user, token };
     }

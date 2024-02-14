@@ -46,8 +46,10 @@ exports.deleteComments = async (req) => {
 exports.updateComments = async (req) => {
     const { cmtId } = req.params;
     const userId = req.query.userId;
+    // if(!userId) throw CustomError("user id not define",)
     const { body } = req.body
     if (userId) {
+ 
         const comment = await CommentsModel.findById(cmtId);
         if (comment.userId == userId && body) {
             const output = await CommentsModel.findByIdAndUpdate(cmtId, { body: body }, { new: true })

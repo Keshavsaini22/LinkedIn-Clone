@@ -20,14 +20,16 @@ app.use(cors({
     credentials: true
 }));
 app.use('/uploads', express.static('uploads'))
-app.use('/', authRoutes);
-app.use('/',userRoutes);
-app.use('/',postRoutes);
-app.use('/',commentRoutes);
-app.use('/',reactionRoutes);
+// app.use('/', authRoutes);
+// app.use('/',userRoutes);
+// app.use('/',postRoutes);
+// app.use('/',commentRoutes);
+// app.use('/',reactionRoutes);
+
+app.use('/',require("./routes"))
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;     //// process.env.PORT ||
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

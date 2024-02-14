@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 
+////process.env.MONGO_URL
+
 const url="mongodb+srv://keshavsainikesu:Imhater@cluster0.9yvwndu.mongodb.net/?retryWrites=true&w=majority"
 
 
