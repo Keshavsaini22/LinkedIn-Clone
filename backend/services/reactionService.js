@@ -52,7 +52,7 @@ exports.getCommentReaction = async (req) => {
     }
 }
 
-exports.deletePostReaction = async (req) => {
+exports.deleteReaction = async (req) => {
     try {
         const { rxnId } = req.params;
         const userId = req.query.userId;
@@ -70,7 +70,7 @@ exports.deletePostReaction = async (req) => {
     }
 }
 
-exports.updatePostReaction = async (req) => {
+exports.updateReaction = async (req) => {
     try {
         const { rxnId } = req.params;
         const userId = req.query.userId;

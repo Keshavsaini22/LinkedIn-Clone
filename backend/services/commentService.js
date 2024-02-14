@@ -1,7 +1,6 @@
 const CustomError = require('../libs/error');
 
 const CommentsModel = require('../models/CommentSchema');
-const { post } = require('../routes/authRoutes');
 
 exports.postComments = async (req) => {
     // throw new Error("hello buddy")

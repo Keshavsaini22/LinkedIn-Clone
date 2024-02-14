@@ -5,6 +5,7 @@ const authRoutes=require('./routes/authRoutes')
 const userRoutes=require('./routes/userRoutes')
 const postRoutes=require('./routes/postRoutes')
 const commentRoutes=require('./routes/commentRoutes')
+const reactionRoutes=require('./routes/reactionRoutes')
 
 const app = express();
 
@@ -22,7 +23,8 @@ app.use('/uploads', express.static('uploads'))
 app.use('/', authRoutes);
 app.use('/',userRoutes);
 app.use('/',postRoutes);
-app.use('/',commentRoutes)
+app.use('/',commentRoutes);
+app.use('/',reactionRoutes);
 
 
 const PORT = process.env.PORT || 8080;
