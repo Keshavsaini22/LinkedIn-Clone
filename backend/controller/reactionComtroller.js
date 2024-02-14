@@ -6,7 +6,7 @@ exports.postPostReactionController = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json({ message: e?.message })
     }
 }
 
@@ -16,7 +16,7 @@ exports.postCommentReactionController = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json({ message: e?.message })
     }
 }
 
@@ -26,7 +26,8 @@ exports.getPostReactionController = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json({ message: e?.message })
+        v
     }
 }
 
@@ -36,7 +37,7 @@ exports.getCommentReactionController = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json({ message: e?.message })
     }
 }
 
@@ -46,7 +47,7 @@ exports.deleteReaction = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json({ message: e?.message })
     }
 }
 

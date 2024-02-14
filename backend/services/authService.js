@@ -4,18 +4,22 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
-exports.signupUser = async (req) => {
-    const { name, email, password } = req.body;
-    if (name && email && password) {
-        const existingUser = await UsersModel.findOne({ email })
-        if (existingUser) {
-            throw new CustomError("Email already exist", 409)
-        }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const response = await UsersModel.create({ name, email, password: hashedPassword });
-        return response;
+exports.signupUser = async (payload) => {
+    const { email, password, otherData } = payload.data;
+    if (!email) {
+        throw new CustomError("User email not found", 401);
     }
-    throw new CustomError("User credentials not found", 401);
+    if (!password) {
+        throw new CustomError("User password not found", 401);
+    }
+    const existingUser = await UsersModel.findOne({ email })
+    if (existingUser) {
+        throw new CustomError("Email already exist", 409)
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const response = await UsersModel.create({ ...otherData, email, password: hashedPassword });
+    return response;
+
 }
 
 exports.signinUser = async (req) => {

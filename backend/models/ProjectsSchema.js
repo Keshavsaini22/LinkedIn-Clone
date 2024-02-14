@@ -4,7 +4,7 @@ const UsersModel= require('./UserSchema')
 const ProjectSchema=new mongoose.Schema({
     userId:{ type:mongoose.Schema.Types.ObjectId,
    ref:UsersModel,
-   require: [true]
+   require: true
    },
     name:{type:String},
     skills:{type:String},

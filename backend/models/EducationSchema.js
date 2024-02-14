@@ -4,7 +4,7 @@ const UsersModel= require('../models/UserSchema')
 const EducationSchema=new mongoose.Schema({
     userId:{ type:mongoose.Schema.Types.ObjectId,
    ref:UsersModel,
-   require: [true]
+   require: true
    },
     name:{type:String},
     degree:{type:String},

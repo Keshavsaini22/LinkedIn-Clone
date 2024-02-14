@@ -30,14 +30,13 @@ exports.fetchPosts = async (req) => {
 
 exports.deletePost = async (req) => {
     const { postId } = req.params;
-    if (postId) {
+
         const data = await PostModel.findByIdAndDelete(postId,)
         if (data) {
             return data
         }
         throw new CustomError("No post found", 204);
-    }
-    throw new CustomError("Bad request", 404);
+  
 }
 
 exports.updatePost = async (req) => {

@@ -6,8 +6,7 @@ exports.postComments = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        // return res.status(e?.code ?? 500).send(e.message)
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json(e.message)
     }
 }
 
@@ -17,7 +16,7 @@ exports.getComments = async (req, res) => {
         console.log(response, "response")
         return res.status(200).json(response)
     } catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json(e.message)
     }
 }
 
@@ -27,7 +26,7 @@ exports.deleteComments = async (req, res) => {
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json(e.message)
     }
 }
 
@@ -36,6 +35,6 @@ exports.updateComments = async (req, res) => {
         const response = await commentService.updateComments(req);
         return res.status(200).json(response)
     } catch (e) {
-        return res.status(500).json(e)
+        return res.status(e?.code ?? 500).json(e.message)
     }
 }

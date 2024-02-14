@@ -6,7 +6,7 @@ const ReactionSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: UsersModel,
-        require: [true]
+        require: true
     },
     postId: {
         type: mongoose.Schema.Types.ObjectId,

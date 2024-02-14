@@ -1,90 +1,65 @@
 const ReactionModel = require('../models/Reaction');
-const { post } = require('../routes/authRoutes');
+const CustomError = require('../libs/error');
 
 exports.postPostReaction = async (req) => {
-    try {
-        const { postId } = req.params;
-        const userId = req.query.userId;
-        const type = req.body;
-
+    const { postId } = req.params;
+    const userId = req.query.userId;
+    const type = req.body;
+    if (userId && type) {
         const data = ReactionModel.create({ userId: userId, postId: postId, type: type })
         return data;
     }
-    catch (e) {
-        throw e
-    }
+    throw new CustomError("Bad Request", 404)
 }
 
 exports.postCommentReaction = async (req) => {
-    try {
-        const { cmtId } = req.params;
-        const userId = req.query.userId;
-        const type = req.body;
-
+    const { cmtId } = req.params;
+    const userId = req.query.userId;
+    const type = req.body;
+    if (userId && type) {
         const data = ReactionModel.create({ userId: userId, cmtId: cmtId, type: type })
         return data;
     }
-    catch (e) {
-        throw e
-    }
+    throw new CustomError("Bad Request", 404)
 }
 
-
 exports.getPostReaction = async (req) => {
-    try {
-        const { postId } = req.params;
-        const data = (await ReactionModel.find({ postId: postId })).length();
-        return data;
-    }
-    catch (e) {
-        throw e
-    }
+    const { postId } = req.params;
+    const data = (await ReactionModel.find({ postId: postId })).length;
+    return data;
 }
 
 exports.getCommentReaction = async (req) => {
-    try {
-        const { cmtId } = req.params;
-        const data = (await ReactionModel.find({ cmtId: cmtId })).length();
-        return data;
-    }
-    catch (e) {
-        throw e
-    }
+    const { cmtId } = req.params;
+    const data = (await ReactionModel.find({ cmtId: cmtId })).length;
+    return data;
 }
 
 exports.deleteReaction = async (req) => {
-    try {
-        const { rxnId } = req.params;
-        const userId = req.query.userId;
+    const { rxnId } = req.params;
+    const userId = req.query.userId;
+    if (userId) {
         const reaction = await ReactionModel.findById(rxnId);
         if (reaction.userId == userId) {
             const output = await ReactionModel.findByIdAndDelete(rxnId);
             return output;
         }
-        else {
-            throw "Invalid user"
-        }
+        throw new CustomError("Invalid User", 401)
     }
-    catch (e) {
-        throw e
-    }
+    throw new CustomError("Bad Request", 404)
 }
 
 exports.updateReaction = async (req) => {
-    try {
-        const { rxnId } = req.params;
-        const userId = req.query.userId;
-        const { type } = req.body
+    const { rxnId } = req.params;
+    const userId = req.query.userId;
+    const { type } = req.body
+    if (userId) {
         const reaction = await ReactionModel.findById(rxnId);
-        if (reaction.userId == userId) {
+        if (reaction.userId == userId && type) {
             const output = await ReactionModel.findByIdAndUpdate(rxnId, { type: type }, { new: true });
             return output;
         }
-        else {
-            throw "Invalid user"
-        }
+        throw new CustomError("Invalid User", 401)
     }
-    catch (e) {
-        throw e
-    }
+    throw new CustomError("Bad Request", 404)
 }
