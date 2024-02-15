@@ -8,7 +8,4 @@ const uploadmiddleware = upload.fields([{ name: 'image' }])
 
 router.put('/profile/:userId', uploadmiddleware, userController.updateUserProfile);
 
-
-
-
 module.exports = router;

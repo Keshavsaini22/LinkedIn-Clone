@@ -6,6 +6,7 @@ const { authController } = require('../controller');
 router.post('/signup', authController.signupUser);
 router.post('/signin', authController.signinUser);
 
+module.exports = router;
 // router.post('/logout', authenticateJWT, (req, res) => {
 //     console.log(res.locals.isAuthenticated)
 //         if (res.locals.isAuthenticated) {
@@ -16,5 +17,3 @@ router.post('/signin', authController.signinUser);
 //         }
 // });
 
-
-module.exports = router;

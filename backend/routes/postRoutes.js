@@ -6,13 +6,9 @@ const { postController } = require('../controller');
 const upload = multer({ dest: './uploads' })
 const uploadmiddleware = upload.fields([{ name: 'images' }])
 
-
 router.post('/posts/:userId', uploadmiddleware, postController.createPost)
-
 router.get('/posts/:userId', postController.fetchPosts)
-
 router.delete('/posts/:postId',postController.deletePost)
-
 router.put('/posts/:postId',postController.updatePost)
 
 module.exports = router;

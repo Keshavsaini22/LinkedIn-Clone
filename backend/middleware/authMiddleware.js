@@ -8,15 +8,15 @@ const authenticateJWT = (req, res, next) => {
         return res.sendStatus(401);
     }
 
-    jwt.verify(token, 'jwt-key', (err, user) => {
+    jwt.verify(token, process.env.tokenKey, (err, user) => {
         if (err) {
             res.locals.isAuthenticated = false;
             return res.sendStatus(403);
         }
         req.user = user;
-        res.locals.isAuthenticated = true; 
+        res.locals.isAuthenticated = true;
         next();
     });
 };
 
-module.exports = authenticateJWT;
+module.exports = authenticateJWT; 
