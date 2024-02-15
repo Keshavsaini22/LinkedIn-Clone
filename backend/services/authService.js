@@ -18,15 +18,15 @@ exports.signupUser = async (payload) => {
     return response;
 }
 
-exports.signinUser = async (req) => {
-    const { email, password } = req.body;
+exports.signinUser = async (payload) => {
+    const { email, password } = payload.data;
     if (!email || !password)
         throw new CustomError("User credentials not found", 401);
     const user = await UsersModel.findOne({ email });
     if (!user)
         throw new CustomError("User doesn't exist", 404);
     if (bcrypt.compareSync(password, user.password)) {
-        const token = jwt.sign({ ID: user._id }, 'jwt-key');   /// take this from env 
+        const token = jwt.sign({ ID: user._id }, process.env.tokenKey);
         console.log("token", token);
         return { success: true, user, token };
     }

@@ -1,0 +1,42 @@
+.signuppage {
+    background-color: #f3f2f0;
+    height: 100vh;
+    /* padding-top: 30px; */
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        padding-top: 30px;
+        .logo {
+            width: 100px;
+            height: 35px;
+
+            img {
+                max-width: auto;
+                height: 100%;
+            }
+        }
+
+        .headline {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
+            margin: 20px;
+        }
+
+        .endingline {
+            text-align: center;
+            margin-top: 20px;
+
+            span {
+                color: #0b66c2;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            span:hover{
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+}

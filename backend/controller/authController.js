@@ -15,7 +15,7 @@ exports.signupUser = async (req, res) => {
 
 exports.signinUser = async (req, res) => {
     try {
-        const response = await authService.signinUser(req);
+        const response = await authService.signinUser({ data: req.body });
         if (!response)
             throw new CustomError("Token not created", 500);
         return res.status(201).json(response)

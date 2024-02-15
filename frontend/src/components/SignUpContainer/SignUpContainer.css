@@ -1,0 +1,117 @@
+.signup-container {
+    background-color: white;
+    margin: auto;
+    border-radius: 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 40px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+    .email,
+    .password {
+
+        p {
+            font-size: 12px;
+            font-weight: bold;
+            margin: 0px;
+            padding-bottom: 8px;
+            color: #585454;
+        }
+    }
+
+    .aggreement-text {
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        span {
+            color: #0b66c2;
+            font-weight: 600;
+        }
+
+        span:hover {
+            cursor: pointer;
+        }
+    }
+
+    .button {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #0b66c2;
+        font-weight: bold;
+        color: white;
+        width: 350px;
+        border-radius: 30px;
+    }
+
+    .button:hover {
+        background-color: #004182;
+        cursor: pointer;
+    }
+
+    .or {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        .first {
+            width: 148px;
+            height: 1px;
+            background-color: #aca1a1;
+        }
+
+        .text {
+            background-color: white;
+        }
+    }
+
+    .googlelogin {
+        background-color: white;
+        width: 320px;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+
+        span {
+            color: #585454;
+            font-weight: 500;
+        }
+
+        i {
+            height: 15px;
+            width: 15px;
+            font-weight: bolder;
+        }
+    }
+
+    .googlelogin {
+        cursor: pointer;
+    }
+
+    .signin {
+        margin-top: 8px;
+
+        span {
+            color: #0b66c2;
+            font-weight: 600;
+        }
+
+        span:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}

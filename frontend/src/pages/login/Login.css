@@ -1,0 +1,35 @@
+.loginpage{
+    background-color: white;
+    height: 100vh;
+.container{
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px;
+    .nav{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .nav-btn{
+            display: flex;
+            gap: 32px;
+            .join-now{
+                width: 100px;
+                height: 50px;
+            }
+            .join-now:hover{
+                cursor: pointer;
+                background-color: blanchedalmond;
+            }
+        }
+        .logo{
+            width: 85px;
+            height: 30px;
+
+            img {
+                max-width: auto;
+                height: 100%;
+            }
+        }
+    }
+}
+}
