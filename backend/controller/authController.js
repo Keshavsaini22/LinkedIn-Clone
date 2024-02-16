@@ -9,7 +9,7 @@ exports.signupUser = async (req, res) => {
         return res.status(201).json({ message: "success" })
     }
     catch (e) {
-        return res.status(e?.code ?? 500).json({ message: e?.message })
+        return res.status(e?.code || 500).json({ message: e?.message })
     }
 }
 
@@ -21,6 +21,6 @@ exports.signinUser = async (req, res) => {
         return res.status(201).json(response)
     }
     catch (e) {
-        return res.status(e?.code ?? 500).json({ message: e?.message })
+        return res.status(e?.code || 500).json({ message: e?.message })
     }
 }

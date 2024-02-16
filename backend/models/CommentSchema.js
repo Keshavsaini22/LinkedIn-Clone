@@ -13,7 +13,9 @@ const CommentsSchema = new mongoose.Schema({
         ref: PostsModel,
         require: true
     },
-    body: { type: String },
+    body: {
+        type: String, require: true
+    },
     createAt: {
         type: Date,
         default: Date.now,

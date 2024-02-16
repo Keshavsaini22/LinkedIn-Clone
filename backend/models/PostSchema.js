@@ -7,9 +7,9 @@ const PostsSchema = new mongoose.Schema({
         ref: UsersModel,
         require: true
     },
-    title: { type: String },
-    body: { type: String },
-    images: { type: Array },
+    title: { type: String, require: true },
+    body: { type: String, require: true },
+    images: { type: Array, require: true },
     createAt: {
         type: Date,
         default: Date.now,

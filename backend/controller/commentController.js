@@ -2,39 +2,39 @@ const { commentService } = require("../services")
 
 exports.postComments = async (req, res) => {
     try {
-        const response = await commentService.postComments(req);
+        const response = await commentService.postComments({params:req.params,query:req.query,body:req.body});
         return res.status(201).json(response)
     }
     catch (e) {
-        return res.status(e?.code ?? 500).json(e.message)
+        return res.status(e?.code || 500).json(e.message)
     }
 }
 
 exports.getComments = async (req, res) => {
     try {
-        const response = await commentService.getComments(req);
+        const response = await commentService.getComments({params:req.params,query:req.query});
         console.log(response, "response")
         return res.status(200).json(response)
     } catch (e) {
-        return res.status(e?.code ?? 500).json(e.message)
+        return res.status(e?.code || 500).json(e.message)
     }
 }
 
 exports.deleteComments = async (req, res) => {
     try {
-        const response = await commentService.deleteComments(req);
+        const response = await commentService.deleteComments({params:req.params,query:req.query});
         return res.status(200).json(response)
     }
     catch (e) {
-        return res.status(e?.code ?? 500).json(e.message)
+        return res.status(e?.code || 500).json(e.message)
     }
 }
 
 exports.updateComments = async (req, res) => {
     try {
-        const response = await commentService.updateComments(req);
+        const response = await commentService.updateComments({params:req.params,query:req.query,body:req.body});
         return res.status(200).json(response)
     } catch (e) {
-        return res.status(e?.code ?? 500).json(e.message)
+        return res.status(e?.code || 500).json(e.message)
     }
 }
