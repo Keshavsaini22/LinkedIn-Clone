@@ -26,8 +26,8 @@ export const signInSlice = createSlice({
             })
             .addCase(signInUser.rejected, (state, action) => {
                 state.isLoading = false
-                console.log("action.error",action.error)
-                state.error = action?.error?.message
+                console.log("action.error",action.payload)
+                state.error = action.payload
             })
     }
 })
