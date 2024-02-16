@@ -1,0 +1,1 @@
+export const signinType='signin/action'

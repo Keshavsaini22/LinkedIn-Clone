@@ -1,9 +1,10 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
 import './InputField.css'
-function InputField({ type, width='', height='', color = '',size="small" }) {
+function InputField({ input, setInput, type, width = '', height = '', error = false, color = '', size = "small" }) {
+
   return (
-    < TextField className='inputfield' color={color} sx={{ width: { width }, height: { height } }} type={type} size={size} />
+    < TextField onChange={(e)=>(setInput(e.target.value))} value={input} className='inputfield' error={error} sx={{ width: { width }, height: { height } }} type={type} size={size} />
   )
 }
 

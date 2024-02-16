@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 
 exports.signupUser = async (payload) => {
-    const { email, password, otherData } = payload.data;
+    const { email, password } = payload.data;
     if (!email)
         throw new CustomError("User email not found", 401);
     if (!password)
@@ -14,7 +14,7 @@ exports.signupUser = async (payload) => {
     if (existingUser)
         throw new CustomError("Email already exist", 409)
     const hashedPassword = await bcrypt.hash(password, 10);
-    const response = await UsersModel.create({ ...otherData, email, password: hashedPassword });
+    const response = await UsersModel.create({ email, password: hashedPassword });
     return response;
 }
 

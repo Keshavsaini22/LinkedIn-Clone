@@ -1,29 +1,63 @@
-.loginpage{
+.loginpage {
     background-color: white;
     height: 100vh;
-.container{
-    max-width: 1000px;
-    margin: auto;
-    padding: 10px;
-    .nav{
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .nav {
         width: 100%;
+        max-width: 1200px;
         display: flex;
         justify-content: space-between;
-        .nav-btn{
+        align-items: center;
+        margin: 10px;
+
+        /* margin-left: 20px; */
+        .nav-btn {
             display: flex;
-            gap: 32px;
-            .join-now{
+            gap: 8px;
+            padding-right: 20px;
+
+            .join-now {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 100px;
                 height: 50px;
+                font-weight: 500;
+                color: #3d3c3a;
             }
-            .join-now:hover{
+
+            .join-now:hover {
                 cursor: pointer;
-                background-color: blanchedalmond;
+                background-color: #F3F2F0;
+                border-radius: 25px;
+            }
+
+            .signin {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100px;
+                height: 50px;
+                font-weight: 500;
+                color: #216dc5;
+                border: 1px solid #216dc5;
+                border-radius: 25px;
+            }
+
+            .signin:hover {
+                cursor: pointer;
+                background-color: #d6eaff5e;
             }
         }
-        .logo{
+
+        .logo {
             width: 85px;
             height: 30px;
+            padding-left: 20px;
 
             img {
                 max-width: auto;
@@ -31,5 +65,167 @@
             }
         }
     }
-}
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        padding-right: 0px;
+
+        .body {
+            display: flex;
+
+            align-items: center;
+            gap: 90px;
+
+            .left {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                flex: 50%;
+
+                .welcometext {
+                    font-size: 55px;
+                    color: #b24020;
+                    font-weight: 200;
+                }
+
+                .lower {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+
+                    .email,
+                    .password {
+                        p {
+                            font-size: 14px;
+                            font-weight: 600;
+                            margin: 0px;
+                            padding-bottom: 8px;
+                            color: #585454;
+                        }
+                    }
+
+                    .forget {
+                        color: #0b66c2;
+                        font-weight: 600;
+                    }
+
+                    .forget:hover {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+
+                    .button {
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #0b66c2;
+                        font-weight: 600;
+                        color: white;
+                        width: 400px;
+                        border-radius: 30px;
+                    }
+
+                    .button:hover {
+                        background-color: #004182;
+                        cursor: pointer;
+                    }
+
+                    .or {
+                        display: flex;
+                        gap: 20px;
+                        align-items: center;
+
+                        .line {
+                            width: 180px;
+                            height: 1px;
+                            background-color: #aca1a1;
+                        }
+
+                        .text {
+                            background-color: white;
+                        }
+                    }
+
+                    .aggrement {
+                        font-size: 12px;
+
+                        span {
+                            color: #0b66c2;
+                            font-weight: 600;
+                        }
+
+                        span:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+                    }
+
+                   .lowerbutton{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    .googlebtn {
+                        background-color: white;
+                        width: 400px;
+                        height: 40px;
+                        border: 1px solid black;
+                        border-radius: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 16px;
+
+                        span {
+                            color: #585454;
+                            font-weight: 500;
+                        }
+
+                        i {
+                            height: 15px;
+                            width: 15px;
+                            font-weight: bolder;
+                        }
+                    }
+
+                    .googlebtn:hover {
+                        cursor: pointer;
+                        background-color: #d6eaff5e;
+                    }
+
+                    .linkedinbtn {
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 600;
+                        color: black;
+                        width: 400px;
+                        border-radius: 30px;
+                        border: 1px solid black;
+                    }
+
+                    .linkedinbtn:hover {
+                        background-color: #f1f1f1;
+                        cursor: pointer;
+                    }
+                   }
+                }
+            }
+
+            .right {
+                flex: 50%;
+                max-width: 550px;
+                height: 550px;
+
+                img {
+                    max-width: auto;
+                    height: 100%;
+
+                }
+            }
+        }
+    }
 }

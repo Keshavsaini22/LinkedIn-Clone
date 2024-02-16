@@ -12,6 +12,7 @@
             height: 35px;
 
             img {
+                padding-left: 20px;
                 max-width: auto;
                 height: 100%;
             }
