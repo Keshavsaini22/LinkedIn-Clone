@@ -1,19 +1,39 @@
-import React from 'react'
+import React, { Children, useState } from 'react'
 import LogoImg from '../../assets/images/Linkedin-signuo-logo.png'
 import RightPic from '../../assets/svgs/login.svg'
 import InputField from '../../components/InputField/InputField'
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
 import './Login.css'
 import Adornment from '../../components/AdonmentTextField/Adornment';
+import { loginUser } from '../../features/SignUp/SignIn/SignIn.action';
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleJoinNow = () => {
     navigate('/signup')
   }
+  const logged = useSelector((state) => state.signin.logged)
+  const isloading = useSelector((state) => state.signin.isloading)
+  const error = useSelector((state) => state.signin.error)
+
   const handlesignInNow = () => {
     navigate('/')
+  }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("login", email, password)
+    const data = {
+      email: email,
+      password: password
+    }
+    dispatch(loginUser(data));
+    if (logged)
+      navigate('/home')
   }
   return (
     <Box className="loginpage">
@@ -30,18 +50,20 @@ function Login() {
         <Box className="body">
           <Box className="left">
             <Box className="welcometext">Welcome to your professional community</Box>
-            <Box className="lower">
+            <Box className="lower" component={"form"} onSubmit={handleLogin}>
               <Box className="email">
                 <p>Email or phone number</p>
-                <InputField type="email" width="406px" height='53px' size="medium" />
+                <InputField input={email} setInput={setEmail} type="email" width="406px" height='53px' size="medium" />
               </Box>
               <Box className="password">
                 <p>Password (6+ character)</p>
-                <Adornment height='53px' />
+                <Adornment input={password} setInput={setPassword} height='53px' />
                 {/* <InputField type="password" width="406px" height='53px' size="medium" /> */}
               </Box>
               <Box className="forget">Forgot password?</Box>
-              <Box className="button">Sign in</Box>
+              <Box className="button" component={"button"} type='submit'>{isloading ? <>Loading</> : <>Sign in</>
+              }</Box>
+              {error && <h2>{error}</h2>}
               <Box className="or">
                 <Box className="line"></Box>
                 <Box className="text">or</Box>

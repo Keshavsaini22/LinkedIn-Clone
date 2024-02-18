@@ -1,7 +1,7 @@
 import React from "react";
 import SimpleDialog from '@mui/material/Dialog';
-import { toggleSuccess } from '../../features/SignUp/SignIn.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleSuccess } from "../../features/SignUp/SignIn/SignIn.slice";
 
 
 function DialogBox({ open }) {

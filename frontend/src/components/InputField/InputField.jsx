@@ -4,7 +4,7 @@ import './InputField.css'
 function InputField({ input, setInput, type, width = '', height = '', error = false, color = '', size = "small" }) {
 
   return (
-    < TextField onChange={(e)=>(setInput(e.target.value))} value={input} className='inputfield' error={error} sx={{ width: { width }, height: { height } }} type={type} size={size} />
+    < TextField onChange={(e)=>(setInput(e.target.value))} name={input} value={input} className='inputfield' error={error} sx={{ width: { width }, height: { height } }} type={type} size={size} />
   )
 }
 

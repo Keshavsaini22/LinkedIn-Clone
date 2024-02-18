@@ -6,7 +6,6 @@ import './Signup.css'
 import { signInUser } from '../../features/SignUp/SignIn/SignIn.action';
 import DialogBox from '../../components/DialogBox/DialogBox';
 import Button from '@mui/material/Button';
-import { toggleSuccess } from '../../features/SignUp/SignIn.slice';
 
 function Signup() {
   const dispatch = useDispatch();

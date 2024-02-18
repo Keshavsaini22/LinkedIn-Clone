@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import signInSlice from '../../features/SignUp/SignIn.slice'
+import  signInSlice  from '../../features/SignUp/SignIn/SignIn.slice'
 
 
 export const store = configureStore({
