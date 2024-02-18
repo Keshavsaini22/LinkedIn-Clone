@@ -33,11 +33,13 @@ export const loginUser = createAsyncThunk(loginType, async (data, { rejectWithVa
   }
 })
 
-export const logout = createAsyncThunk(logoutType, async ({ rejectWithValue }) => {
+export const logoutUser = createAsyncThunk(logoutType, async () => {
   try {
+    console.log("logout action")
     localStorage.removeItem('logged');
     localStorage.removeItem('token');
   } catch (error) {
-    rejectWithValue(error.response.data.message)
+    console.log("error: ", error.response.data.message)
+    return error.message
   }
 })

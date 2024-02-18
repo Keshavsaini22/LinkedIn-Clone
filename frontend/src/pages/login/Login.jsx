@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react'
+import React, { Children, useEffect, useState } from 'react'
 import LogoImg from '../../assets/images/Linkedin-signuo-logo.png'
 import RightPic from '../../assets/svgs/login.svg'
 import InputField from '../../components/InputField/InputField'
@@ -32,9 +32,12 @@ function Login() {
       password: password
     }
     dispatch(loginUser(data));
-    if (logged)
-      navigate('/home')
   }
+  useEffect(() => {
+    if (logged) {  //due to this line main khabi bhi login vali state me nhi ja skda without logout
+      navigate('/Home')
+    }
+  }, [logged])
   return (
     <Box className="loginpage">
       <Box className="nav">

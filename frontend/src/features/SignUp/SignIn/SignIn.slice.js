@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
-import { loginUser, signInUser } from "./SignIn.action";
+import { loginUser,  logoutUser, signInUser } from "./SignIn.action";
 
 const initialState = {
     isLoading: false,
@@ -47,6 +47,22 @@ export const signInSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
                 state.logged = false;
+            })
+            .addCase(logoutUser.pending,(state,)=>{
+                state.isLoading=true;
+                state.logged=true;
+                state.error=null;
+            })
+            .addCase(logoutUser.fulfilled,(state,)=>{
+                state.isLoading=false;
+                state.logged=false;
+                state.token=null;
+                state.user=null
+            })
+            .addCase(logoutUser.rejected,(state,action)=>{
+                state.isLoading=false;
+                state.logged=true;
+                state.error=action.payload;
             })
     }
 })
