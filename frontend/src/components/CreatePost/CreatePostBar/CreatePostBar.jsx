@@ -1,7 +1,8 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Popover, Stack, TextField, Typography, styled } from '@mui/material'
 import React, { useState } from 'react'
 import EmojiPicker from 'emoji-picker-react';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import './CreatePostBar.css'
 import MouseOverPopover from '../../Popover/MouseOverPopover';
 
@@ -29,6 +30,8 @@ function CreatePostBar() {
         setInputStr(prevInput => prevInput + event.emoji);
         setShowPicker(false);
     };
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <>
@@ -52,59 +55,65 @@ function CreatePostBar() {
                     </Box>
                 </Box>
             </Box>
-            <BootstrapDialog 
+            <Dialog
+                fullScreen={fullScreen} fullWidth
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
-                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    <div className="modaltitle">
-                        <div className="modalleft"></div>
-                        <div className="modalright">
-                            <Typography>Keshav Saini <i class="fa-solid fa-caret-down"></i></Typography>
-                            <Typography>Post to Anyone</Typography>
-
-                        </div>
-                    </div>
+                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title" className='dialogtop'>
+                    <Box className="modaltitlee">
+                        <Box className="modalleft"></Box>
+                        <Box className="modalright">
+                            <Typography className='username'>Keshav Saini <i class="fa-solid fa-caret-down"></i></Typography>
+                            <Typography className='posttoanyone'>Post to Anyone</Typography>
+                        </Box>
+                    </Box>
+                    <IconButton className='closeicon'
+                        aria-label="close"
+                        onClick={handleClose}
+                        sx={{
+                            position: 'absolute',
+                            right: 8,
+                            top: 8,
+                            color: (theme) => theme.palette.grey[500],
+                        }}
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </IconButton>
                 </DialogTitle>
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <i class="fa-solid fa-xmark"></i>
-                </IconButton>
-                <DialogContent dividers sx={{width:"480px" }} >
-                    <TextField value={inputStr}
-                        onChange={e => setInputStr(e.target.value)}
-                        id="filled-multiline-flexible"
-                        multiline
-                        minRows={10}
-                    />
-                    <Box onClick={() => setShowPicker(val => !val)}><i class="fa-regular fa-face-smile" ></i></Box>
-                    <Stack direction="row" spacing={2}>
-                        <MouseOverPopover icon="fa-solid fa-image" uppertext="Add media" />
-                        <MouseOverPopover icon="fa-solid fa-calendar-days" uppertext="Create an event" />
-                        <MouseOverPopover icon="fa-solid fa-gift" uppertext="Celebrate an occasion" />
-                        <MouseOverPopover icon="fa-solid fa-suitcase" uppertext="Share that you are hiring" />
+
+                <DialogContent className='dialogbody' >
+                    <Stack spacing={3}>
+                        <TextField fullWidth placeholder='Title......' variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }} />
+
+                        <TextField value={inputStr} fullWidth variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }}
+                            onChange={e => setInputStr(e.target.value)}
+                            id="filled-multiline-flexible"
+                            multiline
+                            minRows={10} placeholder='What do you want to talk about?'
+                        />
+                        <Box onClick={() => setShowPicker(val => !val)}><i class="fa-regular fa-face-smile" ></i></Box>
+                        <Stack direction="row" spacing={4}>
+                            <MouseOverPopover className="media-icons" icon="fa-solid fa-image" uppertext="Add media" />
+                            <MouseOverPopover className="media-icons" icon="fa-solid fa-calendar-days" uppertext="Create an event" />
+                            <MouseOverPopover className="media-icons" icon="fa-solid fa-gift" uppertext="Celebrate an occasion" />
+                            <MouseOverPopover className="media-icons" icon="fa-solid fa-suitcase" uppertext="Share that you are hiring" />
+                        </Stack>
                     </Stack>
 
                 </DialogContent>
                 {showPicker && <EmojiPicker
                     pickerStyle={{ width: '100%' }}
                     onEmojiClick={onEmojiClick} />}
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Post
-                    </Button>
+                <DialogActions >
+                    <Stack  direction="row" spacing={2} sx={{p:2}} className='dialogbottom'>
+                    <Box className="clock"><i class="fa-regular fa-clock"></i></Box>
+                    <Box className="post">Post</Box>
+                    </Stack>
                 </DialogActions>
 
-            </BootstrapDialog>
+            </Dialog>
 
         </>
 

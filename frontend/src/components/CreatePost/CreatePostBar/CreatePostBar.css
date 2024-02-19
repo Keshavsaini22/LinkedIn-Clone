@@ -73,3 +73,86 @@
         }
     }
 }
+
+.dialogtop {
+    display: flex;
+
+    .modaltitlee {
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+
+        .modalleft {
+            height: 55px;
+            width: 55px;
+            border-radius: 50%;
+            background-color: rgb(97, 21, 21);
+        }
+
+        .modalright {
+            display: flex;
+            flex-direction: column;
+
+            .username {
+                font-size: 18px;
+                font-weight: 600;
+                display: flex;
+                gap: 10px;
+            }
+
+            .posttoanyone {
+                font-size: 12px;
+                font-weight: 300;
+            }
+        }
+    }
+
+    .modaltitlee:hover {
+        cursor: pointer;
+        background-color: #e8e8e8;
+        border-radius: 10px;
+    }
+
+    .closeicon {
+        color: black;
+    }
+}
+
+.dialogbody {
+    i {
+        font-size: 20px;
+        color: #666666;
+    }
+
+    i:hover {
+        cursor: pointer;
+    }
+}
+
+.dialogbottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+        font-size: 20px;
+        color: #666666;
+    }
+
+    .post {
+        color: white;
+        display: flex;
+        align-items: center;
+        border-radius: 15px;
+        justify-content: center;
+        background-color: #0b66c2;
+        width: 60px;
+        font-weight: 600;
+        height: 30px;
+
+    }
+
+    .post:hover {
+        cursor: pointer;
+    }
+}
