@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Popover, Stack, TextField, Typography, styled } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Popover, Stack, TextField, Typography, styled } from '@mui/material'
 import React, { useState } from 'react'
 import EmojiPicker from 'emoji-picker-react';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -86,12 +86,11 @@ function CreatePostBar() {
                 <DialogContent className='dialogbody' >
                     <Stack spacing={3}>
                         <TextField fullWidth placeholder='Title......' variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }} />
-
                         <TextField value={inputStr} fullWidth variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }}
                             onChange={e => setInputStr(e.target.value)}
                             id="filled-multiline-flexible"
                             multiline
-                            minRows={10} placeholder='What do you want to talk about?'
+                            maxRows={10} minRows={10} placeholder='What do you want to talk about?'
                         />
                         <Box onClick={() => setShowPicker(val => !val)}><i class="fa-regular fa-face-smile" ></i></Box>
                         <Stack direction="row" spacing={4}>
@@ -101,15 +100,17 @@ function CreatePostBar() {
                             <MouseOverPopover className="media-icons" icon="fa-solid fa-suitcase" uppertext="Share that you are hiring" />
                         </Stack>
                     </Stack>
-
+                    
+                    <Divider sx={{p:1}} />
                 </DialogContent>
                 {showPicker && <EmojiPicker
                     pickerStyle={{ width: '100%' }}
                     onEmojiClick={onEmojiClick} />}
                 <DialogActions >
-                    <Stack  direction="row" spacing={2} sx={{p:2}} className='dialogbottom'>
-                    <Box className="clock"><i class="fa-regular fa-clock"></i></Box>
-                    <Box className="post">Post</Box>
+                    <Stack direction="row" spacing={2} sx={{ paddingRight: 2,paddingBottom: 2 }} className='dialogbottom'>
+
+                        <Box className="clock"><i class="fa-regular fa-clock"></i></Box>
+                        <Box className="post">Post</Box>
                     </Stack>
                 </DialogActions>
 
