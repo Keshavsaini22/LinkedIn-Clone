@@ -6,16 +6,10 @@ import { useTheme } from '@mui/material/styles';
 import './CreatePostBar.css'
 import MouseOverPopover from '../../Popover/MouseOverPopover';
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-}));
 function CreatePostBar() {
     const [open, setOpen] = useState(false);
+    const [title, setTitle] = useState("");
+    const [images, setImgs] = useState(null)
     const [inputStr, setInputStr] = useState('');
     const [showPicker, setShowPicker] = useState(false);
     const handleClickOpen = () => {
@@ -32,7 +26,6 @@ function CreatePostBar() {
     };
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
     return (
         <>
             <Box className="createpostbar">
@@ -55,7 +48,27 @@ function CreatePostBar() {
                     </Box>
                 </Box>
             </Box>
-            <Dialog
+            <Dialog PaperProps={{
+                component: 'form', onSubmit: (e) => {
+                    e.preventDefault();
+                    console.log("form submit");
+                    console.log(title)
+                    console.log(inputStr, images)
+                    if(!images){
+                        alert("Cant post without Image")
+                    }
+                    const formdata = new FormData();
+                    formdata.append('title', title);
+                    formdata.append('body', inputStr);
+                    for (let i = 0; i < images?.length; i++) {
+                        formdata.append('images', images[i])
+                    }
+                    handleClose()
+                    setTitle('')
+                    setInputStr('')
+                    setImgs(null)
+                }
+            }}
                 fullScreen={fullScreen} fullWidth
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -85,8 +98,9 @@ function CreatePostBar() {
 
                 <DialogContent className='dialogbody' >
                     <Stack spacing={3}>
-                        <TextField fullWidth placeholder='Title......' variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }} />
-                        <TextField value={inputStr} fullWidth variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }}
+                        <TextField value={title}name='title' required onChange={e => setTitle(e.target.value)}
+                            fullWidth placeholder='Title......' variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }} />
+                        <TextField required name='body' value={inputStr} fullWidth variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }}
                             onChange={e => setInputStr(e.target.value)}
                             id="filled-multiline-flexible"
                             multiline
@@ -94,23 +108,27 @@ function CreatePostBar() {
                         />
                         <Box onClick={() => setShowPicker(val => !val)}><i class="fa-regular fa-face-smile" ></i></Box>
                         <Stack direction="row" spacing={4}>
-                            <MouseOverPopover className="media-icons" icon="fa-solid fa-image" uppertext="Add media" />
+                            <Button sx={{ paddingRight: '40px' }} component="label"><MouseOverPopover className="media-icons" icon="fa-solid fa-image" uppertext="Add media" />
+                                <input onChange={(e) => (setImgs(e.target.files))}
+                                    type="file" multiple  name="images"
+                                    hidden />
+                            </Button> {images && <Box>Image added</Box>}
+                            {/* <MouseOverPopover className="media-icons" icon="fa-solid fa-image" uppertext="Add media" />
                             <MouseOverPopover className="media-icons" icon="fa-solid fa-calendar-days" uppertext="Create an event" />
                             <MouseOverPopover className="media-icons" icon="fa-solid fa-gift" uppertext="Celebrate an occasion" />
-                            <MouseOverPopover className="media-icons" icon="fa-solid fa-suitcase" uppertext="Share that you are hiring" />
+                            <MouseOverPopover className="media-icons" icon="fa-solid fa-suitcase" uppertext="Share that you are hiring" /> */}
                         </Stack>
                     </Stack>
-                    
-                    <Divider sx={{p:1}} />
+
+                    <Divider sx={{ p: 1 }} />
                 </DialogContent>
                 {showPicker && <EmojiPicker
                     pickerStyle={{ width: '100%' }}
                     onEmojiClick={onEmojiClick} />}
                 <DialogActions >
-                    <Stack direction="row" spacing={2} sx={{ paddingRight: 2,paddingBottom: 2 }} className='dialogbottom'>
-
+                    <Stack direction="row" spacing={2} sx={{ paddingRight: 2, paddingBottom: 2 }} className='dialogbottom'>
                         <Box className="clock"><i class="fa-regular fa-clock"></i></Box>
-                        <Box className="post">Post</Box>
+                        <Box className="post" component={"button"} type='submit'>Post</Box>
                     </Stack>
                 </DialogActions>
 

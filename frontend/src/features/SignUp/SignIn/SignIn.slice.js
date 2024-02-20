@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios'
 import { loginUser,  logoutUser, signInUser } from "./SignIn.action";
 
 const initialState = {

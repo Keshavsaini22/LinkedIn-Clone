@@ -5,6 +5,7 @@ import { logoutUser } from '../../features/SignUp/SignIn/SignIn.action';
 import Navbar from '../../components/Navbar/Navbar';
 import PostForm from '../../components/CreatePost/PostForm/PostForm';
 import CreatePostBar from '../../components/CreatePost/CreatePostBar/CreatePostBar';
+import PostCard from '../../components/PostCard/PostCard';
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ function Home() {
     <Navbar/>
       <h1>Home page</h1>
       <CreatePostBar/>
+    
+      <PostCard/>
       <br />
       <button onClick={handleLogout}>Logout</button>
     </>
