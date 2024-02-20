@@ -5,7 +5,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import './CreatePostBar.css'
 import MouseOverPopover from '../../Popover/MouseOverPopover';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { createPost, getPosts } from '../../../features/Posts/Post.action';
 function CreatePostBar() {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
@@ -24,6 +25,7 @@ function CreatePostBar() {
         setInputStr(prevInput => prevInput + event.emoji);
         setShowPicker(false);
     };
+    const dispatch = useDispatch();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     return (
@@ -35,7 +37,7 @@ function CreatePostBar() {
                 </Box>
                 <Box className="lower">
                     <Box className="media">
-                        <i class="fa-solid fa-image"></i>
+                        <i color='#378fe9' class="fa-solid fa-image"></i>
                         <span>Media</span>
                     </Box>
                     <Box className="job">
@@ -51,10 +53,7 @@ function CreatePostBar() {
             <Dialog PaperProps={{
                 component: 'form', onSubmit: (e) => {
                     e.preventDefault();
-                    console.log("form submit");
-                    console.log(title)
-                    console.log(inputStr, images)
-                    if(!images){
+                    if (!images) {
                         alert("Cant post without Image")
                     }
                     const formdata = new FormData();
@@ -63,6 +62,9 @@ function CreatePostBar() {
                     for (let i = 0; i < images?.length; i++) {
                         formdata.append('images', images[i])
                     }
+                    dispatch(createPost(formdata));
+                    alert('Post uploaded')
+                    dispatch(getPosts(4))
                     handleClose()
                     setTitle('')
                     setInputStr('')
@@ -98,7 +100,7 @@ function CreatePostBar() {
 
                 <DialogContent className='dialogbody' >
                     <Stack spacing={3}>
-                        <TextField value={title}name='title' required onChange={e => setTitle(e.target.value)}
+                        <TextField value={title} name='title' required onChange={e => setTitle(e.target.value)}
                             fullWidth placeholder='Title......' variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }} />
                         <TextField required name='body' value={inputStr} fullWidth variant="standard" InputProps={{ style: { fontSize: "20px" }, disableUnderline: true }}
                             onChange={e => setInputStr(e.target.value)}
@@ -110,7 +112,7 @@ function CreatePostBar() {
                         <Stack direction="row" spacing={4}>
                             <Button sx={{ paddingRight: '40px' }} component="label"><MouseOverPopover className="media-icons" icon="fa-solid fa-image" uppertext="Add media" />
                                 <input onChange={(e) => (setImgs(e.target.files))}
-                                    type="file" multiple  name="images"
+                                    type="file" multiple name="images" accept="image/png, image/jpg, image/jpeg"
                                     hidden />
                             </Button> {images && <Box>Image added</Box>}
                             {/* <MouseOverPopover className="media-icons" icon="fa-solid fa-image" uppertext="Add media" />

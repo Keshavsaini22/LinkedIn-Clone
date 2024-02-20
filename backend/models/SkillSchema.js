@@ -8,10 +8,6 @@ const SkillSchema = new mongoose.Schema({
         require: true
     },
     skill: { type: String },
-    createAt: {
-        type: Date,
-        default: Date.now,
-    },
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("skills", SkillSchema)

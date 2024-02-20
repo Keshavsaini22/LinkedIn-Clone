@@ -13,10 +13,7 @@ const ProjectSchema = new mongoose.Schema({
     startdate: { type: Date },
     enddate: { type: Date },
     desc: { type: String },
-    createAt: {
-        type: Date,
-        default: Date.now,
-    },
-})
+
+}, { timestamps: true })
 
 module.exports = mongoose.model("projects", ProjectSchema)

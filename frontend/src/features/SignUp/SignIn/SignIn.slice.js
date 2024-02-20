@@ -40,6 +40,7 @@ export const signInSlice = createSlice({
                 state.isLoading = false;
                 state.logged = true;
                 state.user = action.payload.user;
+                console.log("userid=",action.payload.user._id)
                 state.token = action.payload.token;
             })
             .addCase(loginUser.rejected, (state, action) => {

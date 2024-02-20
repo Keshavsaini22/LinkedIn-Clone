@@ -30,9 +30,5 @@ const UserSchema = new mongoose.Schema({
     languages: { type: String },
     title: { type: String },
     desc: { type: String },
-    createAt: {
-        type: Date,
-        default: Date.now,
-    },
-})
+}, { timestamps: true })
 module.exports = mongoose.model("users", UserSchema)

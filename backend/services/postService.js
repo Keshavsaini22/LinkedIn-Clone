@@ -3,9 +3,10 @@ const UserModel = require('../models/UserSchema')
 const CustomError = require('../libs/error');
 
 exports.createPost = async (payload) => {
-    const { userId } = payload.params;
     const images = payload.files.images.map((i) => { return i.path });
     const { title, body } = payload.body
+    const userId = payload.userId
+    console.log("user", payload.userId)
     if (images && title && body) {
         const data = await PostModel.create({ userId: userId, title: title, body: body, images: images });
         return data;
@@ -13,12 +14,11 @@ exports.createPost = async (payload) => {
     throw new CustomError("Empty fields", 401);
 }
 
-exports.fetchPosts = async (payload) => {
-    const { userId } = payload.params;
-    const userExist = await UserModel.findById(userId)
-    if (!userExist)
-        throw new CustomError("No User found", 401);
-    const data = await PostModel.find({ userId: userId }).populate('userId', 'name');
+exports.fetchPosts = async () => {
+    // const userExist = await UserModel.findById(userId)
+    // if (!userExist)
+    //     throw new CustomError("No User found", 401);
+    const data = await PostModel.find({}).populate('userId', 'name');
     if (!data)
         throw new CustomError("No data found", 204);
     return data;

@@ -10,10 +10,7 @@ const PostsSchema = new mongoose.Schema({
     title: { type: String, require: true },
     body: { type: String, require: true },
     images: { type: Array, require: true },
-    createAt: {
-        type: Date,
-        default: Date.now,
-    },
-})
+
+}, { timestamps: true })
 
 module.exports = mongoose.model("posts", PostsSchema)

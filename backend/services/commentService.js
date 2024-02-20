@@ -21,7 +21,7 @@ exports.getComments = async (payload) => {
     if (time) {
         query = { postId: postId, createAt: { $lt: (new Date(time)) } }
     }
-    const data = await CommentsModel.find(query).limit(10).sort({ createAt: -1 })
+    const data = await CommentsModel.find(query).limit(10).sort({ createdAt: -1 })
     if (!data)
         throw new CustomError("No data found", 204);
     return data

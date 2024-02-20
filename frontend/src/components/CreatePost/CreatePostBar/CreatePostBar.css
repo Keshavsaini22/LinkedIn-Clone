@@ -64,6 +64,18 @@
             }
         }
 
+        .media i {
+            color: #378fe9;
+        }
+
+        .job i {
+            color: #a871ea;
+        }
+
+        .article i {
+            color: #e06847;
+        }
+
         .media:hover,
         .job:hover,
         .article:hover {

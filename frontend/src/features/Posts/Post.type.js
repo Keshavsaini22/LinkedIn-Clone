@@ -1,2 +1,2 @@
 export const createType='post/create'
-export const getType='posts/get'
+export const getType='post/get'

@@ -1,0 +1,129 @@
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 555px;
+    border: 1px solid rgb(209, 204, 204);
+    border-radius: 12px;
+    background-color: white;
+
+    /* padding: 16px; */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 8px;
+
+        .left {
+            display: flex;
+            gap: 8px;
+
+            .text {
+                font-weight: 500;
+
+                .dot {
+                    padding-top: 3px;
+                    color: #666666;
+                }
+
+                .numtext {
+                    color: #666666;
+                }
+
+                .degination {
+                    color: #666666;
+                    font-size: 11px;
+                }
+
+                i {
+                    font-size: 15px;
+                    color: #666666;
+                }
+
+                .dott {
+                    color: #666666;
+                }
+            }
+        }
+
+        .right {
+            i {
+                padding-right: 5px;
+            }
+        }
+
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        .text {
+            margin: 8px;
+
+            .title {
+                font-size: 15px;
+                color: #3f3e3e;
+            }
+
+            .body {
+                /* height: 60px; */
+                overflow: hidden;
+                font-size: 15px;
+                color: #3f3e3e;
+            }
+
+            .seemore {
+                display: flex;
+                justify-content: end;
+                font-size: 13px;
+                color: #807c7c;
+            }
+
+            .seemore:hover {
+                text-decoration: underline;
+                color: #2A72C7;
+                cursor: pointer;
+            }
+        }
+
+        .image {
+            max-width: 555px;
+            height: auto;
+
+            img {
+                height: auto;
+                max-width: 100%;
+            }
+        }
+
+        .likeandcomment {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 8px;
+
+            i {
+                font-size: 16px;
+                color: #2A72C7;
+            }
+        }
+    }
+
+    .lower-btn {
+
+        i {
+            font-size: 20px;
+            color: #7e7676;
+            font-weight: bold;
+        }
+
+        .single-btn {
+            padding: 18px;
+            border-radius: 8px;
+        }
+
+        .single-btn:hover {
+            background-color: #e8e8e8;
+            cursor: pointer;
+        }
+    }
+}

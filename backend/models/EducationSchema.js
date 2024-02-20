@@ -14,11 +14,6 @@ const EducationSchema = new mongoose.Schema({
     enddate: { type: Date },
     grade: { type: String },
     desc: { type: String },
-    createAt: {
-        type: Date,
-        default: Date.now,
-    },
-
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("educations", EducationSchema)

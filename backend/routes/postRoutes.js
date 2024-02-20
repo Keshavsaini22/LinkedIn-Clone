@@ -6,8 +6,8 @@ const { postController } = require('../controller');
 const upload = multer({ dest: './uploads' })
 const uploadmiddleware = upload.fields([{ name: 'images' }])
 
-router.post('/:userId',authenticateJWT, uploadmiddleware, postController.createPost)
-router.get('/:userId',authenticateJWT, postController.fetchPosts)
+router.post('/',authenticateJWT, uploadmiddleware, postController.createPost)
+router.get('/', postController.fetchPosts)
 router.delete('/:postId',authenticateJWT, postController.deletePost)
 router.put('/:postId',authenticateJWT, postController.updatePost)
 

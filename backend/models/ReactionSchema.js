@@ -17,11 +17,7 @@ const ReactionSchema = new mongoose.Schema({
         ref: CommentModel,
     },
     type: { type: String, require: true },
-    createAt: {
-        type: Date,
-        default: Date.now,
-    },
 
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("reactions", ReactionSchema)

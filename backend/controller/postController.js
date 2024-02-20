@@ -1,8 +1,11 @@
 const { postService } = require("../services")
+const CustomError = require('../libs/error');
 
 exports.createPost = async (req, res) => {
     try {
-        const response = await postService.createPost({params:req.params,files:req.files,body:req.body});
+        if(!res.locals.isAuthenticated)
+        throw new CustomError("User not Authenticated", 400);
+        const response = await postService.createPost({userId:req.user.ID,files:req.files,body:req.body});
         return res.status(201).json(response)
     }
     catch (e) {
@@ -12,7 +15,7 @@ exports.createPost = async (req, res) => {
 
 exports.fetchPosts = async (req, res) => {
     try {
-        const response=await postService.fetchPosts({params:req.params});
+        const response=await postService.fetchPosts();
         return res.status(200).json(response)
     }
     catch (e) {
