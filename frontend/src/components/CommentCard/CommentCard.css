@@ -1,0 +1,35 @@
+.commentcard {
+    .text {
+        background-color: rgb(242, 242, 242);
+        border-radius: 10px;
+        padding: 14px;
+        border-top-left-radius: 0px;
+        width: 450px;
+        max-width: 450px ;
+        .dot {
+            padding-top: 3px;
+            color: #666666;
+        }
+
+        .numtext {
+            color: #666666;
+        }
+
+        .degination {
+            color: #666666;
+            font-size: 11px;
+            font-weight: 300;
+        }
+    }
+
+    .cmtbtn {
+        color: #666666;
+        padding: 2px 2px;
+        border-radius: 5px;
+    }
+
+    .cmtbtn:hover {
+        cursor: pointer;
+        background-color: #f2f2f2;
+    }
+}

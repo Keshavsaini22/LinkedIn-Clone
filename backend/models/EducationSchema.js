@@ -5,7 +5,7 @@ const EducationSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: UsersModel,
-        require: true
+        required: true
     },
     name: { type: String },
     degree: { type: String },

@@ -30,7 +30,7 @@ function CreatePostBar() {
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     return (
         <>
-            <Box className="createpostbar">
+            <Box className="createpostbar" >
                 <Box className="upper">
                     <Box className="image"></Box>
                     <Box className="startpost" component={"button"} type='button' onClick={handleClickOpen} >Start a post</Box>

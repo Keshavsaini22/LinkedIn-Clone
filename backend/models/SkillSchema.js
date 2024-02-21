@@ -5,7 +5,7 @@ const SkillSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: UsersModel,
-        require: true
+        required: true
     },
     skill: { type: String },
 }, { timestamps: true })

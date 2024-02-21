@@ -18,7 +18,7 @@ exports.fetchPosts = async () => {
     // const userExist = await UserModel.findById(userId)
     // if (!userExist)
     //     throw new CustomError("No User found", 401);
-    const data = await PostModel.find({}).populate('userId', 'name');
+    const data = await PostModel.find({}).populate('userId', 'name').sort({ createdAt: -1 });
     if (!data)
         throw new CustomError("No data found", 204);
     return data;

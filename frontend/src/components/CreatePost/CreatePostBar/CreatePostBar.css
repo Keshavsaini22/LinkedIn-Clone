@@ -7,6 +7,7 @@
     border: 1px solid rgb(209, 204, 204);
     border-radius: 12px;
     background-color: white;
+    /* margin: auto; */
 
     .upper {
         display: flex;
@@ -14,6 +15,7 @@
         justify-content: center;
         align-items: end;
         margin-top: 10px;
+        /* margin: 10px; */
 
         .image {
             min-width: 46px;

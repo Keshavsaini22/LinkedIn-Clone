@@ -3,11 +3,10 @@ const CustomError = require('../libs/error');
 const CommentsModel = require('../models/CommentSchema');
 
 exports.postComments = async (payload) => {
-    const { postId } = payload.params;
-    const userId = payload.query.userId;
-    const { body } = payload.body;
-    if (!userId)
-        throw new CustomError("Bad Request", 404)
+    const userId = payload.userId;
+    const { body, postId } = payload.body
+    // const body = Object.keys(payload.body)[0];
+    // console.log("body", Object.keys(payload.params))
     if (!body)
         throw new CustomError("No data in input", 401)
     const data = CommentsModel.create({ userId: userId, postId: postId, body: body })
@@ -15,9 +14,10 @@ exports.postComments = async (payload) => {
 }
 
 exports.getComments = async (payload) => {
-    const { postId } = payload.params;
+    const postId = payload.query.postId;
     const time = payload.query.createdAt
     let query = { postId: postId }
+    if (!postId) throw new CustomError("Post id is requird")
     if (time) {
         query = { postId: postId, createAt: { $lt: (new Date(time)) } }
     }

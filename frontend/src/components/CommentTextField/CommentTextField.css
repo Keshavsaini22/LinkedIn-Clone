@@ -1,0 +1,16 @@
+.post {
+    color: white;
+    display: flex;
+    align-items: center;
+    border-radius: 18px;
+    justify-content: center;
+    background-color: #0b66c2;
+    width: 60px;
+    font-weight: 600;
+    height: 25px;
+    border: none;
+}
+
+.post:hover {
+    cursor: pointer;
+}
