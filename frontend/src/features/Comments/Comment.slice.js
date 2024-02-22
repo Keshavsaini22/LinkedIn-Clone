@@ -5,7 +5,8 @@ const initialState = {
     isLoading: false,
     error: null,
     comment: null,
-    commentsData: null,
+    commentsData: {
+    },
     success: false,
 }
 
@@ -24,7 +25,8 @@ export const CommentSlice = createSlice({
         builder.addCase(createComment.fulfilled, (state, action) => {
             state.isLoading = false;
             state.comment = action.payload
-            console.log("action.payload", action.payload)
+            state.commentsData[action.payload.postId] = [action.payload,...state.commentsData[action.payload.postId]];
+            console.log("action.payload", state.commentsData[action.payload.postId])
             state.success = true
             console.log("state of success", state.success)
         })
@@ -40,7 +42,8 @@ export const CommentSlice = createSlice({
             })
             .addCase(getComments.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.commentsData = action.payload;
+                state.commentsData[action.payload.id] = action.payload.info;
+                console.log("state.commentsData", state.commentsData[action.payload.id])
             })
             .addCase(getComments.rejected, (state, action) => {
                 state.isLoading = false;

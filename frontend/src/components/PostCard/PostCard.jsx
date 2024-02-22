@@ -18,6 +18,7 @@ function PostCard({ body, title, images, postId }) {
     const error = useSelector((state) => state.comment.error)
     const success = useSelector((state) => state.comment.success)
     const comments = useSelector((state) => state.comment.commentsData)
+    // const [getUpdatedCom,]
     const handleCommentSubmit = (e) => {
         e.preventDefault();
         const data = {
@@ -25,21 +26,17 @@ function PostCard({ body, title, images, postId }) {
             postId: postId
         }
         dispatch(createComment(data))
-        dispatch(getComments(postId))
-
         if (error) {
             alert(error)
         }
-        else
-            alert('Comment Posted')
-
         setcomment("")
     }
-    useEffect(() => {
-        dispatch(getComments(postId))
-    }, [showcomment])
+    // useEffect(() => {
+    //     dispatch(getComments(postId))
+    // }, [showcomment])
     const handleCommitbuttonClick = () => {
         setShowComment(!showcomment)
+        dispatch(getComments(postId))
 
     }
     return (
@@ -112,7 +109,7 @@ function PostCard({ body, title, images, postId }) {
             </Stack>
             {showcomment && (<>
                 <CommentTextField handleCommentSubmit={handleCommentSubmit} inputStr={comment} setInputStr={setcomment} />
-                {comments?.map((item) => <CommentCard body={item.body} />)}
+                {comments[postId]?.map((item) => <CommentCard body={item.body} />)}
             </>)}
 
         </Box>
