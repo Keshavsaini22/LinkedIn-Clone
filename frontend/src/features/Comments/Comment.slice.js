@@ -33,7 +33,7 @@ export const CommentSlice = createSlice({
         builder.addCase(createComment.rejected, (state, action) => {
             state.success = false;
             state.isLoading = false;
-            state.error = action.payload
+            state.error = action.payload;
             console.log("action.payload", action.payload)
 
         })

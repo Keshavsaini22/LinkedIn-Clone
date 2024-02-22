@@ -5,19 +5,23 @@ import { Carousel } from 'react-responsive-carousel';
 import { red } from '@mui/material/colors'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import './PostCard.css'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentTextField from '../CommentTextField/CommentTextField';
 import CommentCard from '../CommentCard/CommentCard';
 import { createComment, getComments } from '../../features/Comments/Comment.action';
+import { ReactionBarSelector } from '@charkour/react-reactions';
+import { createLike } from '../../features/Likes/Likes.action';
 function PostCard({ body, title, images, postId }) {
     const [seemore, setSeeemore] = useState(true);
     const [showcomment, setShowComment] = useState(false);
     const [comment, setcomment] = useState(null);
+    const [like, setLike] = useState(false);
     const dispatch = useDispatch();
     const error = useSelector((state) => state.comment.error)
     const success = useSelector((state) => state.comment.success)
     const comments = useSelector((state) => state.comment.commentsData)
+    const [reaction, setReaction] = useState("satisfaction")
     // const [getUpdatedCom,]
     const handleCommentSubmit = (e) => {
         e.preventDefault();
@@ -37,7 +41,17 @@ function PostCard({ body, title, images, postId }) {
     const handleCommitbuttonClick = () => {
         setShowComment(!showcomment)
         dispatch(getComments(postId))
-
+    }
+    const postLike = (type) => {
+        console.log("create like", type)
+        const data = {}
+        data.body = type
+        data.postId = postId
+        dispatch(createLike(data))
+    }
+    const handleLikebuttonClick = () => {
+        setLike(!like)
+        postLike("satisfaction")
     }
     return (
         <Box className="cardContainer" sx={{ my: 1 }}>
@@ -101,11 +115,23 @@ function PostCard({ body, title, images, postId }) {
                 </Box>
             </Box>
             <Box sx={{ height: '1px', backgroundColor: 'rgb(209, 204, 204)', m: 1 }}></Box>
+
             <Stack className='lower-btn' direction="row" sx={{ justifyContent: 'space-around', marginBottom: '6px' }}>
-                <Box className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-regular fa-thumbs-up"></i> Like</Box>
+                <Box onClick={handleLikebuttonClick} className='single-btn like-btn'
+                    sx={{
+                        color: like ? '#0374b3' : '#807c7c', maxWidth: '60px', fontWeight: '600', fontSize: '14px',
+                        display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center'
+                    }}>
+                    <ThumbUpIcon /> {reaction === "satisfaction" ? "Like" : reaction}</Box>
+                <Box className='reactionbar'><ReactionBarSelector onSelect={(label) => {
+                    setLike(!like)
+                    setReaction(label)
+                    postLike(label)
+                }} /></Box>
                 <Box onClick={handleCommitbuttonClick} className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-regular fa-comment-dots"></i> Comment</Box>
                 <Box className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-solid fa-repeat"></i> Repost</Box>
                 <Box className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-solid fa-paper-plane"></i> Send</Box>
+
             </Stack>
             {showcomment && (<>
                 <CommentTextField handleCommentSubmit={handleCommentSubmit} inputStr={comment} setInputStr={setcomment} />

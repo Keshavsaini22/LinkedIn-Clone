@@ -5,6 +5,7 @@ const CommentsModel = require('../models/CommentSchema');
 exports.postComments = async (payload) => {
     const userId = payload.userId;
     const { body, postId } = payload.body
+    console.log(body)
     // const body = Object.keys(payload.body)[0];
     // console.log("body", Object.keys(payload.params))
     if (!body)

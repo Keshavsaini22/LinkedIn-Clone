@@ -5,14 +5,14 @@ const CommentsnModel = require('../models/ReactionSchema');
 const CustomError = require('../libs/error');
 
 exports.postPostReaction = async (payload) => {
-    const { postId } = payload.params;
-    const userId = payload.query.userId;
-    const { type } = payload.body;
-    if (userId && type) {
-        const data = ReactionModel.create({ userId: userId, postId: postId, type: type })
-        return data;
-    }
-    throw new CustomError("Bad Request", 404)
+    const {postId} = payload.params;
+    const userId = payload.userId;
+    const type = Object.keys(payload.body)[0];
+    console.log("type", payload)
+    if (!type)
+        throw new CustomError("Bad Request", 404)
+    const data = ReactionModel.create({ userId: userId, postId: postId, type: type })
+    return data;
 }
 
 exports.postCommentReaction = async (payload) => {

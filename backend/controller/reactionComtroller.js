@@ -2,18 +2,20 @@ const { reactionService } = require('../services')
 
 exports.postPostReactionController = async (req, res) => {
     try {
-        const response = await reactionService.postPostReaction({params:req.params,query:req.query,body:req.body});
+        if (!res.locals.isAuthenticated)
+            throw new CustomError("User not Authenticated", 400);
+        const response = await reactionService.postPostReaction({ params: req.params, userId: req.user.ID, body: req.body });
         return res.status(201).json(response)
     }
     catch (e) {
-        console.log("error in PostReaction ",e)
+        console.log("error in PostReaction ", e)
         return res.status(e?.code || 500).json({ message: e?.message })
     }
 }
 
 exports.postCommentReactionController = async (req, res) => {
     try {
-        const response = await reactionService.postCommentReaction({params:req.params,query:req.query,body:req.body});
+        const response = await reactionService.postCommentReaction({ params: req.params, query: req.query, body: req.body });
         return res.status(201).json(response)
     }
     catch (e) {
@@ -23,7 +25,7 @@ exports.postCommentReactionController = async (req, res) => {
 
 exports.getPostReactionController = async (req, res) => {
     try {
-        const response = await reactionService.getPostReaction({params:req.params});
+        const response = await reactionService.getPostReaction({ params: req.params });
         return res.status(200).json(response)
     }
     catch (e) {
@@ -33,7 +35,7 @@ exports.getPostReactionController = async (req, res) => {
 
 exports.getCommentReactionController = async (req, res) => {
     try {
-        const response = await reactionService.getCommentReaction({params:req.params});
+        const response = await reactionService.getCommentReaction({ params: req.params });
         return res.status(200).json(response)
     }
     catch (e) {
@@ -43,7 +45,7 @@ exports.getCommentReactionController = async (req, res) => {
 
 exports.deleteReaction = async (req, res) => {
     try {
-        const response = await reactionService.deleteReaction({params:req.params,query:req.query});
+        const response = await reactionService.deleteReaction({ params: req.params, query: req.query });
         return res.status(200).json(response)
     }
     catch (e) {
@@ -53,7 +55,7 @@ exports.deleteReaction = async (req, res) => {
 
 exports.updateReaction = async (req, res) => {
     try {
-        const response = await reactionService.updateReaction({params:req.params,query:req.query,body:req.body});
+        const response = await reactionService.updateReaction({ params: req.params, query: req.query, body: req.body });
         return res.status(200).json(response)
     }
     catch (e) {

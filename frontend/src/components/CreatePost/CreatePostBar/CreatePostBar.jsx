@@ -63,7 +63,6 @@ function CreatePostBar() {
                         formdata.append('images', images[i])
                     }
                     dispatch(createPost(formdata));
-                    alert('Post uploaded')
                     dispatch(getPosts(4))
                     handleClose()
                     setTitle('')
