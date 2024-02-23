@@ -29,7 +29,7 @@ export const getPosts = createAsyncThunk(getType, async ({ rejectWithValue }) =>
     try {
         console.log("getposts")
         const res = await axios.get(`http://localhost:8080/posts`)
-        console.log("response ka data", res.data);
+        // console.log("response ka data", res.data);
         return res.data
     }
     catch (error) {

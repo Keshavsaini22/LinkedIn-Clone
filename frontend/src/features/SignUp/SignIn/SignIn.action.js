@@ -26,6 +26,9 @@ export const loginUser = createAsyncThunk(loginType, async (data, { rejectWithVa
     console.log("response of data", res.data.token)
     localStorage.setItem('logged', 'true');
     localStorage.setItem('token', res.data.token);
+    localStorage.setItem('user', res.data.user);
+    localStorage.setItem('userid', res.data.user._id);
+
     return output
   }
   catch (error) {

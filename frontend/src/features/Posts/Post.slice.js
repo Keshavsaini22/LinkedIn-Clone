@@ -20,7 +20,7 @@ export const PostSlice = createSlice({
         })
             .addCase(createPost.fulfilled, (state, action) => {
                 state.isLoading = false;
-                console.log("post ka data create time", action.payload)
+                // console.log("post ka data create time", action.payload)
                 state.postData = action.payload;
             })
             .addCase(createPost.rejected, (state, action) => {
@@ -33,7 +33,7 @@ export const PostSlice = createSlice({
             .addCase(getPosts.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.postsData = action.payload
-                console.log("post ka data get time", action.payload)
+                // console.log("post ka data get time", action.payload)
             })
             .addCase(getPosts.rejected, (state, action) => {
                 state.isLoading = false;

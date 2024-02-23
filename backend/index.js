@@ -11,11 +11,8 @@ connectDB()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.text());
-app.use(cors({
-    origin: ["http://localhost:3000"],
-    methods: ['POST', 'GET'],
-    credentials: true
-}));
+app.use(cors());
+
 app.use('/uploads', express.static('uploads'))
 
 //routes

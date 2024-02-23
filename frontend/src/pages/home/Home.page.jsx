@@ -17,9 +17,7 @@ function Home() {
   const isLoading = useSelector((state) => state.post.isLoading)
 
   useEffect(() => {
-    console.log("useeffect")
     dispatch(getPosts(9))
-    console.log("useeffect2")
     if (!logged) {
       navigate('/');
     }

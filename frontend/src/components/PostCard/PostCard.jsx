@@ -11,16 +11,23 @@ import CommentTextField from '../CommentTextField/CommentTextField';
 import CommentCard from '../CommentCard/CommentCard';
 import { createComment, getComments } from '../../features/Comments/Comment.action';
 import { ReactionBarSelector } from '@charkour/react-reactions';
-import { createLike } from '../../features/Likes/Likes.action';
+import { createLike, deleteLikes, getLikes } from '../../features/Likes/Likes.action';
 function PostCard({ body, title, images, postId }) {
     const [seemore, setSeeemore] = useState(true);
     const [showcomment, setShowComment] = useState(false);
     const [comment, setcomment] = useState(null);
-    const [like, setLike] = useState(false);
+    // const [like, setLike] = useState(Boolean(rection[userId]));
+    const [like, setLike] = useState(null);
     const dispatch = useDispatch();
     const error = useSelector((state) => state.comment.error)
     const success = useSelector((state) => state.comment.success)
     const comments = useSelector((state) => state.comment.commentsData)
+    const likesData = useSelector((state) => state.like.likesData)
+    const userId = localStorage.getItem('userid')
+    function isLikedByUser(likesData, userId) {
+        return likesData?.find((item) => item.userId === userId)
+    }
+
     const [reaction, setReaction] = useState("satisfaction")
     // const [getUpdatedCom,]
     const handleCommentSubmit = (e) => {
@@ -35,23 +42,56 @@ function PostCard({ body, title, images, postId }) {
         }
         setcomment("")
     }
+    const [rxnId, setRxn] = useState();
+    const getLiks = async () => {
+        const res = await dispatch(getLikes(postId));
+        if (res) {
+            const reaction = isLikedByUser(res.payload?.info, userId)
+            setReaction(reaction?.type || 'Like')
+            setRxn(reaction?._id)
+
+        }
+    }
+    useEffect(() => {
+        getLiks()
+        // dispatch(getLikes(postId)).then((res)=>{
+        //     const reaction=isLikedByUser(res.payload.info,userId)
+        //     setReaction(reaction?.type)
+        // })
+    }, [reaction])
+
     // useEffect(() => {
-    //     dispatch(getComments(postId))
-    // }, [showcomment])
+    //     const reaction=isLikedByUser(likesData[postId],userId)
+    //     console.log(reaction,"dddddd");
+    //     setReaction(reaction?.type?? "abd")
+    //     // console.log("like", like)
+    // }, [likesData[postId]])
+
+
+
     const handleCommitbuttonClick = () => {
         setShowComment(!showcomment)
         dispatch(getComments(postId))
     }
     const postLike = (type) => {
-        console.log("create like", type)
-        const data = {}
-        data.body = type
-        data.postId = postId
-        dispatch(createLike(data))
+        console.log(type, reaction, type === reaction)
+        console.log('rxnId: ', rxnId);
+        if (type === reaction) {
+            console.log("reaction==type")
+            dispatch(deleteLikes(rxnId))
+        }
+
+        else {
+            const data = {}
+            data.body = type
+            data.postId = postId
+            dispatch(createLike(data))
+            dispatch(getLikes(postId))
+        }
     }
     const handleLikebuttonClick = () => {
-        setLike(!like)
         postLike("satisfaction")
+        setReaction("satisfaction")
     }
     return (
         <Box className="cardContainer" sx={{ my: 1 }}>
@@ -110,7 +150,7 @@ function PostCard({ body, title, images, postId }) {
                 }
 
                 <Box className="likeandcomment">
-                    <Typography sx={{ fontSize: '12px', color: '#807c7c' }}><i class="fa-regular fa-thumbs-up"></i> 300</Typography>
+                    <Typography sx={{ fontSize: '12px', color: '#807c7c' }}><i class="fa-regular fa-thumbs-up"></i> {likesData[postId]?.length}</Typography>
                     <Typography sx={{ fontSize: '12px', color: '#807c7c' }}>18 comments</Typography>
                 </Box>
             </Box>
@@ -119,15 +159,17 @@ function PostCard({ body, title, images, postId }) {
             <Stack className='lower-btn' direction="row" sx={{ justifyContent: 'space-around', marginBottom: '6px' }}>
                 <Box onClick={handleLikebuttonClick} className='single-btn like-btn'
                     sx={{
-                        color: like ? '#0374b3' : '#807c7c', maxWidth: '60px', fontWeight: '600', fontSize: '14px',
+                        color: Boolean(likesData[postId]?.find((item) => item.userId === userId)) ? '#0374b3' : '#807c7c', maxWidth: '60px', fontWeight: '600', fontSize: '14px',
                         display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center'
                     }}>
                     <ThumbUpIcon /> {reaction === "satisfaction" ? "Like" : reaction}</Box>
                 <Box className='reactionbar'><ReactionBarSelector onSelect={(label) => {
-                    setLike(!like)
                     setReaction(label)
                     postLike(label)
                 }} /></Box>
+                {/* {likesData[postId]?.map((item) => {
+                    if (item.userId === userId) return item.type
+                })} */}
                 <Box onClick={handleCommitbuttonClick} className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-regular fa-comment-dots"></i> Comment</Box>
                 <Box className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-solid fa-repeat"></i> Repost</Box>
                 <Box className='single-btn' sx={{ color: '#807c7c', fontWeight: '600', fontSize: '14px', display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}><i class="fa-solid fa-paper-plane"></i> Send</Box>

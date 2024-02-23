@@ -1,0 +1,25 @@
+{
+    "_id": {
+        "$oid": "65c9b8829c2feb7cd3cca294"
+    },
+    "name": "Keshav Saini",
+    "email": "1@gmail.com",
+    "password": "$2b$10$RKf4pcTIaiWF4KOhZo9zu.JaonP3qHXc7TQ4CDBb9iHP3S80UZmc.",
+    "__v": {
+        "$numberInt": "0"
+    },
+    "address": {
+        "street": "Kulas Light",
+        "state": null,
+        "city": "Gwenborough",
+        "pincode": "92998-3874",
+        "country": "India"
+    },
+    "desc": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+    "image": "uploads\\783f5ee71dd3b634c23b96fff21a3e84",
+    "industry": "Computer",
+    "phone": "2222222222222",
+    "title": "SDE",
+    "website": "www.kyp.com",
+    "languages": "Hindi,English,Punjabi"
+}
