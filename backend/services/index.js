@@ -4,4 +4,6 @@ module.exports={
     reactionService:require('./reactionService'),
     userService:require('./userService'),
     postService:require('./postService'),
+    connectionService:require('./connectionService'),
+
 }

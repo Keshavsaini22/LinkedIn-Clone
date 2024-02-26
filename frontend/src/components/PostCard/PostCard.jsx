@@ -164,11 +164,13 @@ function PostCard({ body, title, images, postId }) {
                         color: Boolean(likesData[postId]?.find((item) => item.userId === userId)) ? '#0374b3' : '#807c7c', maxWidth: '60px', fontWeight: '600', fontSize: '14px',
                         display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center'
                     }}>
-                    <ThumbUpIcon /> {reaction === "satisfaction" ? "Like" : reaction}</Box>
+                    <ThumbUpIcon /> {reaction === "satisfaction" ? "Like" : reaction}
+                </Box>
                 <Box className='reactionbar'><ReactionBarSelector onSelect={(label) => {
                     setReaction(label)
                     postLike(label)
-                }} /></Box>
+                }} />
+                </Box>
                 {/* {likesData[postId]?.map((item) => {
                     if (item.userId === userId) return item.type
                 })} */}

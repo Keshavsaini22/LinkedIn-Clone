@@ -4,4 +4,5 @@ module.exports ={
     reactionController:require('./reactionComtroller'),
     userController:require('./userController'),
     postController:require('./postController'),
+    connectionController:require('./connectionController'),
 }

@@ -34,14 +34,14 @@ function Navbar() {
                             <HouseIcon sx={{ height: '24px', width: '24px', alignItems: 'center' }} />
                             <Typography fontSize={'12px'} align="center"   >Home</Typography>
                         </Link>
-                        <Link href="" sx={{
+                        <Link href="/mynetwork" sx={{
                             display: 'flex', flexDirection: 'column',
                             alignItems: 'center', textDecoration: 'none',
                             color: (theme) => theme.palette.grey[700],
                             "&:hover": { color: "#191919" },
                             '&:active': { textDecoration: 'underline', textUnderlinePosition: '10px' }
                         }}   >< PeopleAltIcon sx={{ height: '24px', width: '24px', alignItems: 'center' }} />
-                            <Typography width={'65px'} fontSize={'12px'} align="center">My Network</Typography>
+                            <Typography width={'66px'} fontSize={'12px'} align="center">My Network</Typography>
                         </Link>
                         <Link href="" sx={{
                             display: 'flex', flexDirection: 'column',
