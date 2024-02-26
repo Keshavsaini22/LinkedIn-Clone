@@ -4,14 +4,14 @@ const CustomError = require('../libs/error');
 exports.updateUserProfile = async (payload) => {
     const { userId } = payload.params;
     const image = payload.files.image[0].path;
-    const { name, phone, website, languages, title, desc, industry } = payload.data;
-    if (req.body.address) {
-        var { street, state, city, pincode, country } = JSON.parse(payload.data.address)
-    }
+    const { name, phone, website, languages, title, desc, industry, city, country } = payload.data;
+    // if (req.body.address) {
+    //     var { city, country } = JSON.parse(payload.data.address)
+    // }
     const data = await UsersModel.findByIdAndUpdate(userId, {
-        name, address: { street, state, city, pincode, country },
+        name, address: { city, country },
         phone, website, image, title, desc, industry, languages
     }, { new: true });
     return data;
 }
-  
+

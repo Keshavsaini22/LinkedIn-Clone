@@ -29,11 +29,9 @@ function Signup() {
   return (
     <div className="signuppage">
       <div className="container">
-
         <div className="logo">
           <img src={LogoImg} alt="logo" />
         </div>
-
         <div className="headline">Make the most of your professional life</div>
         <SignUpContainer handleSignup={handleSignup} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
         <div className="endingline">Looking to create a page for a business? <span>Get help</span></div>

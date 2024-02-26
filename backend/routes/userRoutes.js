@@ -6,6 +6,6 @@ const { userController } = require('../controller');
 const upload = multer({ dest: './uploads' })
 const uploadmiddleware = upload.fields([{ name: 'image' }])
 
-router.put('/', authenticateJWT, uploadmiddleware, userController.updateUserProfile);
+router.put('/profile/:userId', authenticateJWT, uploadmiddleware, userController.updateUserProfile);
 
 module.exports = router;

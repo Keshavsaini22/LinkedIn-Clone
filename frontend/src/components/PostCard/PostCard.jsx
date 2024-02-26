@@ -23,6 +23,7 @@ function PostCard({ body, title, images, postId }) {
     const success = useSelector((state) => state.comment.success)
     const comments = useSelector((state) => state.comment.commentsData)
     const likesData = useSelector((state) => state.like.likesData)
+
     const userId = localStorage.getItem('userid')
     function isLikedByUser(likesData, userId) {
         return likesData?.find((item) => item.userId === userId)
@@ -48,8 +49,7 @@ function PostCard({ body, title, images, postId }) {
         if (res) {
             const reaction = isLikedByUser(res.payload?.info, userId)
             setReaction(reaction?.type || 'Like')
-            setRxn(reaction?._id)
-
+            setRxn(reaction?._id)   //This lines are for loggedin user liked post
         }
     }
     useEffect(() => {
@@ -79,6 +79,8 @@ function PostCard({ body, title, images, postId }) {
         if (type === reaction) {
             console.log("reaction==type")
             dispatch(deleteLikes(rxnId))
+            dispatch(getLikes(postId))
+            setReaction('Like')
         }
 
         else {
@@ -151,7 +153,7 @@ function PostCard({ body, title, images, postId }) {
 
                 <Box className="likeandcomment">
                     <Typography sx={{ fontSize: '12px', color: '#807c7c' }}><i class="fa-regular fa-thumbs-up"></i> {likesData[postId]?.length}</Typography>
-                    <Typography sx={{ fontSize: '12px', color: '#807c7c' }}>18 comments</Typography>
+                    <Typography sx={{ fontSize: '12px', color: '#807c7c' }}>{comments[postId]?.length} comments</Typography>
                 </Box>
             </Box>
             <Box sx={{ height: '1px', backgroundColor: 'rgb(209, 204, 204)', m: 1 }}></Box>

@@ -35,7 +35,7 @@ function Login() {
   }
   useEffect(() => {
     if (logged) {  //due to this line main khabi bhi login vali state me nhi ja skda without logout
-      navigate('/Home')
+      navigate('/profile')
     }
   }, [logged])
   return (

@@ -8,6 +8,7 @@ import CreatePostBar from '../../components/CreatePost/CreatePostBar/CreatePostB
 import PostCard from '../../components/PostCard/PostCard';
 import { getPosts } from '../../features/Posts/Post.action';
 import { Box, Stack } from '@mui/material';
+import ProfileCard from '../../components/ProfileCard/ProfileCard';
 
 function Home() {
   const dispatch = useDispatch();
@@ -31,14 +32,17 @@ function Home() {
   return (
     <Stack flexDirection={'column'} gap={'20px'}>
       <Navbar />
-      <Box sx={{ m: 'auto' }}>
-        <CreatePostBar />
-        {/* <PostCard /> */}
-        {isLoading && <h1>Data is loading</h1>}
-        {posts?.map((post) => (
-          <PostCard key={post._id} postId={post._id} body={post.body} title={post.title} images={post.images} />
-        ))}
-      </Box>
+      <Stack sx={{ m: 'auto' }} direction={'row'} gap={'22px'}>
+        <ProfileCard />
+        <Stack>
+          <CreatePostBar />
+          {/* <PostCard /> */}
+          {isLoading && <h1>Data is loading</h1>}
+          {posts?.map((post) => (
+            <PostCard key={post._id} postId={post._id} body={post.body} title={post.title} images={post.images} />
+          ))}
+        </Stack>
+      </Stack>
       <br />
       <button onClick={handleLogout}>Logout</button>
     </Stack>

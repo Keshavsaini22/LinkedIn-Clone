@@ -4,7 +4,7 @@ const router = express.Router();
 router.use("/", require("./authRoutes"))
 router.use("/comments", require("./commentRoutes"))
 router.use("/posts", require("./postRoutes"))
-router.use('/profile/:userId', require('./userRoutes'))
+router.use('/', require('./userRoutes'))
 router.use('/', require('./reactionRoutes'))
 
 module.exports = router;

@@ -1,0 +1,86 @@
+.profilepage {
+    background-color: #f3f2f0;
+    height: 100vh;
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        padding-top: 30px;
+        padding-bottom: 50px;
+
+        .logo {
+            width: 100px;
+            height: 35px;
+
+            img {
+                padding-left: 20px;
+                max-width: auto;
+                height: 100%;
+            }
+        }
+
+        .headline {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
+            margin: 20px;
+        }
+
+        .stack {
+            background-color: white;
+            border-radius: 10px;
+            width: 400px;
+            margin: auto;
+            padding-top: 30px;
+        }
+    }
+
+    .name,
+    .number,
+    .country,
+    .city,
+    .website,
+    .languages,
+    .industry,
+    .title,
+    .password,
+    .desc {
+
+        p {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0px;
+            padding-bottom: 8px;
+            color: #585454;
+        }
+    }
+
+    .image,
+    .submitbtn {
+        background-color: #0a66c2;
+        width: 350px;
+        height: 40px;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: white;
+    }
+
+    .image:hover,
+    .submitbtn:hover {
+        cursor: pointer;
+        background-color: #004182;
+    }
+
+    .selectcountry {
+        width: 350px;
+    }
+
+    .submitbtn {
+        margin: 20px;
+        height: 50px;
+    }
+}

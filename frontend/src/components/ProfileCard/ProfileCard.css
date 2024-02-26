@@ -1,0 +1,39 @@
+.profilecard {
+    max-width: 225px;
+    background-color: white;
+    border: 1px solid rgb(209, 204, 204);
+    border-radius: 12px;
+    height: max-content;
+
+    .upper {
+        position: relative;
+
+        .bigimg {
+            max-width: 225px;
+            height: 60px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+
+            background-color: rgb(12, 126, 225);
+            /* img{
+                width: 100%;
+                height: auto;
+            } */
+        }
+
+        .profilepic {
+            position: absolute;
+            top: 30px;
+            left: 30%;
+        }
+    }
+
+    .namesection {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        height: 112px;
+        ;
+    }
+}
