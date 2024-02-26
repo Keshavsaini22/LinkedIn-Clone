@@ -6,10 +6,22 @@ var ObjectId = require('mongodb').ObjectId;
 
 exports.sendRequest = async (payload) => {
     const { friendId } = payload.body
+    const userId = payload.userId
     console.log('friendId: ', friendId);
     if (!friendId)
         throw new CustomError("Id of receiver is required", 401);
-    return await ConnectionModel.create({ sender: payload.userId, receiver: friendId, status: "pending" })
+    const connection = await ConnectionModel.findOne({ sender: userId, receiver: friendId })
+    if (!connection)
+        return await ConnectionModel.create({ sender: userId, receiver: friendId, status: "pending" })
+    if (connection.status !== 'withdraw')
+        throw new CustomError("Cannot send request", 401);
+
+    //greater than withdraw
+    if ((new Date()).getTime() - connection.updatedAt.getTime() > 1855058823) //greater than new date by 3 weeks
+    {
+        const response = await ConnectionModel.findByIdAndUpdate(connection._id, { status: 'PENDING' }, { new: true })
+        return response;
+    }
 }
 
 exports.getFriends = async (payload) => {
