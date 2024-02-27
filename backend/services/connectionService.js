@@ -13,7 +13,7 @@ exports.sendRequest = async (payload) => {
     const user = UserModel.findById(friendId);
     if (!user)
         throw new CustomError("Recieving User doesn't exist anymore", 404);
-    const connection = await ConnectionModel.findOne({ sender: userId, receiver: friendId })
+    const connection = await ConnectionModel.findOne({ $or: [{ sender: userId, receiver: friendId }, { receiver: userId, sender: friendId }] })
     // const connection = await ConnectionModel.findOne({ $and: [{ $or: [{ sender: userId }, { receiver: friendId }], $or: [{ senderId: friendId }, { recieverId: userId }] }] })
 
     if (!connection)
@@ -31,7 +31,7 @@ exports.sendRequest = async (payload) => {
 }
 
 exports.getFriends = async (payload) => {
-    const { status } = payload.body
+    const status = payload.query.status
     console.log('status: ', status);
     const userId = payload.userId
     if (!status)
@@ -47,7 +47,9 @@ exports.getFriends = async (payload) => {
 
 exports.getSuggestions = async (payload) => {
     const userId = payload.userId;
-    const connData = await ConnectionModel.find({ $and: [{ $or: [{ sender: userId }, { reciever: userId }] }, { $or: [{ status: 'reject' }, { status: 'remove' }] }] })
+    const connData = await ConnectionModel.find({ $and: [{ $or: [{ sender: userId }, { reciever: userId }] }, { $nor: [{ status: 'reject' }, { status: 'remove' }] }] })
+    // .populate('userId', 'name').sort({ createdAt: -1 });
+    console.log('connData: ', connData);
     const output = connData?.map((item) => {
         if (item.sender == userId) {
             return item.receiver
@@ -58,6 +60,8 @@ exports.getSuggestions = async (payload) => {
     })
     const myId = new ObjectId(userId);
     output.push(myId)
+    console.log('output: ', output);
+
     const data = await UserModel.find({ _id: { $nin: output } })
     return data;
 }
@@ -68,29 +72,39 @@ exports.updateRelation = async (payload) => {
     console.log('connection: ', coonectionId);
     if (!coonectionId)
         throw new CustomError("Connection id is required", 401);
-    const connection = ConnectionModel.findById(coonectionId);
+    const connection = await ConnectionModel.findById(coonectionId);
     if (!connection)
         throw new CustomError("No connection exist", 404);
+    if (connection.receiver != userId)
+        throw new CustomError("Invalid user", 404);
     const { status } = payload.body;
-    console.log('status: ', status);
     if (!status)
         throw new CustomError("Status is required", 401);
     if (status === 'pending')
         throw new CustomError("Pending cant be send in body", 400);
-
+    if (status === 'withdraw' && connection.sender != userId)
+        throw new CustomError("You cant withdraw request", 400);
     if (status === 'withdraw' && connection.status === 'pending') {
-        const res = ConnectionModel.findOneAndUpdate({ sender: userId, _id: coonectionId }, { status: status }, { new: true, upsert: true })
+        const res = await ConnectionModel.findOneAndUpdate({ sender: userId, _id: coonectionId }, { status: status }, { new: true, upsert: true })
         console.log('res: ', res);
         return res;
     }
-    else if (status === 'confirm' || status === 'reject') {
-        const res = ConnectionModel.findOneAndUpdate({ receiver: userId, _id: coonectionId }, { status: status }, { new: true, upsert: true })
+    else if ((status === 'confirm' && connection.status != 'reject') || (status === 'reject' && connection.status != 'confirm')) {
+        console.log('status: ', status);
+        const res = await ConnectionModel.findOneAndUpdate({ receiver: userId, _id: coonectionId }, { status: status }, { new: true, upsert: true })
         console.log('res: ', res);
         return res;
     }
     else if (status === 'remove') {
-        const res = ConnectionModel.findOneAndUpdate({ $or: [{ _id: coonectionId, receiver: userId }, { sender: userId, _id: coonectionId }] }, { status: status }, { new: true, upsert: true })
+        const res = await ConnectionModel.findOneAndUpdate({ $or: [{ _id: coonectionId, receiver: userId }, { sender: userId, _id: coonectionId }] }, { status: status }, { new: true, upsert: true })
         console.log('res: ', res);
         return res;
     }
+    else
+        throw new CustomError("Invalid request", 400);
 }
+
+//user2 65dd687f791bd63225d1c169
+//user3 65dd68ad791bd63225d1c16d
+// me->2 pending
+// me->3

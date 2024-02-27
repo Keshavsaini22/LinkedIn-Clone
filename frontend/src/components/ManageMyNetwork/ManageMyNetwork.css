@@ -1,0 +1,32 @@
+.managenetworkcard {
+    border-radius: 10px;
+    border: 1px solid rgb(209, 204, 204);
+height: max-content;
+    .toptxt:hover {
+        cursor: pointer;
+    }
+
+    .showmore {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        font-weight: 600;
+        margin-left: 12px;
+        width: 120px;
+        padding: 1px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+
+        .icon {
+            margin-top: 5px;
+            font-size: 30px;
+        }
+    }
+
+    .showmore:hover {
+        cursor: pointer;
+        background-color: #ebebeb;
+
+    }
+}

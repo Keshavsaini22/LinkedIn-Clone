@@ -14,7 +14,7 @@ const ConnectionSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "confirm", "reject", "remove","withdraw"],
+        enum: ["pending", "confirm", "reject", "remove", "withdraw"],
         require: true
     }
 

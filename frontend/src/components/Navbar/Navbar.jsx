@@ -1,12 +1,12 @@
-import { AppBar, InputAdornment, Link, TextField, Toolbar, Typography, Box } from '@mui/material'
-import React from 'react'
-import LinkedinIcon from '../../assets/images/navlinkedin.png'
-import SearchIcon from '@mui/icons-material/Search';
-import HouseIcon from '@mui/icons-material/House';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import HouseIcon from '@mui/icons-material/House';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import './Navbar.css'
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SearchIcon from '@mui/icons-material/Search';
+import { AppBar, Box, InputAdornment, Link, TextField, Toolbar, Typography } from '@mui/material';
+import React from 'react';
+import LinkedinIcon from '../../assets/images/navlinkedin.png';
+import './Navbar.css';
 function Navbar() {
     return (
         <Box sx={{ height: '52px', justifyContent: 'center' }} >

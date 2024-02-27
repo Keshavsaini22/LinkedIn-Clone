@@ -1,0 +1,16 @@
+.invitationsection {
+    background-color: white;
+    max-width: 800px;
+    border-radius: 10px;
+    border: 1px solid rgb(209, 204, 204);
+    .seeall{
+        padding: 4px 8px;
+        color: #535252;
+        font-weight: 500;
+    }
+    .seeall:hover{
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: rgb(235, 235, 235);
+    }
+}

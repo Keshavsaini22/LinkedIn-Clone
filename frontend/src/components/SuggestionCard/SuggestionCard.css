@@ -1,0 +1,71 @@
+.suggestioncard {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .upper {
+        position: relative;
+        width: 100%;
+
+        .bgupperimg {
+            background-color: rgb(17, 103, 160);
+            border-radius: 10px 10px 0 0;
+            height: 60px;
+            width: 100%;
+        }
+
+        .profileimg {
+            position: absolute;
+            left: 40px;
+            top: 15px;
+        }
+    }
+
+    .info {
+        padding-top: 46px;
+        text-align: center;
+
+        .name {
+            font-weight: 500;
+        }
+
+        .name:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .desc {
+            font-size: 15px;
+            color: #868585;
+        }
+    }
+
+    .mutual {
+        font-size: 12px;
+        color: #868585;
+    }
+
+    .connect {
+        padding: 4px 14px;
+        border: 1px solid rgb(46, 100, 192);
+        border-radius: 15px;
+        margin-bottom: 14px;
+        color: rgb(46, 100, 192);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+
+    .connect:hover {
+        background-color: rgb(229, 240, 253);
+        padding: 3px 13px;
+        cursor: pointer;
+        border: 2px solid rgb(46, 100, 192);
+    }
+
+}
+
+.suggestioncard:hover {
+    box-shadow: 1px 1px 2px rgb(209, 204, 204);
+}

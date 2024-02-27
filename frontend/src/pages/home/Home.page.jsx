@@ -30,10 +30,10 @@ function Home() {
     navigate('/')
   }
   return (
-    
-   
-     <>
-      <Stack sx={{ m: 'auto' ,marginTop:'30px'}} direction={'row'}  gap={'22px'}>
+
+
+    <>
+      <Stack sx={{ m: 'auto', marginTop: '30px' }} direction={'row'} gap={'22px'}>
         <ProfileCard />
         <Stack>
           <CreatePostBar />
@@ -45,8 +45,9 @@ function Home() {
         </Stack>
       </Stack>
       <br />
-      <button onClick={handleLogout}>Logout</button></>
-  
+      <button onClick={handleLogout}>Logout</button>
+      </>
+
 
   )
 }
