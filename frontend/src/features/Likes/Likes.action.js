@@ -4,9 +4,8 @@ import { createLikeType, deleteLikeType, getLikeType } from "./Likes.type";
 
 export const createLike = createAsyncThunk(createLikeType, async (data, { rejectWithValue, getState }) => {
     try {
-        console.log("data of like", data)
+        console.log("data of createLike like", data)
         const token = getState().signin.token
-        console.log('token: ', token);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -24,6 +23,7 @@ export const createLike = createAsyncThunk(createLikeType, async (data, { reject
 
 export const getLikes = createAsyncThunk(getLikeType, async (data, { rejectWithValue }) => {
     try {
+        console.log("getlikes")
         const res = await axios.get(`http://localhost:8080/reaction/post?postId=${data}`)
         const output = {};
         output.info = res.data
@@ -38,13 +38,12 @@ export const getLikes = createAsyncThunk(getLikeType, async (data, { rejectWithV
 export const deleteLikes = createAsyncThunk(deleteLikeType, async (data, { rejectWithValue, getState }) => {
     try {
         const token = getState().signin.token
-        console.log('token: ', token);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }
-        console.log(data, "ioubuhbiyg")
+        console.log(data, "deleteLikes")
         const res = await axios.delete(`http://localhost:8080/reaction/${data}`, config)
         console.log("res of like", res.data);
         return res.data

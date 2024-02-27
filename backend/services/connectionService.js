@@ -10,7 +10,12 @@ exports.sendRequest = async (payload) => {
     console.log('friendId: ', friendId);
     if (!friendId)
         throw new CustomError("Id of receiver is required", 401);
+    const user = UserModel.findById(friendId);
+    if (!user)
+        throw new CustomError("Recieving User doesn't exist anymore", 404);
     const connection = await ConnectionModel.findOne({ sender: userId, receiver: friendId })
+    // const connection = await ConnectionModel.findOne({ $and: [{ $or: [{ sender: userId }, { receiver: friendId }], $or: [{ senderId: friendId }, { recieverId: userId }] }] })
+
     if (!connection)
         return await ConnectionModel.create({ sender: userId, receiver: friendId, status: "pending" })
     if (connection.status !== 'withdraw')
@@ -22,6 +27,7 @@ exports.sendRequest = async (payload) => {
         const response = await ConnectionModel.findByIdAndUpdate(connection._id, { status: 'PENDING' }, { new: true })
         return response;
     }
+    throw new CustomError("Can't send the request before 3 weeks from withdrawing ", 409);
 }
 
 exports.getFriends = async (payload) => {

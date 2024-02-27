@@ -33,7 +33,29 @@
         flex-direction: column;
         justify-content: end;
         align-items: center;
-        height: 112px;
-        ;
+        height: 100px;
+        padding-bottom: 10px;
+    }
+
+    .impressionchild:hover {
+        cursor: pointer;
+        background-color: #F4F2EE;
+    }
+
+    .premiumsection {
+
+        span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #262626;
+        }
+    }
+
+    .myitems {
+        span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #262626;
+        }
     }
 }

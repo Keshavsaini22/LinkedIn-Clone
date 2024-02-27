@@ -23,14 +23,13 @@ function PostCard({ body, title, images, postId }) {
     const success = useSelector((state) => state.comment.success)
     const comments = useSelector((state) => state.comment.commentsData)
     const likesData = useSelector((state) => state.like.likesData)
+    const [reaction, setReaction] = useState()
 
     const userId = localStorage.getItem('userid')
     function isLikedByUser(likesData, userId) {
         return likesData?.find((item) => item.userId === userId)
     }
 
-    const [reaction, setReaction] = useState("satisfaction")
-    // const [getUpdatedCom,]
     const handleCommentSubmit = (e) => {
         e.preventDefault();
         const data = {
@@ -43,6 +42,7 @@ function PostCard({ body, title, images, postId }) {
         }
         setcomment("")
     }
+
     const [rxnId, setRxn] = useState();
     const getLiks = async () => {
         const res = await dispatch(getLikes(postId));
@@ -52,6 +52,7 @@ function PostCard({ body, title, images, postId }) {
             setRxn(reaction?._id)   //This lines are for loggedin user liked post
         }
     }
+
     useEffect(() => {
         getLiks()
         // dispatch(getLikes(postId)).then((res)=>{
@@ -67,17 +68,13 @@ function PostCard({ body, title, images, postId }) {
     //     // console.log("like", like)
     // }, [likesData[postId]])
 
-
-
     const handleCommitbuttonClick = () => {
         setShowComment(!showcomment)
         dispatch(getComments(postId))
     }
     const postLike = (type) => {
         console.log(type, reaction, type === reaction)
-        console.log('rxnId: ', rxnId);
-        if (type === reaction) {
-            console.log("reaction==type")
+        if (rxnId && type === reaction) {
             dispatch(deleteLikes(rxnId))
             dispatch(getLikes(postId))
             setReaction('Like')
@@ -92,8 +89,8 @@ function PostCard({ body, title, images, postId }) {
         }
     }
     const handleLikebuttonClick = () => {
-        postLike("satisfaction")
         setReaction("satisfaction")
+        postLike("satisfaction")
     }
     return (
         <Box className="cardContainer" sx={{ my: 1 }}>

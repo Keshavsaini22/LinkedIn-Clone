@@ -14,30 +14,30 @@ function ProfileCard() {
                     R
                 </Avatar>
             </Box>
-            <Box className='namesection'>
-                <Typography>Keshav Saini</Typography>
-                <Typography>Full stack developer</Typography>
+            <Box className='namesection' >
+                <Typography sx={{ fontSize: '15px', fontWeight: '550' }}>Keshav Saini</Typography>
+                <Typography sx={{ fontSize: '11px', color: '#666666' }}>Full stack developer</Typography>
             </Box>
             <Divider />
-            <Box className='impressionsection'>
-                <Stack direction={'row'} justifyContent={'space-between'}>
-                    <Typography>Profile viewers</Typography>
-                    <Typography>65</Typography>
+            <Box className='impressionsection' paddingY={'8px'}>
+                <Stack className='impressionchild' direction={'row'} justifyContent={'space-between'} paddingX={'12px'} paddingY={'5px'}>
+                    <Typography sx={{ fontSize: '12px', color: '#666666' }}>Profile viewers</Typography>
+                    <Typography sx={{ fontSize: '12px', color: '#0A66C2', fontWeight: 'bold' }}>65</Typography>
                 </Stack>
-                <Stack direction={'row'} justifyContent={'space-between'}>
-                    <Typography>Post impressions</Typography>
-                    <Typography>15</Typography>
+                <Stack className='impressionchild' direction={'row'} justifyContent={'space-between'} paddingX={'12px'} paddingY={'5px'}>
+                    <Typography sx={{ fontSize: '12px', color: '#666666' }}>Post impressions</Typography>
+                    <Typography sx={{ fontSize: '12px', color: '#0A66C2', fontWeight: 'bold' }}>15</Typography>
                 </Stack>
             </Box>
             <Divider />
 
-            <Box className='premiumsection'>
-                <Typography>Strengthen your profile with an AI writing assistant</Typography>
-                <Box><FaSquare /> <span>Try Premium for	&#8377; 0</span></Box>
-            </Box>
+            <Stack className='premiumsection'paddingX={'12px'} paddingY={'8px'} gap={'8px'}>
+                <Typography sx={{ fontSize: '12px', color: '#666666' }}>Strengthen your profile with an AI writing assistant</Typography>
+                <Box sx={{display:'flex'}}><FaSquare />&nbsp; <span>Try Premium for	&#8377; 0</span></Box>
+            </Stack>
             <Divider />
 
-            <Box className="myitems">
+            <Box sx={{display:'flex'}} className="myitems" paddingX={'12px'} paddingY={'8px'}>
                 <GoBookmarkFill />
                 <span>My items</span>
             </Box>
