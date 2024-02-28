@@ -5,12 +5,15 @@ const initialState = {
     isLoadingsuggestion: false,
     suggestionerror: null,
     suggestionsuccess: false,
+
     isLoadingfriends: false,
     friendserror: null,
     friendssuccess: false,
+
     isLoadingrequest: false,
     requesterror: null,
     requestsuccess: false,
+
     request: null,
     friends: null,
     suggestions: null,
@@ -39,6 +42,7 @@ export const NetworkSlice = createSlice({
                 state.isLoadingsuggestion = false;
                 state.suggestionerror = action.payload
             })
+
         builder.addCase(getFriends.pending, (state) => {
             state.isLoadingfriends = true;
             state.friendssuccess = false;
@@ -53,6 +57,7 @@ export const NetworkSlice = createSlice({
                 state.isLoadingfriends = false;
                 state.friendserror = action.payload
             })
+
         builder.addCase(sendRequest.pending, (state) => {
             state.isLoadingrequest = true;
             state.requestsuccess = false;
@@ -67,6 +72,7 @@ export const NetworkSlice = createSlice({
                 state.isLoadingrequest = false;
                 state.requesterror = action.payload;
             })
+
         builder.addCase(updateRelation.pending, (state) => {
             state.isLoadingrequest = true;
             state.requestsuccess = false;
@@ -75,6 +81,9 @@ export const NetworkSlice = createSlice({
                 state.isLoadingrequest = false;
                 state.requestsuccess = true;
                 state.request = action.payload;
+                console.log('action.payload: ', action.payload);
+                const data = state.friends.pending.filter((item) => item._id !== action.payload._id)
+                state.friends.pending = data;
             })
             .addCase(updateRelation.rejected, (state, action) => {
                 state.requestsuccess = false;

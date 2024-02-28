@@ -7,8 +7,12 @@ import { AppBar, Box, InputAdornment, TextField, Toolbar, Typography } from '@mu
 import React from 'react';
 import LinkedinIcon from '../../assets/images/navlinkedin.png';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 function Navbar() {
+    const location = useLocation()
+    if(location.pathname === "/signup" || location.pathname === "/") {
+        return null
+      }
     return (
         <Box sx={{ height: '52px', justifyContent: 'center' }} >
             <AppBar sx={{ backgroundColor: 'white', height: '52px', justifyContent: 'center', boxShadow: 'none' }}>

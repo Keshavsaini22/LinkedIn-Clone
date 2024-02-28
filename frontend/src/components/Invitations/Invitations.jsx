@@ -10,16 +10,11 @@ function Invitations() {
         <Box className='invitationsection'>
             <Stack direction={'row'} justifyContent={'space-between'} mx={2} my={1}>
                 <Box className='invitation'>Invitations</Box>
-                <Box className='seeall'>See all 4</Box>
+                <Box className='seeall'>See all </Box>
             </Stack>
-            <Divider />
+            
             <Stack>
-                {pending?.map((item) => (<InvitationCard data={item} />))}
-                {/* <InvitationCard />
-                <Divider />
-                <InvitationCard />
-                <Divider />
-                <InvitationCard /> */}
+                {pending?.map((item) => (<InvitationCard data={item} />))}              
             </Stack>
         </Box>
     )

@@ -16,13 +16,19 @@ function Home() {
   const logged = useSelector((state) => state.signin.logged)
   const posts = useSelector((state) => state.post.postsData)
   const isLoading = useSelector((state) => state.post.isLoading)
+  const error = useSelector((state) => state.post.error)
+
 
   useEffect(() => {
     dispatch(getPosts(9))
+
+  }, []);
+
+  useEffect(() => {
     if (!logged) {
       navigate('/');
     }
-  }, [logged, dispatch]);
+  }, [logged])
   const handleLogout = () => {
     console.log("handlelogout1")
     dispatch(logoutUser())
@@ -33,12 +39,13 @@ function Home() {
 
 
     <>
-      <Stack sx={{ m: 'auto', marginTop: '30px' }} direction={'row'} gap={'22px'}>
+      <Stack justifyContent={"center"} sx={{ marginTop: '30px', margin: '30px 30px' }} direction={'row'} gap={3}>
         <ProfileCard />
         <Stack>
           <CreatePostBar />
           {/* <PostCard /> */}
           {isLoading && <h1>Data is loading</h1>}
+          {error && <h1>{error}</h1>}
           {posts?.map((post) => (
             <PostCard key={post._id} postId={post._id} body={post.body} title={post.title} images={post.images} />
           ))}
@@ -46,7 +53,7 @@ function Home() {
       </Stack>
       <br />
       <button onClick={handleLogout}>Logout</button>
-      </>
+    </>
 
 
   )

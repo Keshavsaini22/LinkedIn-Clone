@@ -63,7 +63,7 @@ function CreatePostBar() {
                         formdata.append('images', images[i])
                     }
                     dispatch(createPost(formdata));
-                    dispatch(getPosts(4))
+                    // dispatch(getPosts(9))
                     handleClose()
                     setTitle('')
                     setInputStr('')

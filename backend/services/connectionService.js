@@ -60,7 +60,7 @@ exports.getSuggestions = async (payload) => {
     const userId = payload.userId;
     const connData = await ConnectionModel.find({ $and: [{ $or: [{ sender: userId }, { reciever: userId }] }, { $nor: [{ status: 'reject' }, { status: 'remove' }] }] })
     // .populate('userId', 'name').sort({ createdAt: -1 });
-    console.log('connData: ', connData);
+    // console.log('connData: ', connData);
     const output = connData?.map((item) => {
         if (item.sender == userId) {
             return item.receiver

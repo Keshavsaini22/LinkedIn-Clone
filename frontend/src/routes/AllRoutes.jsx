@@ -6,6 +6,7 @@ import Home from '../pages/home/Home.page'
 import UserProfile from '../pages/profile/UserProfile'
 import MyNetwork from '../pages/myNetwork/MyNetwork'
 import Navbar from '../components/Navbar/Navbar'
+import Message from '../pages/message/Message'
 
 function AllRoutes() {
     return (
@@ -17,6 +18,8 @@ function AllRoutes() {
                 <Route path='/home' element={<Home />} />
                 <Route path='/profile' element={<UserProfile />} />
                 <Route path='/mynetwork' element={<MyNetwork />} />
+                <Route path='/messages' element={<Message />} />
+
 
             </Routes>
         </>

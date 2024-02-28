@@ -150,7 +150,7 @@ function PostCard({ body, title, images, postId }) {
 
                 <Box className="likeandcomment">
                     <Typography sx={{ fontSize: '12px', color: '#807c7c' }}><i class="fa-regular fa-thumbs-up"></i> {likesData[postId]?.length}</Typography>
-                    <Typography sx={{ fontSize: '12px', color: '#807c7c' }}>{comments[postId]?.length} comments</Typography>
+                    <Typography sx={{ fontSize: '12px', color: '#807c7c' }}>{showcomment ? `${comments[postId]?.length} comments` : ""}</Typography>
                 </Box>
             </Box>
             <Box sx={{ height: '1px', backgroundColor: 'rgb(209, 204, 204)', m: 1 }}></Box>

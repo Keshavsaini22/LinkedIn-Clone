@@ -11,7 +11,7 @@ exports.postPostReaction = async (payload) => {
     console.log("type", payload)
     if (!type)
         throw new CustomError("Bad Request", 404)
-    const data = ReactionModel.findOneAndUpdate({ userId: userId, postId: postId }, { type: type }, { new: true, upsert: true })
+    const data = await ReactionModel.findOneAndUpdate({ userId: userId, postId: postId }, { type: type }, { new: true, upsert: true })
     console.log("data", data)
     return data;
 }
