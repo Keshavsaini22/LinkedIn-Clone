@@ -2,7 +2,10 @@ import { Box, Divider, Stack } from '@mui/material'
 import React from 'react'
 import './Invitations.css'
 import InvitationCard from '../InvitationCard/InvitationCard'
+import { useSelector } from 'react-redux'
 function Invitations() {
+    const pending = useSelector((state) => state.network?.friends?.pending)
+
     return (
         <Box className='invitationsection'>
             <Stack direction={'row'} justifyContent={'space-between'} mx={2} my={1}>
@@ -11,11 +14,12 @@ function Invitations() {
             </Stack>
             <Divider />
             <Stack>
-                <InvitationCard />
+                {pending?.map((item) => (<InvitationCard />))}
+                {/* <InvitationCard />
                 <Divider />
                 <InvitationCard />
                 <Divider />
-                <InvitationCard />
+                <InvitationCard /> */}
             </Stack>
         </Box>
     )

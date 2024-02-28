@@ -1,13 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getSuggestions } from "./Network.action";
+import { getFriends, getSuggestions, sendRequest, updateRelation } from "./Network.action";
 
 const initialState = {
-    isLoading: false,
-    error: null,
+    isLoadingsuggestion: false,
+    suggestionerror: null,
+    suggestionsuccess: false,
+    isLoadingfriends: false,
+    friendserror: null,
+    friendssuccess: false,
+    isLoadingrequest: false,
+    requesterror: null,
+    requestsuccess: false,
     request: null,
-    pendingReq: null,
-    confirmreq: null,
-    success: false,
+    friends: null,
+    suggestions: null,
+    // pendingReq: null,
+    // confirmreq: null,    
 }
 
 export const NetworkSlice = createSlice({
@@ -18,10 +26,61 @@ export const NetworkSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getSuggestions.pending, (state) => {
-            console.log('createComment.pending: ',);
-            state.isLoading = true;
+            state.isLoadingsuggestion = true;
             state.success = false;
         })
+            .addCase(getSuggestions.fulfilled, (state, action) => {
+                state.isLoadingsuggestion = false;
+                state.suggestions = action.payload;
+                state.suggestionsuccess = true;
+            })
+            .addCase(getSuggestions.rejected, (state, action) => {
+                state.suggestionsuccess = false;
+                state.isLoadingsuggestion = false;
+                state.suggestionerror = action.payload
+            })
+        builder.addCase(getFriends.pending, (state) => {
+            state.isLoadingfriends = true;
+            state.friendssuccess = false;
+        })
+            .addCase(getFriends.fulfilled, (state, action) => {
+                state.isLoadingfriends = false;
+                state.friendssuccess = true;
+                state.friends = action.payload;
+            })
+            .addCase(getFriends.rejected, (state, action) => {
+                state.friendssuccess = false;
+                state.isLoadingfriends = false;
+                state.friendserror = action.payload
+            })
+        builder.addCase(sendRequest.pending, (state) => {
+            state.isLoadingrequest = true;
+            state.requestsuccess = false;
+        })
+            .addCase(sendRequest.fulfilled, (state, action) => {
+                state.isLoadingrequest = false;
+                state.requestsuccess = true;
+                state.request = action.payload;
+            })
+            .addCase(sendRequest.rejected, (state, action) => {
+                state.requestsuccess = false;
+                state.isLoadingrequest = false;
+                state.requesterror = action.payload;
+            })
+        builder.addCase(updateRelation.pending, (state) => {
+            state.isLoadingrequest = true;
+            state.requestsuccess = false;
+        })
+            .addCase(updateRelation.fulfilled, (state, action) => {
+                state.isLoadingrequest = false;
+                state.requestsuccess = true;
+                state.request = action.payload;
+            })
+            .addCase(updateRelation.rejected, (state, action) => {
+                state.requestsuccess = false;
+                state.isLoadingrequest = false;
+                state.requesterror = action.payload;
+            })
     }
 })
 

@@ -31,17 +31,28 @@ exports.sendRequest = async (payload) => {
 }
 
 exports.getFriends = async (payload) => {
-    const status = payload.query.status
-    console.log('status: ', status);
+    // const status = payload.query.status
+    // console.log('status: ', status);
+    // const userId = payload.userId
+    // if (!status)
+    //     throw new CustomError("Status is required", 401);
+    // let query = { receiver: userId, status: status }
+    // if (status === 'confirm') {
+    //     query = { $or: [{ receiver: userId }, { sender: userId }], status: status }
+    // }
+    // const data = await ConnectionModel.find(query)
+    // console.log('data: ', data);
+    // return data
     const userId = payload.userId
-    if (!status)
-        throw new CustomError("Status is required", 401);
-    let query = { receiver: userId, status: status }
-    if (status === 'confirm') {
-        query = { $or: [{ receiver: userId }, { sender: userId }], status: status }
+    const response = await ConnectionModel.find({ $or: [{ sender: userId }, { receiver: userId }] }).populate({path:'sender',select:['email','name','image','title']});
+    const data = {}
+    let pending, confirm;
+    if (response.length > 0) {
+        pending = response.filter((item) => { return item.status === 'pending' && item.receiver.toString() === userId })
+        confirm = response.filter((item) => { return item.status === 'confirm' && (item.receiver.toString() === userId || item.sender.toString() === userId) })
     }
-    const data = await ConnectionModel.find(query)
-    console.log('data: ', data);
+    data.pending = pending;
+    data.confirm = confirm;
     return data
 }
 

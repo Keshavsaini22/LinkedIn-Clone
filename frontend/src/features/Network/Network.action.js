@@ -4,16 +4,17 @@ import { getFriendsType, getSuggestionType, sendRequestType, updaterelationType 
 
 export const getSuggestions = createAsyncThunk(getSuggestionType, async ({ rejectWithValue, getState }) => {
     try {
-        console.log("getSuggestions")
-        const token = getState().signin.token
+        // const token = getState().signin.token
+        const token = localStorage.getItem('token')
         console.log('token: ', token);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }
+        console.log("getSuggestions1")
         const res = await axios.get(`http://localhost:8080/connection/suggestions`, config)
-        console.log('res: of get suggestion', res.data);
+        // console.log('res: of get suggestion', res.data);
         return res.data
     }
     catch (error) {
@@ -22,17 +23,18 @@ export const getSuggestions = createAsyncThunk(getSuggestionType, async ({ rejec
     }
 })
 
-export const getFriends = createAsyncThunk(getFriendsType, async (data, { rejectWithValue, getState }) => {
+export const getFriends = createAsyncThunk(getFriendsType, async ( { rejectWithValue, getState }) => {
     try {
-        console.log("data in getfriends", data)
-        const token = getState().signin.token
+        console.log("data in getfriends")
+        // const token = getState().signin.token
+        const token = localStorage.getItem('token')
         console.log('token: ', token);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }
-        const res = await axios.get(`http://localhost:8080/connection?status=${data}`, config)
+        const res = await axios.get(`http://localhost:8080/connection`, config)
         console.log('res: of get friends', res.data);
         return res.data
     }
@@ -45,7 +47,8 @@ export const getFriends = createAsyncThunk(getFriendsType, async (data, { reject
 export const sendRequest = createAsyncThunk(sendRequestType, async (data, { rejectWithValue, getState }) => {
     try {
         console.log("data in sendRequest", data)
-        const token = getState().signin.token
+        // const token = getState().signin.token
+        const token = localStorage.getItem('token')
         console.log('token: ', token);
         const config = {
             headers: {
@@ -65,7 +68,8 @@ export const sendRequest = createAsyncThunk(sendRequestType, async (data, { reje
 export const updateRelation = createAsyncThunk(updaterelationType, async (data, { rejectWithValue, getState }) => {
     try {
         console.log("data in updateRelation", data)
-        const token = getState().signin.token
+        // const token = getState().signin.token
+        const token = localStorage.getItem('token')
         console.log('token: ', token);
         const config = {
             headers: {

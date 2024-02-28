@@ -17,7 +17,7 @@ exports.getFriends = async (req, res) => {
     try {
         if (!res.locals.isAuthenticated)
             throw new CustomError("User not Authenticated", 400);
-        const response = await connectionService.getFriends({ userId: req.user.ID, query: req.query })
+        const response = await connectionService.getFriends({ userId: req.user.ID })
         return res.status(201).json(response)
     }
     catch (e) {
