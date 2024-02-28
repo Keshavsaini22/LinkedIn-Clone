@@ -14,7 +14,7 @@ function Invitations() {
             </Stack>
             <Divider />
             <Stack>
-                {pending?.map((item) => (<InvitationCard />))}
+                {pending?.map((item) => (<InvitationCard data={item} />))}
                 {/* <InvitationCard />
                 <Divider />
                 <InvitationCard />

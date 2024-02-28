@@ -1,19 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { getFriendsType, getSuggestionType, sendRequestType, updaterelationType } from "./Network.type";
+import { getSuggestionsService } from "../../services/network.service";
+import { getHeader } from "../../utils/getHeader";
 
 export const getSuggestions = createAsyncThunk(getSuggestionType, async ({ rejectWithValue, getState }) => {
     try {
         // const token = getState().signin.token
         const token = localStorage.getItem('token')
         console.log('token: ', token);
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }
+        const config = getHeader(token)
         console.log("getSuggestions1")
-        const res = await axios.get(`http://localhost:8080/connection/suggestions`, config)
+        const res= await getSuggestionsService(config)
+        // const res = await axios.get(`http://localhost:8080/connection/suggestions`, config)
         // console.log('res: of get suggestion', res.data);
         return res.data
     }
@@ -49,7 +48,7 @@ export const sendRequest = createAsyncThunk(sendRequestType, async (data, { reje
         console.log("data in sendRequest", data)
         // const token = getState().signin.token
         const token = localStorage.getItem('token')
-        console.log('token: ', token);
+        // console.log('token: ', token);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -76,7 +75,7 @@ export const updateRelation = createAsyncThunk(updaterelationType, async (data, 
                 'Authorization': `Bearer ${token}`
             }
         }
-        const res = await axios.put(`http://localhost:8080/connection?id=${data.id}`, data.status, config)
+        const res = await axios.put(`http://localhost:8080/connection?id=${data.id}`, data, config)
         console.log('res: of updateRelation', res.data);
         return res.data
     }

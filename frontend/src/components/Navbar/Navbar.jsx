@@ -3,10 +3,11 @@ import HouseIcon from '@mui/icons-material/House';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SearchIcon from '@mui/icons-material/Search';
-import { AppBar, Box, InputAdornment, Link, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, InputAdornment, TextField, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import LinkedinIcon from '../../assets/images/navlinkedin.png';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
 function Navbar() {
     return (
         <Box sx={{ height: '52px', justifyContent: 'center' }} >
@@ -24,7 +25,7 @@ function Navbar() {
                             }} />
                     </Toolbar>
                     <Toolbar sx={{ alignItems: 'center', gap: '20px' }} >
-                        <Link href="/home" sx={{
+                        <Link to="/home" sx={{
                             display: 'flex', flexDirection: 'column',
                             alignItems: 'center', textDecoration: 'none',
                             color: (theme) => theme.palette.grey[700],
@@ -34,7 +35,7 @@ function Navbar() {
                             <HouseIcon sx={{ height: '24px', width: '24px', alignItems: 'center' }} />
                             <Typography fontSize={'12px'} align="center"   >Home</Typography>
                         </Link>
-                        <Link href="/mynetwork" sx={{
+                        <Link to="/mynetwork" sx={{
                             display: 'flex', flexDirection: 'column',
                             alignItems: 'center', textDecoration: 'none',
                             color: (theme) => theme.palette.grey[700],
@@ -43,7 +44,7 @@ function Navbar() {
                         }}   >< PeopleAltIcon sx={{ height: '24px', width: '24px', alignItems: 'center' }} />
                             <Typography width={'66px'} fontSize={'12px'} align="center">My Network</Typography>
                         </Link>
-                        <Link href="" sx={{
+                        <Link to="" sx={{
                             display: 'flex', flexDirection: 'column',
                             alignItems: 'center', textDecoration: 'none',
                             color: (theme) => theme.palette.grey[700],
@@ -52,7 +53,7 @@ function Navbar() {
                         }}   >< BusinessCenterIcon sx={{ height: '24px', width: '24px', alignItems: 'center' }} />
                             <Typography fontSize={'12px'} align="center">Jobs</Typography>
                         </Link>
-                        <Link href="" sx={{
+                        <Link to="" sx={{
                             display: 'flex', flexDirection: 'column',
                             alignItems: 'center', textDecoration: 'none',
                             color: (theme) => theme.palette.grey[700],
@@ -62,7 +63,7 @@ function Navbar() {
                             <i class="fa-sharp fa-solid fa-comment-dots fa-flip-horizontal" style={{ height: '24px', width: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></i>
                             <Typography fontSize={'12px'} align="center">Messages</Typography>
                         </Link>
-                        <Link href="" sx={{
+                        <Link to="" sx={{
                             display: 'flex', flexDirection: 'column',
                             alignItems: 'center', textDecoration: 'none',
                             color: (theme) => theme.palette.grey[700],

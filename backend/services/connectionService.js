@@ -44,7 +44,7 @@ exports.getFriends = async (payload) => {
     // console.log('data: ', data);
     // return data
     const userId = payload.userId
-    const response = await ConnectionModel.find({ $or: [{ sender: userId }, { receiver: userId }] }).populate({path:'sender',select:['email','name','image','title']});
+    const response = await ConnectionModel.find({ $or: [{ sender: userId }, { receiver: userId }] }).populate({ path: 'sender', select: ['email', 'name', 'image', 'title'] });
     const data = {}
     let pending, confirm;
     if (response.length > 0) {

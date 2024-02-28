@@ -51,6 +51,7 @@
         border: 1px solid rgb(46, 100, 192);
         border-radius: 15px;
         margin-bottom: 14px;
+        background-color: white;
         color: rgb(46, 100, 192);
         font-weight: 600;
         display: flex;

@@ -1,0 +1,3 @@
+import axios from 'axios'
+const backendUrl =process.env.REACT_APP_BACKEND_URL
+export const getSuggestionsService=(config)=> axios.get(`${backendUrl}/connection/suggestions`, config)
