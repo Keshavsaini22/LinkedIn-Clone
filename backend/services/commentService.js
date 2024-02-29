@@ -10,7 +10,7 @@ exports.postComments = async (payload) => {
     // console.log("body", Object.keys(payload.params))
     if (!body)
         throw new CustomError("No data in input", 401)
-    const data = CommentsModel.create({ userId: userId, postId: postId, body: body })
+    const data = (await CommentsModel.create({ userId: userId, postId: postId, body: body })).populate({path:'userId'})
     return data;
 }
 
@@ -22,7 +22,7 @@ exports.getComments = async (payload) => {
     if (time) {
         query = { postId: postId, createAt: { $lt: (new Date(time)) } }
     }
-    const data = await CommentsModel.find(query).limit(10).sort({ createdAt: -1 })
+    const data = await CommentsModel.find(query).populate({path:'userId'}).limit(10).sort({ createdAt: -1 })
     if (!data)
         throw new CustomError("No data found", 204);
     return data

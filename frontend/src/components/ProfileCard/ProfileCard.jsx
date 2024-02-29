@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 function ProfileCard() {
     const data=localStorage.getItem('user')
     const userData=JSON.parse(data)
-console.log("userdata",userData)
+// console.log("userdata",userData)
 const navigate=useNavigate();
     return (
         <Box className='profilecard'>

@@ -5,7 +5,8 @@
         padding: 14px;
         border-top-left-radius: 0px;
         width: 450px;
-        max-width: 450px ;
+        max-width: 450px;
+
         .dot {
             padding-top: 3px;
             color: #666666;
@@ -28,6 +29,13 @@
         border-radius: 5px;
     }
 
+    .likebtn {
+        padding: 2px 2px;
+        border-radius: 5px;
+    }
+    .likebtn:hover{
+        cursor: pointer;
+    }
     .cmtbtn:hover {
         cursor: pointer;
         background-color: #f2f2f2;

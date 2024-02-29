@@ -45,14 +45,12 @@ function Home() {
           <CreatePostBar />
           {/* <PostCard /> */}
           {isLoading && <h1>Data is loading</h1>}
-          {error && <h1>{error}</h1>}
+          {/* {error && <h1>{error}</h1>} */}
           {posts?.map((post) => (
-            <PostCard key={post._id} postId={post._id} body={post.body} title={post.title} images={post.images} />
+            <PostCard key={post._id} postId={post._id} body={post.body} title={post.title} images={post.images} user={post.userId} createdAt={post.createdAt}/>
           ))}
         </Stack>
       </Stack>
-      <br />
-      <button onClick={handleLogout}>Logout</button>
     </>
 
 

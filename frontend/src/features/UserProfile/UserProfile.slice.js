@@ -12,7 +12,9 @@ export const UserProfileSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-
+        toggleSuccess: (state, action) => {
+            state.success = false
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(updateUserProfile.pending, (state) => {
@@ -31,5 +33,5 @@ export const UserProfileSlice = createSlice({
             })
     }
 })
-
+export const { toggleSuccess } = UserProfileSlice.actions
 export default UserProfileSlice.reducer

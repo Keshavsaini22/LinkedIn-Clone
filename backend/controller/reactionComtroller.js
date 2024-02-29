@@ -15,7 +15,9 @@ exports.postPostReactionController = async (req, res) => {
 
 exports.postCommentReactionController = async (req, res) => {
     try {
-        const response = await reactionService.postCommentReaction({ params: req.params, query: req.query, body: req.body });
+        if (!res.locals.isAuthenticated)
+            throw new CustomError("User not Authenticated", 400);
+        const response = await reactionService.postCommentReaction({ params: req.params, userId: req.user.ID, body: req.body });
         return res.status(201).json(response)
     }
     catch (e) {
@@ -35,7 +37,7 @@ exports.getPostReactionController = async (req, res) => {
 
 exports.getCommentReactionController = async (req, res) => {
     try {
-        const response = await reactionService.getCommentReaction({ params: req.params });
+        const response = await reactionService.getCommentReaction({ query: req.query });
         return res.status(200).json(response)
     }
     catch (e) {
@@ -47,7 +49,7 @@ exports.deleteReaction = async (req, res) => {
     try {
         if (!res.locals.isAuthenticated)
             throw new CustomError("User not Authenticated", 400);
-        const response = await reactionService.deleteReaction({ params: req.params,userId: req.user.ID });
+        const response = await reactionService.deleteReaction({ params: req.params, userId: req.user.ID });
         return res.status(200).json(response)
     }
     catch (e) {

@@ -1,6 +1,6 @@
 const ReactionModel = require('../models/ReactionSchema');
 const PostModel = require('../models/PostSchema');
-const CommentsnModel = require('../models/ReactionSchema');
+const CommentsnModel = require('../models/CommentSchema');
 
 const CustomError = require('../libs/error');
 
@@ -18,13 +18,13 @@ exports.postPostReaction = async (payload) => {
 
 exports.postCommentReaction = async (payload) => {
     const { cmtId } = payload.params;
-    const userId = payload.query.userId;
-    const { type } = payload.body;
-    if (userId && type) {
-        const data = ReactionModel.create({ userId: userId, cmtId: cmtId, type: type })
-        return data;
-    }
-    throw new CustomError("Bad Request", 404)
+    const userId = payload.userId;
+    const  type  = Object.keys(payload.body)[0];
+    if (!type)
+        throw new CustomError("Bad Request", 404)
+    const data = await ReactionModel.findOneAndUpdate({ userId: userId, cmtId: cmtId, }, { type: type }, { new: true, upsert: true })
+    console.log("data", data)
+    return data;
 }
 
 exports.getPostReaction = async (payload) => {
@@ -32,15 +32,18 @@ exports.getPostReaction = async (payload) => {
     const postExist = await PostModel.findById(postId);
     if (!postExist)
         throw new CustomError("No post exist", 401)
-    const data = (await ReactionModel.find({ postId: postId }));
+    const data = await ReactionModel.find({ postId: postId }).populate({ path: 'userId' });
     if (!data)
         throw new CustomError("No Reactions", 401)
     return data;
+    // .populate({ path: 'sender', select: ['email', 'name', 'image', 'title'] });
 }
 
 exports.getCommentReaction = async (payload) => {
-    const { cmtId } = payload.params;
+    const cmtId = payload.query.cmtId;
+    console.log('cmtId: ', cmtId);
     const cmtExist = await CommentsnModel.findById(cmtId);
+    // console.log('cmtExist: ', cmtExist);
     if (!cmtExist)
         throw new CustomError("No comment exist", 401)
     const data = (await ReactionModel.find({ cmtId: cmtId }));

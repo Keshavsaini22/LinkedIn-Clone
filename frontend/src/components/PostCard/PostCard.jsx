@@ -12,12 +12,11 @@ import CommentCard from '../CommentCard/CommentCard';
 import { createComment, getComments } from '../../features/Comments/Comment.action';
 import { ReactionBarSelector } from '@charkour/react-reactions';
 import { createLike, deleteLikes, getLikes } from '../../features/Likes/Likes.action';
-function PostCard({ body, title, images, postId }) {
+function PostCard({ body, title, images, postId,user,createdAt }) {
     const [seemore, setSeeemore] = useState(true);
     const [showcomment, setShowComment] = useState(false);
     const [comment, setcomment] = useState(null);
     // const [like, setLike] = useState(Boolean(rection[userId]));
-    const [like, setLike] = useState(null);
     const dispatch = useDispatch();
     const error = useSelector((state) => state.comment.error)
     const success = useSelector((state) => state.comment.success)
@@ -27,22 +26,8 @@ function PostCard({ body, title, images, postId }) {
 
     const userId = localStorage.getItem('userid')
     function isLikedByUser(likesData, userId) {
-        return likesData?.find((item) => item.userId === userId)
+        return likesData?.find((item) => item.userId._id === userId)
     }
-
-    const handleCommentSubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            body: comment,
-            postId: postId
-        }
-        dispatch(createComment(data))
-        if (error) {
-            alert(error)
-        }
-        setcomment("")
-    }
-
     const [rxnId, setRxn] = useState();
     const getLiks = async () => {
         const res = await dispatch(getLikes(postId));
@@ -60,6 +45,7 @@ function PostCard({ body, title, images, postId }) {
         //     setReaction(reaction?.type)
         // })
     }, [reaction])
+
 
     // useEffect(() => {
     //     const reaction=isLikedByUser(likesData[postId],userId)
@@ -101,13 +87,13 @@ function PostCard({ body, title, images, postId }) {
                     </Avatar>
                     <Box className="text">
                         <Stack direction="row" spacing={0}>
-                            <Typography className='username' sx={{ fontSize: '14px' }}>Keshav Saini</Typography>
+                            <Typography className='username' sx={{ fontSize: '14px' }}>{user.name}</Typography>
                             <BsDot className='dot' />
                             <Typography className='numtext' sx={{ fontSize: '14px' }}>2nd</Typography>
                         </Stack>
-                        <Typography className='degination'>Senior Developer @ Zenmonk</Typography>
+                        <Typography className='degination'>{user.title}</Typography>
                         <Stack direction="row" spacing={0}>
-                            <Typography sx={{ fontSize: '11px', color: '#666666' }}>14 Jan 2020</Typography>
+                            <Typography sx={{ fontSize: '11px', color: '#666666' }}>{createdAt}</Typography>
                             <BsDot className='dott' />
                             <i class="fa-solid fa-earth-americas"></i>
                         </Stack>
@@ -158,7 +144,7 @@ function PostCard({ body, title, images, postId }) {
             <Stack className='lower-btn' direction="row" sx={{ justifyContent: 'space-around', marginBottom: '6px' }}>
                 <Box onClick={handleLikebuttonClick} className='single-btn like-btn'
                     sx={{
-                        color: Boolean(likesData[postId]?.find((item) => item.userId === userId)) ? '#0374b3' : '#807c7c', maxWidth: '60px', fontWeight: '600', fontSize: '14px',
+                        color: Boolean(likesData[postId]?.find((item) => item.userId._id === userId)) ? '#0374b3' : '#807c7c', maxWidth: '60px', fontWeight: '600', fontSize: '14px',
                         display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center'
                     }}>
                     <ThumbUpIcon /> {reaction === "satisfaction" ? "Like" : reaction}
@@ -177,8 +163,8 @@ function PostCard({ body, title, images, postId }) {
 
             </Stack>
             {showcomment && (<>
-                <CommentTextField handleCommentSubmit={handleCommentSubmit} inputStr={comment} setInputStr={setcomment} />
-                {comments[postId]?.map((item) => <CommentCard body={item.body} />)}
+                <CommentTextField postId={postId} />
+                {comments[postId]?.map((item) => <CommentCard id={item._id} user={item.userId} body={item.body} />)}
             </>)}
 
         </Box>

@@ -35,7 +35,7 @@ function ManageMyNetwork() {
                     <ListItemIcon>
                         <BsPeopleFill />
                     </ListItemIcon>
-                    <ListItemText primary="Connections" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={"55"} />
+                    <ListItemText primary="Connections" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={""} />
                 </ListItemButton>
                 {showmore && <>
                     <ListItemButton sx={{ paddingY: '0px', fontSize: '20px' }}
@@ -55,7 +55,7 @@ function ManageMyNetwork() {
                         <ListItemIcon>
                             <IoIosPeople />
                         </ListItemIcon>
-                        <ListItemText primary="Group" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={"1"} />
+                        <ListItemText primary="Group" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={""} />
                     </ListItemButton>
 
                     <ListItemButton sx={{ paddingY: '0px', fontSize: '20px' }}
@@ -75,7 +75,7 @@ function ManageMyNetwork() {
                         <ListItemIcon>
                             <RiPagesLine />
                         </ListItemIcon>
-                        <ListItemText primary="Pages" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={"77"} />
+                        <ListItemText primary="Pages" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={""} />
                     </ListItemButton>
 
                     <ListItemButton sx={{ paddingY: '0px', fontSize: '20px' }}
@@ -85,7 +85,7 @@ function ManageMyNetwork() {
                         <ListItemIcon>
                             <MdOutlineNewspaper />
                         </ListItemIcon>
-                        <ListItemText primary="Newsletter" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={"2"} />
+                        <ListItemText primary="Newsletter" sx={{ display: 'flex', justifyContent: 'space-between', color: '#666666' }} secondary={""} />
                     </ListItemButton>
 
                     <ListItemButton sx={{ paddingY: '0px', fontSize: '20px' }}
