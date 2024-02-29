@@ -34,11 +34,8 @@ function UserProfile() {
                 setSelectedCountry(data.userSelectValue);
             });
     }, []);
-    useEffect(() => {
-        if (success) {
-            navigate('/home')
-        }
-    }, [success])
+  
+ 
     const handleProfileUpdate = (e) => {
         e.preventDefault();
         console.log(name, number, city, website, industry, languages, title, desc, image, selectedCountry.label)
@@ -56,13 +53,16 @@ function UserProfile() {
         formdata.append('desc', desc)
         formdata.append('image', image)
         dispatch(updateUserProfile(formdata))
+        if (success) {
+            navigate('/home')
+        }
     }
     return (
-        <div className="profilepage">
-            <div className="container">
-                <div className="logo">
+        <Box className="profilepage">
+            <Box className="container">
+                <Box className="logo">
                     <img src={LogoImg} alt="logo" />
-                </div>
+                </Box>
                 <div className="headline">Make the most of your professional life</div>
                 <Stack className='stack' gap={2} alignItems={'center'} component={"form"} onSubmit={handleProfileUpdate}>
                     <Box className='name'>
@@ -110,12 +110,12 @@ function UserProfile() {
                         Select profile Image
                         <input required onChange={(e) => setimage(e.target.files[0])} type="file" name="image" accept="image/png, image/jpg, image/jpeg"
                             hidden />
-                    </Box>
+                    </Box>{image && <Box>Image added</Box>}
                     <Box className='submitbtn' component={"button"} type='submit'>Continue</Box>
                 </Stack>
-            </div>
+            </Box>
 
-        </div>
+        </Box>
     )
 }
 

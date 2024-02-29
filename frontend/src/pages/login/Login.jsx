@@ -34,6 +34,12 @@ function Login() {
     dispatch(loginUser(data));
   }
   useEffect(() => {
+    if (error) {
+      alert(`Error: ${error}`)
+
+    }
+  }, [error])
+  useEffect(() => {
     if (logged) {  //due to this line main khabi bhi login vali state me nhi ja skda without logout
       navigate('/home')
     }

@@ -4,19 +4,25 @@ import { Avatar, Box, Divider, Stack, Typography } from '@mui/material'
 import { FaSquare } from "react-icons/fa";
 import { GoBookmarkFill } from "react-icons/go";
 import TextImage from '../../assets/images/Linkedin-signuo-logo.png'
+import { useNavigate } from 'react-router-dom';
 
 function ProfileCard() {
+    const data=localStorage.getItem('user')
+    const userData=JSON.parse(data)
+console.log("userdata",userData)
+const navigate=useNavigate();
     return (
         <Box className='profilecard'>
             <Box className='upper'>
-                <Box className='bigimg'><img src="" alt="" /></Box>
-                <Avatar className='profilepic' sx={{ width: 70, height: 70 }} aria-label="recipe">
-                    R
+                <Box className='bigimg'><img src={''} /></Box>
+                <Avatar className='profilepic' src={`http://localhost:8080/${userData?.image}`} sx={{ width: 70, height: 70 }} aria-label="recipe">
                 </Avatar>
             </Box>
             <Box className='namesection' >
-                <Typography sx={{ fontSize: '15px', fontWeight: '550' }}>Keshav Saini</Typography>
-                <Typography sx={{ fontSize: '11px', color: '#666666' }}>Full stack developer</Typography>
+                <Typography onClick={()=>{
+                    navigate('/profile')
+                }} sx={{ fontSize: '15px', fontWeight: '550' ,"&:hover":{textDecoration:'underline' ,cursor:'pointer'} }}>{userData?.name || "Name"}</Typography>
+                <Typography sx={{ fontSize: '11px', color: '#666666' }}>{userData?.title || "Title"}</Typography>
             </Box>
             <Divider />
             <Box className='impressionsection' paddingY={'8px'}>
