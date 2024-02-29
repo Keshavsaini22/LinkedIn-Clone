@@ -8,7 +8,7 @@ exports.createPost = async (payload) => {
     const userId = payload.userId
     console.log("user", payload.userId)
     if (images && title && body) {
-        const data = await PostModel.create({ userId: userId, title: title, body: body, images: images });
+        const data = (await PostModel.create({ userId: userId, title: title, body: body, images: images })).populate({ path: 'userId' });
         return data;
     }
     throw new CustomError("Empty fields", 401);

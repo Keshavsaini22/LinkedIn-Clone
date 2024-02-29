@@ -54,7 +54,7 @@ function Navbar() {
                                 <Typography fontSize={'12px'} align="center">Jobs</Typography>
                             </Box>
                         </NavLink>
-                        <NavLink activeClassName="active" to="" style={{ textDecoration: 'none' }} >
+                        <NavLink activeClassName="active" to="/messages" style={{ textDecoration: 'none' }} >
                             <Box className="logo-label" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: (theme) => theme.palette.grey[700], "&:hover": { color: "#191919" }, }}>
                                 <i class="fa-sharp fa-solid fa-comment-dots fa-flip-horizontal" style={{ height: '24px', width: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></i>
                                 <Typography fontSize={'12px'} align="center">Messages</Typography>

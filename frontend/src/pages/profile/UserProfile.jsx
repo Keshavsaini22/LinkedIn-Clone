@@ -18,7 +18,7 @@ function UserProfile() {
     const [selectedCountry, setSelectedCountry] = useState({});
     const [name, setname] = useState(userData?.name);
     const [number, setnumber] = useState(userData?.phone);
-    const [city, setcity] = useState(userData?.address.city);
+    const [city, setcity] = useState(userData?.address?.city);
     const [website, setwebsite] = useState(userData?.website);
     const [industry, setindustry] = useState(userData?.industry);
     const [languages, setlanguages] = useState(userData?.languages);

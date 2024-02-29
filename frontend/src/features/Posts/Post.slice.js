@@ -22,6 +22,7 @@ export const PostSlice = createSlice({
                 state.isLoading = false;
                 // console.log("post ka data create time", action.payload)
                 state.postData = action.payload;
+                console.log('action.payload: ', action.payload);
                 state.postsData=[action.payload,...state.postsData]
                 
             })
