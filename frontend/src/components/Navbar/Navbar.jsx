@@ -13,6 +13,10 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../../features/SignUp/SignIn/SignIn.action';
+import { resetPost } from '../../features/Posts/Post.slice';
+import { resetComment } from '../../features/Comments/Comment.slice';
+import { resetNetwork } from '../../features/Network/Network.slice';
+import { resetLike } from '../../features/Likes/Likes.slice';
 
 function Navbar() {
     const dispatch = useDispatch();
@@ -69,6 +73,10 @@ function Navbar() {
                         <NavLink activeClassName="active" to="" style={{ textDecoration: 'none' }} onClick={async () => {
                             //console.log("handlelogout1")
                             const res = await dispatch(logoutUser())
+                            dispatch(resetPost())
+                            dispatch(resetComment())
+                            // dispatch(resetNetwork())
+                            dispatch(resetLike())
                             // console.log("handlelogout2")
                             if (res)
                                 navigate('/')

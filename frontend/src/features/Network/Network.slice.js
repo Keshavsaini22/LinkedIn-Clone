@@ -25,7 +25,9 @@ export const NetworkSlice = createSlice({
     name: 'network',
     initialState,
     reducers: {
-
+        reducers: {
+            resetNetwork: () => initialState
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getSuggestions.pending, (state) => {
@@ -92,5 +94,5 @@ export const NetworkSlice = createSlice({
             })
     }
 })
-
+export const { resetNetwork } = NetworkSlice.actions
 export default NetworkSlice.reducer

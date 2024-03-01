@@ -16,6 +16,7 @@ export const LikeSlice = createSlice({
     name: 'like',
     initialState,
     reducers: {
+        resetLike: () => initialState
 
     },
     extraReducers: (builder) => {
@@ -113,4 +114,6 @@ export const LikeSlice = createSlice({
             })
     }
 })
+export const { resetLike } = LikeSlice.actions
+
 export default LikeSlice.reducer
