@@ -28,7 +28,7 @@ export const signInSlice = createSlice({
             })
             .addCase(signInUser.rejected, (state, action) => {
                 state.isLoading = false
-                console.log("action.error", action.payload)
+                //console.log("action.error", action.payload)
                 state.error = action.payload
             })
             .addCase(loginUser.pending, (state) => {
@@ -40,7 +40,7 @@ export const signInSlice = createSlice({
                 state.isLoading = false;
                 state.logged = true;
                 state.user = action.payload.user;
-                console.log("userid=",action.payload.user._id)
+                //console.log("userid=",action.payload.user._id)
                 state.token = action.payload.token;
             })
             .addCase(loginUser.rejected, (state, action) => {

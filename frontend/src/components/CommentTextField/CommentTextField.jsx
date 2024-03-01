@@ -25,7 +25,7 @@ function CommentTextField({ postId }) {
     const isLoading = useSelector((state) => state.comment.isLoading)
     const [showPicker, setShowPicker] = useState(false);
     const onEmojiClick = (event) => {
-        console.log(event)
+        // //console.log(event)
         setcomment(prevInput => prevInput + event.emoji);
         setShowPicker(false);
     };

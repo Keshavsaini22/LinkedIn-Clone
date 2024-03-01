@@ -18,13 +18,13 @@ module.exports = router;
 //     const { userId } = req.params;
 //     const images = req.files.images.map((i) => { return i.path });
 //     const { title, body } = req.body
-//     // console.log("imagessss", images)
-//     // console.log("title",title)
-//     // console.log("body",body)
-//     // console.log('userId',userId)
+//     // //console.log("imagessss", images)
+//     // //console.log("title",title)
+//     // //console.log("body",body)
+//     // //console.log('userId',userId)
 //     try {
 //         const data = await PostModel.create({ userId: userId, title: title, body: body, images: images });
-//         console.log("post data", data)
+//         //console.log("post data", data)
 //         res.status(200).json(data)
 //     }
 //     catch (e) {

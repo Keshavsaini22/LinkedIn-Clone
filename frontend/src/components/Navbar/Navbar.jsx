@@ -67,9 +67,9 @@ function Navbar() {
                             </Box>
                         </NavLink>
                         <NavLink activeClassName="active" to="" style={{ textDecoration: 'none' }} onClick={async () => {
-                            console.log("handlelogout1")
+                            //console.log("handlelogout1")
                             const res = await dispatch(logoutUser())
-                            console.log("handlelogout2")
+                            // console.log("handlelogout2")
                             if (res)
                                 navigate('/')
                         }}>

@@ -8,11 +8,11 @@ exports.postPostReaction = async (payload) => {
     const { postId } = payload.params;
     const userId = payload.userId;
     const type = Object.keys(payload.body)[0];
-    console.log("type", payload)
+    //console.log("type", payload)
     if (!type)
         throw new CustomError("Bad Request", 404)
     const data = await ReactionModel.findOneAndUpdate({ userId: userId, postId: postId }, { type: type }, { new: true, upsert: true })
-    console.log("data", data)
+    //console.log("data", data)
     return data;
 }
 
@@ -23,7 +23,7 @@ exports.postCommentReaction = async (payload) => {
     if (!type)
         throw new CustomError("Bad Request", 404)
     const data = await ReactionModel.findOneAndUpdate({ userId: userId, cmtId: cmtId, }, { type: type }, { new: true, upsert: true })
-    console.log("data", data)
+    //console.log("data", data)
     return data;
 }
 
@@ -41,9 +41,9 @@ exports.getPostReaction = async (payload) => {
 
 exports.getCommentReaction = async (payload) => {
     const cmtId = payload.query.cmtId;
-    console.log('cmtId: ', cmtId);
+    //console.log('cmtId: ', cmtId);
     const cmtExist = await CommentsnModel.findById(cmtId);
-    // console.log('cmtExist: ', cmtExist);
+    // //console.log('cmtExist: ', cmtExist);
     if (!cmtExist)
         throw new CustomError("No comment exist", 401)
     const data = (await ReactionModel.find({ cmtId: cmtId }));
@@ -57,7 +57,7 @@ exports.deleteReaction = async (payload) => {
     const userId = payload.userId;
 
     const reaction = await ReactionModel.findById(rxnId);
-    console.log('reaction: ', reaction);
+    //console.log('reaction: ', reaction);
     if (!reaction)
         throw new CustomError("No reaction exist for this id", 401)
     if (reaction.userId == userId) {

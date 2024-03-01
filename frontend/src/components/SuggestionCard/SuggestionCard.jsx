@@ -9,7 +9,7 @@ function SuggestionCard({ data }) {
     const dispatch = useDispatch();
     const [isconnect, setisconnect] = useState(false);
     const handleConnect = () => {
-        console.log("in handle connect", data._id)
+        //console.log("in handle connect", data._id)
         const body = { friendId: data._id }
         dispatch(sendRequest(body))
         setisconnect(true)

@@ -12,7 +12,7 @@ function MyNetwork() {
     const confirm = useSelector((state) => state.network?.friends?.confirm)
 
     useEffect(()=>{
-        console.log("useeffect")
+        //console.log("useeffect")
         dispatch(getSuggestions(1));
         dispatch(getFriends(1));
     },[])

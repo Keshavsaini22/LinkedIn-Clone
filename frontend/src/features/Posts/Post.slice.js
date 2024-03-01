@@ -5,7 +5,8 @@ const initialState = {
     isLoading: false,
     error: null,
     postData: null,
-    postsData: null
+    postsData: null,
+    createdAt: null,
 }
 
 export const PostSlice = createSlice({
@@ -20,23 +21,29 @@ export const PostSlice = createSlice({
         })
             .addCase(createPost.fulfilled, (state, action) => {
                 state.isLoading = false;
-                // console.log("post ka data create time", action.payload)
                 state.postData = action.payload;
-                console.log('action.payload: ', action.payload);
-                state.postsData=[action.payload,...state.postsData]
-                
+                //console.log('action.payload: ', action.payload);
+                state.postsData = [action.payload, ...state.postsData]
+
             })
             .addCase(createPost.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload
             })
             .addCase(getPosts.pending, (state) => {
+                //console.log('getPosts.pending: ',);
                 state.isLoading = true;
             })
             .addCase(getPosts.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.postsData = action.payload
-                // console.log("post ka data get time", action.payload)
+                // state.postsData = action.payload
+                state.postsData = [...(state.postsData || []), ...action.payload]
+
+                // else {
+                // }
+                state.createdAt = action.payload[action.payload.length - 1]?.createdAt
+                // //console.log('action.payload: ', action.payload);
+                // //console.log('action: ', action.payload[action.payload.length-1]?.createdAt);
             })
             .addCase(getPosts.rejected, (state, action) => {
                 state.isLoading = false;

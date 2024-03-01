@@ -81,7 +81,7 @@ export const NetworkSlice = createSlice({
                 state.isLoadingrequest = false;
                 state.requestsuccess = true;
                 state.request = action.payload;
-                console.log('action.payload: ', action.payload);
+                //console.log('action.payload: ', action.payload);
                 const data = state.friends.pending.filter((item) => item._id !== action.payload._id)
                 state.friends.pending = data;
             })

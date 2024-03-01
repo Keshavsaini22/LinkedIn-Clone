@@ -18,8 +18,8 @@ function Signup() {
   const navigate = useNavigate();
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log("hello")
-    console.log("deepak bhai", email, password)
+    //console.log("hello")
+    //console.log("deepak bhai", email, password)
     const data = {
       email: email,
       password: password

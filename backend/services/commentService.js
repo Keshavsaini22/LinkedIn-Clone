@@ -5,9 +5,9 @@ const CommentsModel = require('../models/CommentSchema');
 exports.postComments = async (payload) => {
     const userId = payload.userId;
     const { body, postId } = payload.body
-    console.log(body)
+    //console.log(body)
     // const body = Object.keys(payload.body)[0];
-    // console.log("body", Object.keys(payload.params))
+    // //console.log("body", Object.keys(payload.params))
     if (!body)
         throw new CustomError("No data in input", 401)
     const data = (await CommentsModel.create({ userId: userId, postId: postId, body: body })).populate({path:'userId'})

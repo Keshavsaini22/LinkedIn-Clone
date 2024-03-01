@@ -7,7 +7,7 @@ var ObjectId = require('mongodb').ObjectId;
 exports.sendRequest = async (payload) => {
     const { friendId } = payload.body
     const userId = payload.userId
-    console.log('friendId: ', friendId);
+    //console.log('friendId: ', friendId);
     if (!friendId)
         throw new CustomError("Id of receiver is required", 401);
     const user = UserModel.findById(friendId);
@@ -32,7 +32,7 @@ exports.sendRequest = async (payload) => {
 
 exports.getFriends = async (payload) => {
     // const status = payload.query.status
-    // console.log('status: ', status);
+    // //console.log('status: ', status);
     // const userId = payload.userId
     // if (!status)
     //     throw new CustomError("Status is required", 401);
@@ -41,7 +41,7 @@ exports.getFriends = async (payload) => {
     //     query = { $or: [{ receiver: userId }, { sender: userId }], status: status }
     // }
     // const data = await ConnectionModel.find(query)
-    // console.log('data: ', data);
+    // //console.log('data: ', data);
     // return data
     const userId = payload.userId
     const response = await ConnectionModel.find({ $or: [{ sender: userId }, { receiver: userId }] }).populate({ path: 'sender', select: ['email', 'name', 'image', 'title'] });
@@ -60,7 +60,7 @@ exports.getSuggestions = async (payload) => {
     const userId = payload.userId;
     const connData = await ConnectionModel.find({ $and: [{ $or: [{ sender: userId }, { reciever: userId }] }, { $nor: [{ status: 'reject' }, { status: 'remove' }] }] })
     // .populate('userId', 'name').sort({ createdAt: -1 });
-    // console.log('connData: ', connData);
+    // //console.log('connData: ', connData);
     const output = connData?.map((item) => {
         if (item.sender == userId) {
             return item.receiver
@@ -71,7 +71,7 @@ exports.getSuggestions = async (payload) => {
     })
     const myId = new ObjectId(userId);
     output.push(myId)
-    console.log('output: ', output);
+    //console.log('output: ', output);
 
     const data = await UserModel.find({ _id: { $nin: output } })
     return data;
@@ -80,7 +80,7 @@ exports.getSuggestions = async (payload) => {
 exports.updateRelation = async (payload) => {
     const userId = payload.userId;
     const coonectionId = payload.query.id;
-    console.log('connection: ', coonectionId);
+    //console.log('connection: ', coonectionId);
     if (!coonectionId)
         throw new CustomError("Connection id is required", 401);
     const connection = await ConnectionModel.findById(coonectionId);
@@ -97,18 +97,18 @@ exports.updateRelation = async (payload) => {
         throw new CustomError("You cant withdraw request", 400);
     if (status === 'withdraw' && connection.status === 'pending') {
         const res = await ConnectionModel.findOneAndUpdate({ sender: userId, _id: coonectionId }, { status: status }, { new: true, upsert: true })
-        console.log('res: ', res);
+        //console.log('res: ', res);
         return res;
     }
     else if ((status === 'confirm' && connection.status != 'reject') || (status === 'reject' && connection.status != 'confirm')) {
-        console.log('status: ', status);
+        //console.log('status: ', status);
         const res = await ConnectionModel.findOneAndUpdate({ receiver: userId, _id: coonectionId }, { status: status }, { new: true, upsert: true })
-        console.log('res: ', res);
+        //console.log('res: ', res);
         return res;
     }
     else if (status === 'remove') {
         const res = await ConnectionModel.findOneAndUpdate({ $or: [{ _id: coonectionId, receiver: userId }, { sender: userId, _id: coonectionId }] }, { status: status }, { new: true, upsert: true })
-        console.log('res: ', res);
+        //console.log('res: ', res);
         return res;
     }
     else

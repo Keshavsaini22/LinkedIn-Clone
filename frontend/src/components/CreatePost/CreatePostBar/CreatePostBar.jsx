@@ -14,14 +14,14 @@ function CreatePostBar() {
     const [inputStr, setInputStr] = useState('');
     const [showPicker, setShowPicker] = useState(false);
     const handleClickOpen = () => {
-        console.log("first")
+        // //console.log("first")
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
     const onEmojiClick = (event) => {
-        console.log(event)
+        // //console.log(event)
         setInputStr(prevInput => prevInput + event.emoji);
         setShowPicker(false);
     };

@@ -5,25 +5,25 @@ import { loginType, logoutType, signinType } from "./SignIn.type";
 export const signInUser = createAsyncThunk(signinType, async (data, { rejectWithValue }) => {
 
   try {
-    console.log("signInUser", data)
+    //console.log("signInUser", data)
     const res = await axios.post(`http://localhost:8080/signup`, data)
     const output = res.data
-    console.log("response of data", res)
+    //console.log("response of data", res)
     return output
 
   }
   catch (error) {
-    console.log('error: ', error.response.data);
+    //console.log('error: ', error.response.data);
     return rejectWithValue(error.response.data.message)
   }
 })
 
 export const loginUser = createAsyncThunk(loginType, async (data, { rejectWithValue }) => {
   try {
-    console.log("signInUser", data)
+    //console.log("signInUser", data)
     const res = await axios.post(`http://localhost:8080/signin`, data)
     const output = res.data
-    console.log("response of data", res.data.token)
+    //console.log("response of data", res.data.token)
     localStorage.setItem('logged', 'true');
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -37,13 +37,13 @@ export const loginUser = createAsyncThunk(loginType, async (data, { rejectWithVa
 
 export const logoutUser = createAsyncThunk(logoutType, async () => {
   try {
-    console.log("logout action")
+    //console.log("logout action")
     localStorage.removeItem('logged');
     localStorage.removeItem('token');
     localStorage.removeItem('user')
     localStorage.removeItem('userid')
   } catch (error) {
-    console.log("error: ", error.response.data.message)
+    //console.log("error: ", error.response.data.message)
     return error.message
   }
 })

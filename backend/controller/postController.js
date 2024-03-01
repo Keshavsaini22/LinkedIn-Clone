@@ -15,7 +15,7 @@ exports.createPost = async (req, res) => {
 
 exports.fetchPosts = async (req, res) => {
     try {
-        const response=await postService.fetchPosts();
+        const response=await postService.fetchPosts({query:req.query});
         return res.status(200).json(response)
     }
     catch (e) {

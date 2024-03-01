@@ -6,7 +6,7 @@ exports.updateUserProfile = async (payload) => {
     
     const image = payload.files.image[0]?.path;
     const { name, phone, website, languages, title, desc, industry, city, country } = payload.data;
-    console.log(city)
+    //console.log(city)
     // if (req.body.address) {
     //     var { city, country } = JSON.parse(payload.data.address)
     // }

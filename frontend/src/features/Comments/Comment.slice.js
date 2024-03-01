@@ -18,7 +18,7 @@ export const CommentSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(createComment.pending, (state) => {
-            console.log('createComment.pending: ',);
+            //console.log('createComment.pending: ',);
             state.isLoading = true;
             state.success = false;
         })
@@ -26,15 +26,15 @@ export const CommentSlice = createSlice({
             state.isLoading = false;
             state.comment = action.payload
             state.commentsData[action.payload.postId] = [action.payload,...state.commentsData[action.payload.postId]];
-            console.log("action.payload", state.commentsData[action.payload.postId])
+            //console.log("action.payload", state.commentsData[action.payload.postId])
             state.success = true
-            console.log("state of success", state.success)
+            //console.log("state of success", state.success)
         })
         builder.addCase(createComment.rejected, (state, action) => {
             state.success = false;
             state.isLoading = false;
             state.error = action.payload;
-            console.log("action.payload", action.payload)
+            //console.log("action.payload", action.payload)
 
         })
             .addCase(getComments.pending, (state) => {
@@ -43,7 +43,7 @@ export const CommentSlice = createSlice({
             .addCase(getComments.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.commentsData[action.payload.id] = action.payload.info;
-                console.log("state.commentsData", state.commentsData[action.payload.id])
+                //console.log("state.commentsData", state.commentsData[action.payload.id])
             })
             .addCase(getComments.rejected, (state, action) => {
                 state.isLoading = false;

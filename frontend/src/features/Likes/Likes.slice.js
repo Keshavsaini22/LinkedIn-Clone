@@ -42,7 +42,7 @@ export const LikeSlice = createSlice({
                 state.likesData[action.payload.id] = action.payload.info;
                 // state.likesData[action.payload.id]={
                 // }
-                // console.log('state.likesData[action.payload.id]: ', state.likesData[action.payload.id]);
+                // //console.log('state.likesData[action.payload.id]: ', state.likesData[action.payload.id]);
             })
             .addCase(getLikes.rejected, (state, action) => {
                 state.isLoading = false;
@@ -54,7 +54,7 @@ export const LikeSlice = createSlice({
             .addCase(deleteLikes.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.like = action.payload
-                console.log('action.payload: ', action.payload);
+                //console.log('action.payload: ', action.payload);
 
             })
             .addCase(deleteLikes.rejected, (state, action) => {
@@ -90,7 +90,7 @@ export const LikeSlice = createSlice({
                 state.commentlikeData[action.payload.id] = action.payload.info;
                 // state.likesData[action.payload.id]={
                 // }
-                // console.log('state.likesData[action.payload.id]: ', state.likesData[action.payload.id]);
+                // //console.log('state.likesData[action.payload.id]: ', state.likesData[action.payload.id]);
             })
             .addCase(getLikesComment.rejected, (state, action) => {
                 state.isLoading = false;
@@ -104,7 +104,7 @@ export const LikeSlice = createSlice({
             .addCase(deleteLikesComment.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.commentlike = action.payload
-                console.log('action.payload: ', action.payload);
+                //console.log('action.payload: ', action.payload);
 
             })
             .addCase(deleteLikesComment.rejected, (state, action) => {

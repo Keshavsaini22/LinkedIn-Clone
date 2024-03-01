@@ -8,7 +8,7 @@ function InvitationCard({ data }) {
     const dispatch = useDispatch();
 
     const onhandleIgnore = () => {
-        console.log("ignore", data)
+        // //console.log("ignore", data)
         const body = {
             id: data._id,
             status: 'reject'
@@ -17,7 +17,7 @@ function InvitationCard({ data }) {
     }
 
     const onhandleConfirm = () => {
-        console.log("confirm", data)
+        // //console.log("confirm", data)
         const body = {
             id: data._id,
             status: 'confirm'

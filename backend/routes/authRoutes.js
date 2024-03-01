@@ -7,7 +7,7 @@ router.post('/signin', authController.signinUser);
 
 module.exports = router;
 // router.post('/logout', authenticateJWT, (req, res) => {
-//     console.log(res.locals.isAuthenticated)
+//     //console.log(res.locals.isAuthenticated)
 //         if (res.locals.isAuthenticated) {
 //             // res.clearCookie('token');
 //             res.json({ success: true, message: 'Logout successful' });

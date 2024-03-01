@@ -12,7 +12,7 @@ import { toggleSuccess } from '../../features/UserProfile/UserProfile.slice';
 function UserProfile() {
     const data = localStorage.getItem('user')
     const userData = JSON.parse(data)
-    // console.log(userData)
+    // //console.log(userData)
     const dispatch = useDispatch();
     const [countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState({});
@@ -49,8 +49,8 @@ function UserProfile() {
     }, [success])
     const handleProfileUpdate = (e) => {
         e.preventDefault();
-        console.log(name, number, city, website, industry, languages, title, desc, image, selectedCountry.label)
-        console.log('image: ', image);
+        //console.log(name, number, city, website, industry, languages, title, desc, image, selectedCountry.label)
+        //console.log('image: ', image);
         // if (!image)
         //     alert("Provide userProfile")
         const formdata = new FormData();
@@ -64,7 +64,7 @@ function UserProfile() {
         formdata.append('languages', languages)
         formdata.append('desc', desc)
         formdata.append('image', image)
-        console.log('formdata: ', formdata);
+        //console.log('formdata: ', formdata);
         dispatch(updateUserProfile(formdata))
 
     }

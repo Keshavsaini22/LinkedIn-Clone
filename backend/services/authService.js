@@ -27,7 +27,7 @@ exports.signinUser = async (payload) => {
         throw new CustomError("User doesn't exist", 404);
     if (bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign({ ID: user._id }, process.env.tokenKey);
-        console.log("token", token);
+        //console.log("token", token);
         return { success: true, user, token };
     }
     throw new CustomError("Incorrect Password", 404);

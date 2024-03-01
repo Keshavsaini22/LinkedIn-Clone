@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createLikeComment, deleteLikesComment, getLikesComment } from '../../features/Likes/Likes.action'
 
 function CommentCard({ body, user, id }) {
-    // console.log('body: ', id);
+    // //console.log('body: ', id);
 
     const dispatch = useDispatch();
     const likesData = useSelector((state) => state.like.commentlikeData)
@@ -21,7 +21,7 @@ function CommentCard({ body, user, id }) {
         const res = await dispatch(getLikesComment(id));
         if (res) {
             const reaction = isLikedByUser(res.payload?.info, userId)
-            // console.log('reaction: ', reaction);
+            // //console.log('reaction: ', reaction);
             if (reaction)
                 setReaction('yes')
             setRxn(reaction?._id)   //This lines are for loggedin user liked post
@@ -33,19 +33,19 @@ function CommentCard({ body, user, id }) {
         //     const reaction=isLikedByUser(res.payload.info,userId)
         //     setReaction(reaction?.type)
         // })
-        console.log("first-------------------------------")
+        // //console.log("first-------------------------------")
 
     }, [reaction])
 
     const handleLikeComment = () => {
-        console.log("first")
+        // //console.log("first")
         if (reaction === 'yes') {
             dispatch(deleteLikesComment(rxnId));
             setReaction(null);
             return;
             // dispatch(getLikesComment(id));
         }
-        console.log('setReaction: ', reaction);
+        // //console.log('setReaction: ', reaction);
         const data = {}
         data.body = "satisfaction"
         data.id = id

@@ -15,7 +15,7 @@ exports.postComments = async (req, res) => {
 exports.getComments = async (req, res) => {
     try {
         const response = await commentService.getComments({ params: req.params, query: req.query });
-        console.log(response, "response")
+        //console.log(response, "response")
         return res.status(200).json(response)
     } catch (e) {
         return res.status(e?.code || 500).json(e.message)

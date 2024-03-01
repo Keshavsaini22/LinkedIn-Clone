@@ -12,7 +12,7 @@ import CommentCard from '../CommentCard/CommentCard';
 import { createComment, getComments } from '../../features/Comments/Comment.action';
 import { ReactionBarSelector } from '@charkour/react-reactions';
 import { createLike, deleteLikes, getLikes } from '../../features/Likes/Likes.action';
-function PostCard({ body, title, images, postId,user,createdAt }) {
+function PostCard({ body, title, images, postId, user, createdAt }) {
     const [seemore, setSeeemore] = useState(true);
     const [showcomment, setShowComment] = useState(false);
     const [comment, setcomment] = useState(null);
@@ -49,9 +49,9 @@ function PostCard({ body, title, images, postId,user,createdAt }) {
 
     // useEffect(() => {
     //     const reaction=isLikedByUser(likesData[postId],userId)
-    //     console.log(reaction,"dddddd");
+    //     //console.log(reaction,"dddddd");
     //     setReaction(reaction?.type?? "abd")
-    //     // console.log("like", like)
+    //     // //console.log("like", like)
     // }, [likesData[postId]])
 
     const handleCommitbuttonClick = () => {
@@ -59,7 +59,7 @@ function PostCard({ body, title, images, postId,user,createdAt }) {
         dispatch(getComments(postId))
     }
     const postLike = (type) => {
-        console.log(type, reaction, type === reaction)
+        //console.log(type, reaction, type === reaction)
         if (rxnId && type === reaction) {
             dispatch(deleteLikes(rxnId))
             dispatch(getLikes(postId))
@@ -87,11 +87,11 @@ function PostCard({ body, title, images, postId,user,createdAt }) {
                     </Avatar>
                     <Box className="text">
                         <Stack direction="row" spacing={0}>
-                            <Typography className='username' sx={{ fontSize: '14px' }}>{user.name}</Typography>
+                            <Typography className='username' sx={{ fontSize: '14px' }}>{user?.name}</Typography>
                             <BsDot className='dot' />
                             <Typography className='numtext' sx={{ fontSize: '14px' }}>2nd</Typography>
                         </Stack>
-                        <Typography className='degination'>{user.title}</Typography>
+                        <Typography className='degination'>{user?.title}</Typography>
                         <Stack direction="row" spacing={0}>
                             <Typography sx={{ fontSize: '11px', color: '#666666' }}>{createdAt}</Typography>
                             <BsDot className='dott' />
@@ -113,10 +113,10 @@ function PostCard({ body, title, images, postId,user,createdAt }) {
                     <Typography className="body"
                         sx={{ height: seemore ? "20px" : "auto", wordBreak: 'break-word' }}
                     >{body}</Typography>
-                    {body.length > 30 && (<Box component="span" className="seemore" onClick={() => { setSeeemore(!seemore) }} >{!seemore ? <>....see less</> : <>...see more</>}</Box>)
+                    {body?.length > 30 && (<Box component="span" className="seemore" onClick={() => { setSeeemore(!seemore) }} >{!seemore ? <>....see less</> : <>...see more</>}</Box>)
                     }
                 </Box>
-                {images.length === 1 ? <Box className='image'>
+                {images?.length === 1 ? <Box className='image'>
                     <img src={`http://localhost:8080/${images[0]}`} />
                 </Box> :
                     <Box sx={{ maxWidth: 555, height: 'auto', }}>

@@ -26,7 +26,7 @@ function Login() {
   }
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("login", email, password)
+    //console.log("login", email, password)
     const data = {
       email: email,
       password: password
