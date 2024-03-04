@@ -37,7 +37,9 @@ export const PostSlice = createSlice({
             .addCase(getPosts.fulfilled, (state, action) => {
                 state.isLoading = false;
                 // state.postsData = action.payload
-                state.postsData = [...(state.postsData || []), ...action.payload]
+                const newPosts = action.payload?.filter(post => !state.postsData?.find(existingPost => existingPost._id === post._id));
+                state.postsData = [...(state.postsData || []), ...newPosts];
+                // state.postsData = [...(state.postsData || []), ...action.payload]
 
                 // else {
                 // }
