@@ -22,7 +22,7 @@ function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation()
-    if (location.pathname === "/signup" || location.pathname === "/" || location.pathname === "/profile") {
+    if (location.pathname === "/signup" || location.pathname === "/" ) {
         return null
     }
     return (

@@ -7,6 +7,7 @@ import UserProfile from '../pages/profile/UserProfile'
 import MyNetwork from '../pages/myNetwork/MyNetwork'
 import Navbar from '../components/Navbar/Navbar'
 import Message from '../pages/message/Message'
+import Profile from '../pages/profile/Profile'
 
 function AllRoutes() {
     return (
@@ -16,7 +17,7 @@ function AllRoutes() {
                 <Route path='/' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/home' element={<Home />} />
-                <Route path='/profile' element={<UserProfile />} />
+                <Route path='/profile' element={<Profile />} />
                 <Route path='/mynetwork' element={<MyNetwork />} />
                 <Route path='/messages' element={<Message />} />
 
