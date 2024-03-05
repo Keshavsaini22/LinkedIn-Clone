@@ -5,5 +5,6 @@ module.exports ={
     userController:require('./userController'),
     postController:require('./postController'),
     connectionController:require('./connectionController'),
-    roomController: require('./roomController')
+    roomController: require('./roomController'),
+    messageController:require('./messageController')
 }

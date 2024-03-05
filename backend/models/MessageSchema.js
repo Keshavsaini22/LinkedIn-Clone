@@ -13,13 +13,13 @@ const MessageSchema = new mongoose.Schema({
         ref: UsersModel,
         required: true
     },
+    // receiver: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: UsersModel,
+    //     required: true
+    // },
 
 }, { timestamps: true })
 
 module.exports = mongoose.model("messages", MessageSchema)
 
-// userId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: UsersModel,
-//     required: true
-// },

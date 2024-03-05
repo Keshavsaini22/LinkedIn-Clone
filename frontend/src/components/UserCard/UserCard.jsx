@@ -3,24 +3,21 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createRoom } from '../../features/Room/room.action';
+import { toggleroom } from '../../features/Room/room.slice';
 
 function UserCard({ item }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userid = localStorage.getItem('userid')
-    const user = userid !== item.sender._id
-        ? item.sender :
-        item.receiver
-    const handleMessage = () => {
-        console.log("first", user._id)
+    const user = userid !== item.sender._id ? item.sender : item.receiver
+    const handleMessage = async () => {
+        const res = await dispatch(createRoom(user._id));
+        if (res) {
+            // console.log('res: ', res.payload[0]);
+            // dispatch(toggleroom(res.payload[0]))
+            navigate(`/messages`)
 
-        try {
-            dispatch(createRoom(user._id));
-        } catch (error) {
-            console.log(error);
         }
-        navigate('/messages')
-        // send request._id in  action
     }
     return (
         <>

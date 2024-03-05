@@ -8,5 +8,6 @@ router.use('/', require('./userRoutes'))
 router.use('/', require('./reactionRoutes'))
 router.use('/connection', require('./connectionRoutes'))
 router.use('/room', require('./roomRoutes'));
+router.use('/message',require('./messageRoutes'))
 
 module.exports = router;

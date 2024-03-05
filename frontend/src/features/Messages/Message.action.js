@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { typeCreateRoom, typeFetchRoom } from "./room.type";
 import axios from "axios";
+import { typeCreateMessage, typeFetchMessage } from "./Message.type";
 
-export const createRoom = createAsyncThunk(
-    typeCreateRoom,
-    async (data, { rejectWithValue, getState }) => {
+export const createMessage = createAsyncThunk(
+    typeCreateMessage,
+    async (data, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token')
             const config = {
@@ -13,7 +13,7 @@ export const createRoom = createAsyncThunk(
                 }
             }
             console.log("first", data)
-            const res = await axios.post(`http://localhost:8080/room`, { recieverId: data }, config)
+            const res = await axios.post(`http://localhost:8080/message`, data, config)
             console.log('res: of get suggestion', res.data);
             return res.data
         }
@@ -24,10 +24,9 @@ export const createRoom = createAsyncThunk(
     }
 )
 
-
-export const getRoom = createAsyncThunk(
-    typeFetchRoom,
-    async ({ rejectWithValue, getState }) => {
+export const getMessage = createAsyncThunk(
+    typeFetchMessage,
+    async (data, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token')
             const config = {
@@ -35,7 +34,9 @@ export const getRoom = createAsyncThunk(
                     'Authorization': `Bearer ${token}`
                 }
             }
-            const res = await axios.get(`http://localhost:8080/room`, config)
+            console.log("first", data)
+            const res = await axios.get(`http://localhost:8080/message`, data, config)
+            console.log('res: of get suggestion', res.data);
             return res.data
         }
         catch (error) {
@@ -44,5 +45,3 @@ export const getRoom = createAsyncThunk(
         }
     }
 )
-
-

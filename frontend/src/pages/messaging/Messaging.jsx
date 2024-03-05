@@ -1,5 +1,5 @@
 import { Box, Button, Divider, FormControl, IconButton, InputAdornment, InputBase, OutlinedInput, Stack, Tab, Tabs, Typography } from "@mui/material"
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import SearchIcon from '@mui/icons-material/Search';
@@ -15,6 +15,7 @@ import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import socketIO from 'socket.io-client'
 import { useDispatch, useSelector } from 'react-redux'
+import { getRoom } from "../../features/Room/room.action";
 
 const ENDPOINT = 'http://localhost:8081/'
 const socket = socketIO(ENDPOINT, { transports: ['websocket'] })
@@ -24,18 +25,33 @@ function a11yProps(index) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
+
 const Messaging = () => {
-    const [value, setValue] = useState(0);
+    const [value1, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const confirm = useSelector((state) => state.network?.friends?.confirm)
+    const confirm = useSelector((state) => state.room.allroom)
+    console.log('confirm: ', confirm);
+    const seconduser = useSelector((state) => state.room.room)
+    console.log('seconduser: ', seconduser);
+
     socket.on('connection', () => {
 
     })
+    const dispatch = useDispatch();
+    const [message, setMessage] = useState();
+    const messageRef = useRef(null);
 
-    const [connectedUser, setConnectedUser] = useState();
+    useEffect(() => {
+        dispatch(getRoom(1))
+    }, [])
+    const handleMessageSubmit = (e) => {
+        e.preventDefault();
+        console.log("first")
+        console.log('message: ', messageRef);
+    }
     const [room, setRoom] = useState();
     return (
         <Box sx={{ backgroundColor: "#F4F2EE", display: "flex", justifyContent: "center" }} style={{ minHeight: 'calc(100vh - 52px' }}>
@@ -74,19 +90,19 @@ const Messaging = () => {
                                 />
                             </FormControl>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="basic tabs example" textColor="green">
+                                <Tabs value={value1} onChange={handleChange} variant="fullWidth" aria-label="basic tabs example" textColor="green">
                                     <Tab label="Focused" {...a11yProps(0)} />
                                     <Tab label="Other" {...a11yProps(1)} />
                                 </Tabs>
                             </Box>
                             {confirm?.map((item) => (
-                                <MessageTab connectedUser={connectedUser} setConnectedUser={setConnectedUser} room={room} setRoom={setRoom} item={item} />
+                                <MessageTab key={item._id} room={room} setRoom={setRoom} item={item} />
                             ))}
                         </Box>
 
-                        
+
                         <Box sx={{ width: "100%", minHeight: "calc(100vh - 74px)", border: "1px solid #e8e8e8" }}>
-                            <Box sx={{ width: "100%", pl: "12px", pr: "12px", height: "41px", outline: "1px solid #e8e8e8", boxSizing: "border-box" }}>
+                            <Box component={'form'} sx={{ width: "100%", pl: "12px", pr: "12px", height: "41px", outline: "1px solid #e8e8e8", boxSizing: "border-box" }}>
 
                                 <Stack className='user-name'
                                     flexDirection={'row'}
@@ -100,7 +116,8 @@ const Messaging = () => {
                                             fontWeight: '500',
                                         }}
                                     >
-                                        {connectedUser?.name ? connectedUser?.name : "Name"}
+                                        {seconduser?.participants[0].name}
+                                        {/* {connectedUser?.name || "Name"} */}
                                     </Typography>
 
                                     <Stack flexDirection={'row'} gap={2}>
@@ -112,12 +129,21 @@ const Messaging = () => {
                                 </Stack>
                                 <Divider />
                                 <Stack sx={{ height: '55vh' }}>
-                                    {connectedUser?.name ? connectedUser?.name : "Name"}
+                                    {seconduser?.participants[0].name}
+
+                                    {/* {seconduser?.name} */}
                                 </Stack>
                                 <Divider />
                                 <Stack className='textField' sx={{ boxSizing: 'border-box', padding: '10px', height: '121px' }}>
                                     <InputBase
+                                        // ref={messageRef}
+                                        inputRef={messageRef}
+                                        onChange={(e) => {
+                                            console.log('messageRef.current: ', messageRef.current);
+                                            messageRef.current.value=e.target.value
+                                        }}
                                         multiline
+                                        // inputProps={{itemRef}}
                                         minRows={4}
                                         placeholder='Write a message...'
                                         sx={{
@@ -131,6 +157,7 @@ const Messaging = () => {
                                             WebkitOverflowScrolling: 'auto'
                                         }}
                                     />
+
                                 </Stack>
                                 <Divider />
 
@@ -148,7 +175,7 @@ const Messaging = () => {
                                         <SentimentSatisfiedIcon />
                                     </Stack>
                                     <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
-                                        <Button variant='contained'
+                                        <Button variant='contained' type="submit" onClick={handleMessageSubmit}
                                             sx={{ textTransform: 'none', borderRadius: '50px', padding: '0' }}>
                                             Send
                                         </Button>
@@ -171,18 +198,3 @@ const Messaging = () => {
 }
 
 export default Messaging
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
