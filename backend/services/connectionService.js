@@ -44,15 +44,16 @@ exports.getFriends = async (payload) => {
     // //console.log('data: ', data);
     // return data
     const userId = payload.userId
-    const response = await ConnectionModel.find({ $or: [{ sender: userId }, { receiver: userId }] }).populate({ path: 'sender', select: ['email', 'name', 'image', 'title'] });
+    const response = await ConnectionModel.find({ $or: [{ sender: userId }, { receiver: userId }] }).populate({ path: 'sender', select: ['email', 'name', 'image', 'title'] }).populate({ path: 'receiver', select: ['email', 'name', 'image', 'title'] });
     const data = {}
     let pending, confirm;
     if (response.length > 0) {
-        pending = response.filter((item) => { return item.status === 'pending' && item.receiver.toString() === userId })
-        confirm = response.filter((item) => { return item.status === 'confirm' && (item.receiver.toString() === userId || item.sender.toString() === userId) })
+        pending = response.filter((item) => { return item.status === 'pending' && item.receiver._id.toString() === userId })
+        confirm = response.filter((item) => { return item.status === 'confirm' && (item.receiver._id.toString() === userId || item.sender._id.toString() === userId) })
     }
     data.pending = pending;
     data.confirm = confirm;
+    // console.log("first",data)
     return data
 }
 

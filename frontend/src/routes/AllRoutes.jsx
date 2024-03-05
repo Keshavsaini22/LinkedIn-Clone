@@ -10,6 +10,7 @@ import Message from '../pages/message/Message'
 import Profile from '../pages/profile/Profile'
 import Messaging from '../pages/messaging/Messaging'
 import NetworkDetector from '../hoc/NetworkDetector'
+import InvitationPage from '../pages/invitation/InvitationPage'
 
 function AllRoutes() {
     return (
@@ -23,6 +24,7 @@ function AllRoutes() {
                     <Route path='/profile' element={<Profile />} />
                     <Route path='/mynetwork' element={<MyNetwork />} />
                     <Route path='/messages' element={<Messaging />} />
+                    <Route path='/invitation' element={<InvitationPage />} />
 
 
                 </Routes>

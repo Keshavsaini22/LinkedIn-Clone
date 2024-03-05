@@ -1,4 +1,4 @@
-import { Box, Button, Divider, FormControl, IconButton, InputAdornment, InputBase, OutlinedInput, Stack, Typography } from "@mui/material"
+import { Box, Button, Divider, FormControl, IconButton, InputAdornment, InputBase, OutlinedInput, Stack, Tab, Tabs, Typography } from "@mui/material"
 import React, { useState } from "react";
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -14,15 +14,28 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import socketIO from 'socket.io-client'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ENDPOINT = 'http://localhost:8081/'
 const socket = socketIO(ENDPOINT, { transports: ['websocket'] })
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 const Messaging = () => {
+    const [value, setValue] = useState(0);
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    const confirm = useSelector((state) => state.network?.friends?.confirm)
     socket.on('connection', () => {
-        
+
     })
-    const [connectedUser, setConnectedUser] = useState("");
+
+    const [connectedUser, setConnectedUser] = useState();
     const [room, setRoom] = useState();
     return (
         <Box sx={{ backgroundColor: "#F4F2EE", display: "flex", justifyContent: "center" }} style={{ minHeight: 'calc(100vh - 52px' }}>
@@ -60,8 +73,18 @@ const Messaging = () => {
                                     }}
                                 />
                             </FormControl>
-                            <MessageTab connectedUser={connectedUser} setConnectedUser={setConnectedUser} room={room} setRoom={setRoom} />
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="basic tabs example" textColor="green">
+                                    <Tab label="Focused" {...a11yProps(0)} />
+                                    <Tab label="Other" {...a11yProps(1)} />
+                                </Tabs>
+                            </Box>
+                            {confirm?.map((item) => (
+                                <MessageTab connectedUser={connectedUser} setConnectedUser={setConnectedUser} room={room} setRoom={setRoom} item={item} />
+                            ))}
                         </Box>
+
+                        
                         <Box sx={{ width: "100%", minHeight: "calc(100vh - 74px)", border: "1px solid #e8e8e8" }}>
                             <Box sx={{ width: "100%", pl: "12px", pr: "12px", height: "41px", outline: "1px solid #e8e8e8", boxSizing: "border-box" }}>
 
@@ -77,7 +100,7 @@ const Messaging = () => {
                                             fontWeight: '500',
                                         }}
                                     >
-                                        UserName
+                                        {connectedUser?.name ? connectedUser?.name : "Name"}
                                     </Typography>
 
                                     <Stack flexDirection={'row'} gap={2}>
@@ -89,7 +112,7 @@ const Messaging = () => {
                                 </Stack>
                                 <Divider />
                                 <Stack sx={{ height: '55vh' }}>
-                                    {connectedUser}
+                                    {connectedUser?.name ? connectedUser?.name : "Name"}
                                 </Stack>
                                 <Divider />
                                 <Stack className='textField' sx={{ boxSizing: 'border-box', padding: '10px', height: '121px' }}>
@@ -138,9 +161,9 @@ const Messaging = () => {
                             </Box>
                         </Box>
                     </Box>
-                    <Box sx={{ width: "322px", minHeight: "calc(100vh - 74px)", backgroundColor: "white" }}>
+                    {/* <Box sx={{ width: "322px", minHeight: "calc(100vh - 74px)", backgroundColor: "white" }}>
 
-                    </Box>
+                    </Box> */}
                 </Box>
             </Box>
         </Box>

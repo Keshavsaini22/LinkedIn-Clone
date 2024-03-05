@@ -7,6 +7,6 @@ router.use("/posts", require("./postRoutes"))
 router.use('/', require('./userRoutes'))
 router.use('/', require('./reactionRoutes'))
 router.use('/connection', require('./connectionRoutes'))
-
+router.use('/room', require('./roomRoutes'));
 
 module.exports = router;

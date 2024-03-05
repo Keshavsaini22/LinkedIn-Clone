@@ -5,5 +5,5 @@ module.exports={
     userService:require('./userService'),
     postService:require('./postService'),
     connectionService:require('./connectionService'),
-
+    roomService: require('./roomService')
 }

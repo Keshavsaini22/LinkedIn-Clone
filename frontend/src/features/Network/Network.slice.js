@@ -53,6 +53,7 @@ export const NetworkSlice = createSlice({
                 state.isLoadingfriends = false;
                 state.friendssuccess = true;
                 state.friends = action.payload;
+                console.log(action.payload)
             })
             .addCase(getFriends.rejected, (state, action) => {
                 state.friendssuccess = false;
