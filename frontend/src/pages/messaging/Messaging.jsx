@@ -49,8 +49,9 @@ const Messaging = () => {
     }, [])
     const handleMessageSubmit = (e) => {
         e.preventDefault();
+        console.log('message: ', message);
         console.log("first")
-        console.log('message: ', messageRef);
+        // console.log('message: ', messageRef);
     }
     const [room, setRoom] = useState();
     return (
@@ -136,11 +137,13 @@ const Messaging = () => {
                                 <Divider />
                                 <Stack className='textField' sx={{ boxSizing: 'border-box', padding: '10px', height: '121px' }}>
                                     <InputBase
+                                        value={message}
                                         // ref={messageRef}
-                                        inputRef={messageRef}
+                                        // inputRef={messageRef}
                                         onChange={(e) => {
-                                            console.log('messageRef.current: ', messageRef.current);
-                                            messageRef.current.value=e.target.value
+                                            setMessage(e.target.value)
+                                            // console.log('messageRef.current: ', messageRef.current);
+                                            // messageRef.current.value=e.target.value
                                         }}
                                         multiline
                                         // inputProps={{itemRef}}
