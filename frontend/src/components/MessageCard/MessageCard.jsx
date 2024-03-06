@@ -14,7 +14,7 @@ function MessageCard({ data, person }) {
             <Stack>
                 <Stack direction={'row'} gap={1}>
                     <Box sx={{ fontSize: '14px', fontWeight: '500' }}>{user.name}</Box>
-                    <Box sx={{ fontSize: '14px', }}>3.14 pm</Box>
+                    <Box sx={{ fontSize: '14px', }}>{(new Date(data.createdAt)).getDate()}</Box>
                 </Stack>
                 <Typography sx={{ wordBreak: 'break-word', fontSize: '13px', marginTop: '12px' }}> {data.content}
                 </Typography>
