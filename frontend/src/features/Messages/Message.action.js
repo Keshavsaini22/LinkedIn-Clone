@@ -33,9 +33,9 @@ export const getMessage = createAsyncThunk(
                     'Authorization': `Bearer ${token}`
                 }
             }
-            console.log("first", data)
+            // console.log("first", data)
             const res = await axios.get(`http://localhost:8080/message?roomid=${data}`, config)
-            console.log('res: of get getMessage', res.data);
+            // console.log('res: of get getMessage', res.data);
             return res.data
         }
         catch (error) {

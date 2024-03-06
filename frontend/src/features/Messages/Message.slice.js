@@ -13,7 +13,7 @@ export const messageSlice = createSlice({
     initialState,
     reducers: {
         addMessage(state, action) {
-            console.log('action: ', action.payload);
+            // console.log('action: ', action.payload);
             state.allmessages = [...state.allmessages, action.payload]
         }
     },

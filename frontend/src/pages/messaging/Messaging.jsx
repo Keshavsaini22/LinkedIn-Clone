@@ -41,7 +41,7 @@ const Messaging = () => {
     const dispatch = useDispatch();
     const [message, setMessage] = useState();
     const messageRef = useRef(null);
-
+    const scrollLast = useRef(null);
     useEffect(() => {
         dispatch(getRoom(1))
     }, [])
@@ -55,22 +55,25 @@ const Messaging = () => {
             alert('Connected to Socket.IO server')
         })
 
-        if (!dispatchRef.current) {
-            dispatchRef.current = true
-            socket.on('message', (data) => {
-                console.log('data: ', data);
-                dispatch(addMessage(data))
-            })
-        }
+        // if (!dispatchRef.current) {
+        //     dispatchRef.current = true
+        socket.on('message', (data) => {
+            console.log('data: ', data);
+            dispatch(addMessage(data))
+        })
+        // }
 
         return () => {
             // socket.disconnect()
-            socket.off('connecttt', () => {
-                console.log("run");
-            });
+            socket.off('connecttt');
+            socket.off('message');
+            // socket.disconnect();
         };
     }, [])
 
+    useEffect(() => {
+        scrollLast.current.scrollIntoView({ behavior: "smooth" });
+    }, [allmessages])
     // useEffect(() => {
     //     if (seconduser) {
     //         dispatch(getMessage(seconduser?._id))
@@ -160,11 +163,11 @@ const Messaging = () => {
 
                                 </Stack>
                                 <Divider />
-                                <Stack sx={{ height: '55vh', overflow: 'scroll',overflowX:'hidden' }}>
-                                    {seconduser?.participants[0].name}
-                                    {allmessages && allmessages?.map((item) => (<MessageCard key={item._id} data={item} />))}
-
+                                <Stack sx={{ height: '55vh', overflow: 'scroll', overflowX: 'hidden' }}>
+                                    {/* {seconduser?.participants[0].name} */}
+                                    {allmessages && allmessages?.map((item) => (<MessageCard key={item._id} data={item} person={seconduser?.participants[0]} />))}
                                     {/* {seconduser?.name} */}
+                                    <div ref={scrollLast}></div>
                                 </Stack>
                                 <Divider />
                                 <Stack className='textField' sx={{ boxSizing: 'border-box', padding: '10px', height: '121px' }}>
@@ -189,7 +192,7 @@ const Messaging = () => {
                                             fontSize: '14px',
                                             height: '100%',
                                             overflow: 'scroll',
-                                            overflowX:'hidden',
+                                            overflowX: 'hidden',
                                             WebkitOverflowScrolling: 'auto'
                                         }}
                                     />
