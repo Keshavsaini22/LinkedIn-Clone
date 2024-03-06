@@ -18,8 +18,7 @@ exports.sendMessage = async (payload) => {
 
 
 exports.getMessages = async (payload) => {
-    const userId = payload.userId
-    const { roomid } = payload.body
+    const roomid = payload.query.roomid
     if (!roomid)
         throw new CustomError("Body is incomplete", 401);
     const myRoom = await RoomModel.findById(roomid);

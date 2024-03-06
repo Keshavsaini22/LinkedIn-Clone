@@ -17,7 +17,7 @@ exports.getMessages = async (req, res) => {
     try {
         if (!res.locals.isAuthenticated)
             throw new CustomError("User not Authenticated", 400);
-        const response = await messageService.getMessages({ userId: req.user.ID, body: req.body });
+        const response = await messageService.getMessages({  query: req.query });
         return res.status(200).json(response);
     }
     catch (e) {

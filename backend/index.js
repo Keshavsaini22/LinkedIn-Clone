@@ -1,12 +1,8 @@
 const express = require('express');
-const http = require('http');
 const cors = require('cors');
-const connectDB = require('./config/db')
-const socketIO = require('socket.io')
-const app = express();
-const server = http.createServer(app);
+const connectDB = require('./config/db');
+const { app, server } = require('./socket/socket');
 require("dotenv").config();
-const io = socketIO(server)
 //db connect
 connectDB()
 
@@ -18,22 +14,15 @@ app.use(cors());
 
 app.use('/uploads', express.static('uploads'))
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
 
-
-    // socket.on('disconnect', () => {
-    //     console.log('A user disconnected');
-    //   });
-  });
 
 //routes
 app.use('/', require("./routes"))
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
 
 
-server.listen(process.env.SOCKET_PORT, () => {
-    console.log(`Socker listening on port 8081!`);
-});
+// server.listen(process.env.SOCKET_PORT, () => {
+//     console.log(`Socker listening on port 8081!`);
+// });

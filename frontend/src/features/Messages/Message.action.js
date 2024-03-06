@@ -14,7 +14,6 @@ export const createMessage = createAsyncThunk(
             }
             console.log("first", data)
             const res = await axios.post(`http://localhost:8080/message`, data, config)
-            console.log('res: of get suggestion', res.data);
             return res.data
         }
         catch (error) {
@@ -35,8 +34,8 @@ export const getMessage = createAsyncThunk(
                 }
             }
             console.log("first", data)
-            const res = await axios.get(`http://localhost:8080/message`, data, config)
-            console.log('res: of get suggestion', res.data);
+            const res = await axios.get(`http://localhost:8080/message?roomid=${data}`, config)
+            console.log('res: of get getMessage', res.data);
             return res.data
         }
         catch (error) {

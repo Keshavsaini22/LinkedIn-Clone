@@ -16,6 +16,7 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import socketIO from 'socket.io-client'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRoom } from "../../features/Room/room.action";
+import { createMessage, getMessage } from "../../features/Messages/Message.action";
 
 const ENDPOINT = 'http://localhost:8081/'
 const socket = socketIO(ENDPOINT, { transports: ['websocket'] })
@@ -47,11 +48,20 @@ const Messaging = () => {
     useEffect(() => {
         dispatch(getRoom(1))
     }, [])
+    useEffect(() => {
+        if (seconduser) {
+            dispatch(getMessage(seconduser?._id))
+        }
+    }, [dispatch,seconduser])
     const handleMessageSubmit = (e) => {
         e.preventDefault();
-        console.log('message: ', message);
-        console.log("first")
-        // console.log('message: ', messageRef);
+        console.log('message: ', messageRef.current.value);
+        const data = {};
+        data.content = messageRef.current.value
+        data.roomid = seconduser._id
+        dispatch(createMessage(data));
+        messageRef.current.value = null
+
     }
     const [room, setRoom] = useState();
     return (
@@ -137,14 +147,14 @@ const Messaging = () => {
                                 <Divider />
                                 <Stack className='textField' sx={{ boxSizing: 'border-box', padding: '10px', height: '121px' }}>
                                     <InputBase
-                                        value={message}
+                                        // value={message}
                                         // ref={messageRef}
-                                        // inputRef={messageRef}
-                                        onChange={(e) => {
-                                            setMessage(e.target.value)
-                                            // console.log('messageRef.current: ', messageRef.current);
-                                            // messageRef.current.value=e.target.value
-                                        }}
+                                        inputRef={messageRef}
+                                        // onChange={(e) => {
+                                        //     setMessage(e.target.value)
+                                        //     // console.log('messageRef.current: ', messageRef.current);
+                                        //     // messageRef.current.value=e.target.value
+                                        // }}
                                         multiline
                                         // inputProps={{itemRef}}
                                         minRows={4}
