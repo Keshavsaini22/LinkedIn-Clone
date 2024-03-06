@@ -13,13 +13,14 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-import socketIO from 'socket.io-client'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRoom } from "../../features/Room/room.action";
 import { createMessage, getMessage } from "../../features/Messages/Message.action";
+import socket from "../../utils/socket";
+import { addMessage } from "../../features/Messages/Message.slice";
+import MessageCard from "../../components/MessageCard/MessageCard";
 
-const ENDPOINT = 'http://localhost:8081/'
-const socket = socketIO(ENDPOINT, { transports: ['websocket'] })
+// const ENDPOINT = 'ws://localhost:8080/'
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -29,18 +30,14 @@ function a11yProps(index) {
 
 const Messaging = () => {
     const [value1, setValue] = useState(0);
-
+    const myId = localStorage.getItem('userid')
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const confirm = useSelector((state) => state.room.allroom)
-    console.log('confirm: ', confirm);
     const seconduser = useSelector((state) => state.room.room)
-    console.log('seconduser: ', seconduser);
-
-    socket.on('connection', () => {
-
-    })
+    const allmessages = useSelector((state) => state.message.allmessages)
+    const dispatchRef = useRef(false)
     const dispatch = useDispatch();
     const [message, setMessage] = useState();
     const messageRef = useRef(null);
@@ -48,18 +45,42 @@ const Messaging = () => {
     useEffect(() => {
         dispatch(getRoom(1))
     }, [])
+
     useEffect(() => {
-        if (seconduser) {
-            dispatch(getMessage(seconduser?._id))
+
+        // socket.on('connect', () => {
+        // })
+
+        socket.emit('connecttt', () => {
+            alert('Connected to Socket.IO server')
+        })
+
+        if (!dispatchRef.current) {
+            dispatchRef.current = true
+            socket.on('message', (data) => {
+                console.log('data: ', data);
+                dispatch(addMessage(data))
+            })
         }
-    }, [dispatch,seconduser])
+
+        return () => {
+            // socket.disconnect()
+            socket.off('connecttt', () => {
+                console.log("run");
+            });
+        };
+    }, [])
+
+    // useEffect(() => {
+    //     if (seconduser) {
+    //         dispatch(getMessage(seconduser?._id))
+    //     }
+    // }, [dispatch,seconduser])
+
     const handleMessageSubmit = (e) => {
         e.preventDefault();
-        console.log('message: ', messageRef.current.value);
-        const data = {};
-        data.content = messageRef.current.value
-        data.roomid = seconduser._id
-        dispatch(createMessage(data));
+        // console.log('message: ', messageRef.current.value);
+        socket.emit('newmessage', { content: messageRef.current.value, roomid: seconduser?._id, sender: myId })
         messageRef.current.value = null
 
     }
@@ -139,8 +160,9 @@ const Messaging = () => {
 
                                 </Stack>
                                 <Divider />
-                                <Stack sx={{ height: '55vh' }}>
+                                <Stack sx={{ height: '55vh', overflow: 'scroll',overflowX:'hidden' }}>
                                     {seconduser?.participants[0].name}
+                                    {allmessages && allmessages?.map((item) => (<MessageCard key={item._id} data={item} />))}
 
                                     {/* {seconduser?.name} */}
                                 </Stack>
@@ -167,6 +189,7 @@ const Messaging = () => {
                                             fontSize: '14px',
                                             height: '100%',
                                             overflow: 'scroll',
+                                            overflowX:'hidden',
                                             WebkitOverflowScrolling: 'auto'
                                         }}
                                     />

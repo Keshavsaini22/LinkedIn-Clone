@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import { Avatar } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { toggleroom } from '../../features/Room/room.slice';
+import socket from "../../utils/socket";
+import { getMessage } from '../../features/Messages/Message.action';
 
 
 export default function MessageTab({ room, setRoom, item }) {
@@ -16,7 +18,10 @@ export default function MessageTab({ room, setRoom, item }) {
             <Box
                 onClick={() => {
                     console.log("first")
+                    socket.emit("join room", item._id);
                     dispatch(toggleroom(item))
+                    dispatch(getMessage(item._id))
+                    // console.log(item._id)
                     // console.log('user: ', user);
                 }} sx={{ height: "92px", width: "100%", pl: "12px", boxSizing: "border-box", display: "flex", alignItems: "center", '&:hover': { cursor: 'pointer' } }}>
                 <Avatar sx={{ width: "56px", height: "56px" }} />

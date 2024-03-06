@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const { app, server } = require('./socket/socket');
+const http = require('http');
 require("dotenv").config();
 //db connect
 connectDB()
 
+const app = express();
+const server = http.createServer(app);
 //parsers
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -13,7 +15,7 @@ app.use(express.text());
 app.use(cors());
 
 app.use('/uploads', express.static('uploads'))
-
+require('./socket/socket')(server)
 
 
 //routes

@@ -17,11 +17,11 @@ function Home() {
   const logged = useSelector((state) => state.signin.logged)
   //console.log('logged: ', logged);
   const posts = useSelector((state) => state.post.postsData)
-  console.log('posts: ', posts);
+  // console.log('posts: ', posts);
   const loading = useSelector((state) => state.post.isLoading)
   const error = useSelector((state) => state.post.error)
   const time = useSelector((state) => state.post)
-  console.log("home");
+  // console.log("home");
 
   // const handleScroll = () => {
   //   if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {

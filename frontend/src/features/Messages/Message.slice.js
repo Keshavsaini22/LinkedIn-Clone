@@ -5,14 +5,17 @@ const initialState = {
     isLoading: false,
     message: null,
     error: null,
-    allmessages: null,
+    allmessages: [],
 }
 
 export const messageSlice = createSlice({
     name: 'message',
     initialState,
     reducers: {
-
+        addMessage(state, action) {
+            console.log('action: ', action.payload);
+            state.allmessages = [...state.allmessages, action.payload]
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(createMessage.pending, (state, action) => {
@@ -41,4 +44,5 @@ export const messageSlice = createSlice({
         })
     }
 })
+export const { addMessage } = messageSlice.actions
 export default messageSlice.reducer

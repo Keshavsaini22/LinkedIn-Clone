@@ -14,7 +14,7 @@ export const roomSlice = createSlice({
     reducers: {
         toggleroom: (state, action) => {
             state.room = action.payload
-            console.log('action.payload: ', action.payload);
+            // console.log('action.payload: ', action.payload);
         }
     },
     extraReducers: (builder) => {
