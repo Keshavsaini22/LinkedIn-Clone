@@ -14,7 +14,7 @@ function UserCard({ item }) {
         const res = await dispatch(createRoom(user._id));
         if (res) {
             // console.log('res: ', res.payload[0]);
-            // dispatch(toggleroom(res.payload[0]))
+            dispatch(toggleroom(res.payload[0]))
             navigate(`/messages`)
 
         }

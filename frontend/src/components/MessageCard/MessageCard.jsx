@@ -9,12 +9,12 @@ function MessageCard({ data, person }) {
     // user = JSON.parse(user)
     userid === data.sender ? user.name = "You" : user = person
     return (
-        <Stack direction={'row'} maxWidth={'400px'} gap={1} sx={{}}>
+        <Stack direction={'row'} maxWidth={'400px'} gap={1} sx={{marginY:'5px'} }>
             <Avatar sx={{ bgcolor: red[500], width: 40, height: 40 }} aria-label="recipe"> R </Avatar>
             <Stack>
                 <Stack direction={'row'} gap={1}>
                     <Box sx={{ fontSize: '14px', fontWeight: '500' }}>{user.name}</Box>
-                    <Box sx={{ fontSize: '14px', }}>{(new Date(data.createdAt)).getDate()}</Box>
+                    <Box sx={{ fontSize: '14px', }}>{(new Date(data.createdAt)).toLocaleString()}</Box>
                 </Stack>
                 <Typography sx={{ wordBreak: 'break-word', fontSize: '13px', marginTop: '12px' }}> {data.content}
                 </Typography>

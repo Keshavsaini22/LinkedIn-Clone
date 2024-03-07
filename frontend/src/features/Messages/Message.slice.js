@@ -24,7 +24,7 @@ export const messageSlice = createSlice({
         builder.addCase(createMessage.fulfilled, (state, action) => {
             state.isLoading = false;
             state.message = action.payload;
-            console.log('action.payload:', action.payload);
+            // console.log('action.payload:', action.payload);
 
         })
         builder.addCase(createMessage.rejected, (state, action) => {

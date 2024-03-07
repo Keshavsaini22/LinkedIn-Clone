@@ -11,6 +11,7 @@ import Profile from '../pages/profile/Profile'
 import Messaging from '../pages/messaging/Messaging'
 import NetworkDetector from '../hoc/NetworkDetector'
 import InvitationPage from '../pages/invitation/InvitationPage'
+import Notification from '../pages/notification/Notification'
 
 function AllRoutes() {
     return (
@@ -25,6 +26,7 @@ function AllRoutes() {
                     <Route path='/mynetwork' element={<MyNetwork />} />
                     <Route path='/messages' element={<Messaging />} />
                     <Route path='/invitation' element={<InvitationPage />} />
+                    <Route path='/notification' element={<Notification />} />
 
 
                 </Routes>

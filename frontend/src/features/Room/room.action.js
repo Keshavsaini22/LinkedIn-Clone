@@ -12,9 +12,9 @@ export const createRoom = createAsyncThunk(
                     'Authorization': `Bearer ${token}`
                 }
             }
-            console.log("first", data)
+            // console.log("first", data)
             const res = await axios.post(`http://localhost:8080/room`, { recieverId: data }, config)
-            console.log('res: of get suggestion', res.data);
+            // console.log('res: of get suggestion', res.data);
             return res.data
         }
         catch (error) {

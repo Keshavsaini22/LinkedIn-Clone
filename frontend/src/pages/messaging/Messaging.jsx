@@ -47,14 +47,11 @@ const Messaging = () => {
     }, [])
 
     useEffect(() => {
-
         // socket.on('connect', () => {
         // })
-
         socket.emit('connecttt', () => {
             alert('Connected to Socket.IO server')
         })
-
         // if (!dispatchRef.current) {
         //     dispatchRef.current = true
         socket.on('message', (data) => {
@@ -62,7 +59,6 @@ const Messaging = () => {
             dispatch(addMessage(data))
         })
         // }
-
         return () => {
             // socket.disconnect()
             socket.off('connecttt');
@@ -151,7 +147,7 @@ const Messaging = () => {
                                             fontWeight: '500',
                                         }}
                                     >
-                                        {seconduser?.participants[0].name}
+                                        {seconduser?.participants[0]?.name}
                                         {/* {connectedUser?.name || "Name"} */}
                                     </Typography>
 

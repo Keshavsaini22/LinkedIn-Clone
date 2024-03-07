@@ -14,7 +14,7 @@ export const roomSlice = createSlice({
     reducers: {
         toggleroom: (state, action) => {
             state.room = action.payload
-            // console.log('action.payload: ', action.payload);
+            console.log('action.payload: ', action.payload);
         }
     },
     extraReducers: (builder) => {
@@ -24,8 +24,8 @@ export const roomSlice = createSlice({
         builder.addCase(createRoom.fulfilled, (state, action) => {
             state.isLoading = false;
             state.room = action.payload;
-            console.log('action.payload[0]: ', action.payload[0]);
-            console.log('action.payload: eqwdeqwfwefwercwe', action.payload);
+            // console.log('action.payload[0]: ', action.payload[0]);
+            // console.log('action.payload: eqwdeqwfwefwercwe', action.payload);
             // dispatch(toggleroom(res.payload[0]?.participants[0]))
 
             // state.room[action.payload._id] = action.payload.participants;

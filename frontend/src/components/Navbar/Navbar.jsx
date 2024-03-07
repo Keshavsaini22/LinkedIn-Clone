@@ -22,7 +22,7 @@ function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation()
-    if (location.pathname === "/signup" || location.pathname === "/" ) {
+    if (location.pathname === "/signup" || location.pathname === "/") {
         return null
     }
     return (
@@ -64,10 +64,10 @@ function Navbar() {
                                 <Typography fontSize={'12px'} align="center">Messages</Typography>
                             </Box>
                         </NavLink>
-                        <NavLink activeClassName="active" to="" style={{ textDecoration: 'none' }} >
+                        <NavLink activeClassName="active" to="/notification" style={{ textDecoration: 'none' }} >
                             <Box className="logo-label" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: (theme) => theme.palette.grey[700], "&:hover": { color: "#191919" }, }}>
                                 < NotificationsIcon sx={{ height: '24px', width: '24px', alignItems: 'center' }} />
-                                <Typography fontSize={'12px'} align="center">Jobs</Typography>
+                                <Typography fontSize={'12px'} align="center">Notification</Typography>
                             </Box>
                         </NavLink>
                         <NavLink activeClassName="active" to="" style={{ textDecoration: 'none' }} onClick={async () => {
