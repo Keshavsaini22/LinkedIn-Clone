@@ -1,7 +1,7 @@
 const ReactionModel = require('../models/ReactionSchema');
 const PostModel = require('../models/PostSchema');
 const CommentsnModel = require('../models/CommentSchema');
-
+const axios = require('axios')
 const CustomError = require('../libs/error');
 
 exports.postPostReaction = async (payload) => {
@@ -11,15 +11,22 @@ exports.postPostReaction = async (payload) => {
     //console.log("type", payload)
     if (!type)
         throw new CustomError("Bad Request", 404)
-    const data = await ReactionModel.findOneAndUpdate({ userId: userId, postId: postId }, { type: type }, { new: true, upsert: true })
+    const data = await ReactionModel.findOneAndUpdate({ userId: userId, postId: postId }, { type: type }, { new: true, upsert: true }).populate('postId')
     //console.log("data", data)
+    try {
+        const resofnoti = await axios.post(`http://localhost:8084/notification/?type=Reaction`, { receiver: data.postId.userId, sender: data.userId })
+        console.log('resofnoti: ', resofnoti.data);
+    }
+    catch (e) {
+        console.log('e: ', e.message);
+    }
     return data;
 }
 
 exports.postCommentReaction = async (payload) => {
     const { cmtId } = payload.params;
     const userId = payload.userId;
-    const  type  = Object.keys(payload.body)[0];
+    const type = Object.keys(payload.body)[0];
     if (!type)
         throw new CustomError("Bad Request", 404)
     const data = await ReactionModel.findOneAndUpdate({ userId: userId, cmtId: cmtId, }, { type: type }, { new: true, upsert: true })

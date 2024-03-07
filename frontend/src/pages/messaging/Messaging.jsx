@@ -47,8 +47,8 @@ const Messaging = () => {
     }, [])
 
     useEffect(() => {
-        // socket.on('connect', () => {
-        // })
+        socket.on('connect', () => {
+        })
         socket.emit('connecttt', () => {
             alert('Connected to Socket.IO server')
         })
