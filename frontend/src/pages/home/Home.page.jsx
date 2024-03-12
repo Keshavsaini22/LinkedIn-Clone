@@ -38,8 +38,8 @@ function Home() {
     //console.log('time: ', time?.createdAt);
     // //console.log('createdAt: ', createdAt);
     //console.log("first2")
-    if(posts.length<10)
-    dispatch(getPosts(time?.createdAt))
+    if (posts.length < 10)
+      dispatch(getPosts(time?.createdAt))
   };
 
   useEffect(() => {
@@ -50,9 +50,9 @@ function Home() {
   useEffect(() => {
     console.log("here");
     dispatch(getPosts(1))
-    if (!logged) {
-      navigate('/');
-    }
+    // if (!logged) {
+    //   navigate('/');
+    // }
   }, [logged])
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Router, Routes } from 'react-router-dom'
 import Login from '../pages/login/Login'
 import Signup from '../pages/signup/Signup'
 import Home from '../pages/home/Home.page'
@@ -12,8 +12,13 @@ import Messaging from '../pages/messaging/Messaging'
 import NetworkDetector from '../hoc/NetworkDetector'
 import InvitationPage from '../pages/invitation/InvitationPage'
 import Notification from '../pages/notification/Notification'
+import NotFound from '../pages/notfound/NotFound'
 
 function AllRoutes() {
+    const PrivateRoute = ({ children }) => {
+        const isAuth = localStorage.getItem("token");
+        return isAuth === null ? <Navigate to="/" /> : <>{children}</>;
+    };
     return (
         <>
             <Navbar />
@@ -21,14 +26,33 @@ function AllRoutes() {
                 <Routes>
                     <Route path='/' element={<Login />} />
                     <Route path='/signup' element={<Signup />} />
-                    <Route path='/home' element={<Home />} />
-                    <Route path='/profile' element={<Profile />} />
-                    <Route path='/mynetwork' element={<MyNetwork />} />
-                    <Route path='/messages' element={<Messaging />} />
-                    <Route path='/invitation' element={<InvitationPage />} />
-                    <Route path='/notification' element={<Notification />} />
-
-
+                    <Route path='/home' element={
+                        <PrivateRoute>
+                            <Home />
+                        </PrivateRoute>} />
+                    <Route path='/profile' element={
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>} />
+                    <Route path='/mynetwork' element={
+                        <PrivateRoute>
+                            <MyNetwork />
+                        </PrivateRoute>
+                    } />
+                    <Route path='/messages' element={
+                        <PrivateRoute>
+                            <Messaging />
+                        </PrivateRoute>
+                    } />
+                    <Route path='/invitation' element={
+                        <PrivateRoute>
+                            <InvitationPage />
+                        </PrivateRoute>
+                    } />
+                    <Route path='/notification' element={<PrivateRoute>
+                        <Notification />
+                    </PrivateRoute>} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </NetworkDetector>
         </>
