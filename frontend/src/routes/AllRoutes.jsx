@@ -32,7 +32,7 @@ function AllRoutes() {
                         </PrivateRoute>} />
                     <Route path='/profile' element={
                         <PrivateRoute>
-                            <Profile />
+                            <UserProfile />
                         </PrivateRoute>} />
                     <Route path='/mynetwork' element={
                         <PrivateRoute>
